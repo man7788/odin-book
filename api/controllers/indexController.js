@@ -129,7 +129,7 @@ exports.log_in = [
       }
 
       jwt.sign(
-        { user },
+        { sub: user._id },
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_EXPIRATION_TIME },
         async (err, token) => {
