@@ -8,9 +8,10 @@ const User = require("../models/userModel");
 exports.sign_up = [
   body("email")
     .trim()
-    .isLength({ min: 1, max: 200 })
+    .isLength({ min: 1 })
     .withMessage("Email must not be empty")
-    .bail()
+    .isLength({ max: 320 })
+    .withMessage("Email exceeded maximum length")
     .isEmail()
     .withMessage("Email format is invalid")
     .bail()
@@ -21,22 +22,33 @@ exports.sign_up = [
         throw new Error("Email already in use");
       }
     }),
-  body("first_name", "Full name must not be empty")
+  body("first_name")
     .trim()
-    .isLength({ min: 1, max: 100 })
+    .isLength({ min: 1 })
+    .withMessage("First name must not be empty")
+    .isLength({ max: 50 })
+    .withMessage("First name exceeded maximum length")
     .escape(),
   body("last_name", "Last name must not be empty")
     .trim()
-    .isLength({ min: 1, max: 100 })
+    .isLength({ min: 1 })
+    .withMessage("Last name must not be empty")
+    .isLength({ max: 50 })
+    .withMessage("Last name exceeded maximum length")
     .escape(),
   body("password", "Password must not be empty")
     .trim()
     .isLength({ min: 8, max: 200 })
     .withMessage("Password at least contains 8 characters")
+    .isLength({ max: 200 })
+    .withMessage("Password exceeded maximum length")
     .escape(),
   body("confirm_password")
     .trim()
-    .isLength({ min: 8, max: 200 })
+    .isLength({ min: 8 })
+    .withMessage("Confirm password must not be empty")
+    .isLength({ max: 200 })
+    .withMessage("Confirm password exceeded maximum length")
     .custom((value, { req }) => {
       return value === req.body.password;
     })
