@@ -89,16 +89,19 @@ exports.sign_up = [
 exports.log_in = [
   body("email")
     .trim()
-    .isLength({ min: 1, max: 200 })
+    .isLength({ min: 1 })
     .withMessage("Email must not be empty")
-    .bail()
+    .isLength({ max: 200 })
+    .withMessage("Email exceeded maximum length")
     .isEmail()
     .withMessage("Email format is invalid")
-    .bail()
     .escape(),
   body("password", "Password must not be empty")
     .trim()
-    .isLength({ min: 1, max: 200 })
+    .isLength({ min: 8, max: 200 })
+    .withMessage("Password must not be empty")
+    .isLength({ max: 200 })
+    .withMessage("Password exceeded maximum length")
     .escape(),
 
   asyncHandler(async (req, res, next) => {
