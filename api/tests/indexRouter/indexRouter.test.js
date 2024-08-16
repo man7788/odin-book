@@ -2,11 +2,11 @@ const {
   connectDB,
   dropDB,
   dropCollections,
-} = require("../utils/mongoMemoryServer/setuptestdb");
+} = require("../../utils/mongoMemoryServer/setuptestdb");
 
 const request = require("supertest");
 const express = require("express");
-const indexRouter = require("./indexRouter");
+const indexRouter = require("../../routes/indexRouter");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -27,7 +27,7 @@ afterEach(async () => {
 });
 
 jest.mock("bcryptjs");
-jest.mock("../utils/passport/jwt", () => new Object());
+jest.mock("../../utils/passport/jwt", () => new Object());
 jest.mock("passport", () => {
   return {
     use: jest.fn(),
