@@ -3,7 +3,7 @@ const router = express.Router();
 const indexController = require("../controllers/indexController");
 
 const passport = require("passport");
-const jwtStrategry = require("../config/passport/strategies/jwt");
+const jwtStrategry = require("../utils/passport/jwt");
 passport.use(jwtStrategry);
 
 // GET request for index
