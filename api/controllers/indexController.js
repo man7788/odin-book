@@ -1,8 +1,20 @@
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
+
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../models/userModel");
+const passport = require("passport");
+const jwtStrategry = require("../utils/passport/jwt");
+passport.use(jwtStrategry);
+
+// Handle index on GET
+exports.index = [
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({ full_name: req.user.full_name });
+  },
+];
 
 // Handle sign-up on POST
 exports.sign_up = [
