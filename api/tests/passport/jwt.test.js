@@ -69,7 +69,6 @@ describe("jwt strategy", () => {
       _id: userId,
     });
     await user.save();
-    await User.findOne({ email: "foo@bar.com" });
 
     const login = await request(app).post("/login");
 
