@@ -3,6 +3,8 @@ const {
   dropDB,
   dropCollections,
 } = require("../../utils/mongoMemoryServer/setuptestdb");
+const mongoose = require("mongoose");
+const User = require("../../models/userModel");
 
 const request = require("supertest");
 const express = require("express");
@@ -44,5 +46,33 @@ describe("index route", () => {
 
     expect(response.status).toEqual(200);
     expect(response.body).toMatchObject({ full_name: expect.any(String) });
+  });
+});
+
+describe("sign-up route", () => {
+  test("should response with email already in use form validation error", async () => {
+    const user = new User({
+      email: "foo@bar.com",
+      first_name: "foo",
+      last_name: "bar",
+      password: "foobar123",
+    });
+    await user.save();
+
+    const payload = {
+      email: "foo@bar.com",
+      first_name: "foo",
+      last_name: "bar",
+      password: "foobar123",
+      confirm_password: "foobar123",
+    };
+
+    const response = await request(app)
+      .post("/signup")
+      .set("Content-Type", "application/json")
+      .send(payload);
+
+    expect(response.status).toEqual(200);
+    expect(response.body.errors[0].msg).toMatch("Email already in use");
   });
 });
