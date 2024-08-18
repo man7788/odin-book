@@ -75,4 +75,22 @@ describe("sign-up route", () => {
     expect(response.status).toEqual(200);
     expect(response.body.errors[0].msg).toMatch("Email already in use");
   });
+
+  test("should response with passwords do not match form validation error", async () => {
+    const payload = {
+      email: "foo@bar.com",
+      first_name: "foo",
+      last_name: "bar",
+      password: "foobar123",
+      confirm_password: "johndoe123",
+    };
+
+    const response = await request(app)
+      .post("/signup")
+      .set("Content-Type", "application/json")
+      .send(payload);
+
+    expect(response.status).toEqual(200);
+    expect(response.body.errors[0].msg).toMatch("Passwords do not match");
+  });
 });
