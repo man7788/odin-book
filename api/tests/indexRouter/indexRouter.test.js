@@ -11,6 +11,8 @@ const express = require("express");
 const indexRouter = require("../../routes/indexRouter");
 const app = express();
 
+const bcrypt = require("bcryptjs");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/", indexRouter);
@@ -92,5 +94,27 @@ describe("sign-up route", () => {
 
     expect(response.status).toEqual(200);
     expect(response.body.errors[0].msg).toMatch("Passwords do not match");
+  });
+
+  test("should response with created user's id", async () => {
+    bcrypt.hash.mockImplementationOnce((password, salt, callback) => {
+      return callback(null, "hashedpassword");
+    });
+
+    const payload = {
+      email: "foo@bar.com",
+      first_name: "foo",
+      last_name: "bar",
+      password: "foobar123",
+      confirm_password: "foobar123",
+    };
+
+    const response = await request(app)
+      .post("/signup")
+      .set("Content-Type", "application/json")
+      .send(payload);
+
+    expect(response.status).toEqual(200);
+    expect(response.body).toMatchObject({ id: expect.any(String) });
   });
 });
