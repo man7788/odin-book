@@ -142,4 +142,29 @@ describe("log-in route", () => {
     expect(response.status).toEqual(200);
     expect(response.body.errors[0].msg).toMatch("User Not Found");
   });
+
+  test("should response with incorrect password error", async () => {
+    bcrypt.compare.mockImplementationOnce(() => false);
+
+    const user = new User({
+      email: "foo@bar.com",
+      first_name: "foo",
+      last_name: "bar",
+      password: "foobar123",
+    });
+    await user.save();
+
+    const payload = {
+      email: "foo@bar.com",
+      password: "johndoe123",
+    };
+
+    const response = await request(app)
+      .post("/login")
+      .set("Content-Type", "application/json")
+      .send(payload);
+
+    expect(response.status).toEqual(200);
+    expect(response.body.errors[0].msg).toMatch("Incorrect Password");
+  });
 });
