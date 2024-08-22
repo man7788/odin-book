@@ -3,7 +3,6 @@ const {
   dropDB,
   dropCollections,
 } = require("../../utils/mongoMemoryServer/setuptestdb");
-const mongoose = require("mongoose");
 const User = require("../../models/userModel");
 
 const request = require("supertest");
@@ -12,6 +11,7 @@ const indexRouter = require("../../routes/indexRouter");
 const app = express();
 
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -31,6 +31,7 @@ afterEach(async () => {
 });
 
 jest.mock("bcryptjs");
+jest.mock("jsonwebtoken");
 jest.mock("../../utils/passport/jwt", () => new Object());
 jest.mock("passport", () => {
   return {
@@ -166,5 +167,35 @@ describe("log-in route", () => {
 
     expect(response.status).toEqual(200);
     expect(response.body.errors[0].msg).toMatch("Incorrect Password");
+  });
+
+  test("should response json web token", async () => {
+    bcrypt.compare.mockImplementationOnce(() => true);
+    jwt.sign.mockImplementationOnce(
+      (token, secretOrPublicKey, options, callback) => {
+        return callback(null, "123abc$");
+      }
+    );
+
+    const user = new User({
+      email: "foo@bar.com",
+      first_name: "foo",
+      last_name: "bar",
+      password: "foobar123",
+    });
+    await user.save();
+
+    const payload = {
+      email: "foo@bar.com",
+      password: "johndoe123",
+    };
+
+    const response = await request(app)
+      .post("/login")
+      .set("Content-Type", "application/json")
+      .send(payload);
+
+    expect(response.status).toEqual(200);
+    expect(response.body).toMatchObject({ token: "123abc$" });
   });
 });
