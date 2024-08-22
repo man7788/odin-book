@@ -118,3 +118,28 @@ describe("sign-up route", () => {
     expect(response.body).toMatchObject({ id: expect.any(String) });
   });
 });
+
+describe("log-in route", () => {
+  test("should response with user not found error", async () => {
+    const user = new User({
+      email: "foo@bar.com",
+      first_name: "foo",
+      last_name: "bar",
+      password: "foobar123",
+    });
+    await user.save();
+
+    const payload = {
+      email: "john@doe.com",
+      password: "johndoe123",
+    };
+
+    const response = await request(app)
+      .post("/login")
+      .set("Content-Type", "application/json")
+      .send(payload);
+
+    expect(response.status).toEqual(200);
+    expect(response.body.errors[0].msg).toMatch("User Not Found");
+  });
+});
