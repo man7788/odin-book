@@ -27,4 +27,10 @@ describe("error handle middleware", () => {
     expect(response.status).toEqual(500);
     expect(response.error.text).toEqual("error message");
   });
+
+  test("should response with status 404 error", async () => {
+    const response = await request(app).get("/error404");
+    expect(response.status).toEqual(404);
+    expect(response.error.text).toEqual("404 error message");
+  });
 });
