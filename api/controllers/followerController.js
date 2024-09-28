@@ -27,6 +27,6 @@ exports.request_create = asyncHandler(async (req, res, next) => {
 
     const createdRequest = await request.save();
 
-    res.json({ createdRequest });
+    res.json({ createdRequest: createdRequest._id });
   }
 });
