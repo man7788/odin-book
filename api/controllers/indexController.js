@@ -1,14 +1,16 @@
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
+const Profile = require("../models/profileModel");
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 // Handle index on GET
-exports.index = (req, res) => {
-  res.json({ full_name: req.user.full_name });
-};
+exports.index = asyncHandler(async (req, res) => {
+  const profile = await Profile.findById(req.user.profile);
+  res.json({ full_name: profile.full_name });
+});
 
 // Handle sign-up on POST
 exports.sign_up = [
@@ -73,14 +75,19 @@ exports.sign_up = [
           return next(err);
         }
         try {
-          const user = new User({
-            email: req.body.email,
-            password: hashedPassword,
+          const profile = new Profile({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
           });
 
+          const user = new User({
+            email: req.body.email,
+            password: hashedPassword,
+            profile: profile._id,
+          });
+
           const createdUser = await user.save();
+          const createdProfile = await profile.save();
 
           res.json({ id: createdUser._id });
         } catch (err) {
