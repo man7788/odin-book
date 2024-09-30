@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const RequestSchema = new Schema({
-  from: { type: Schema.Types.ObjectId, ref: "Profile", required: true },
-  to: { type: Schema.Types.ObjectId, ref: "Profile", required: true },
+  from: { type: Schema.Types.ObjectId, required: true, ref: "Profile" },
+  to: { type: Schema.Types.ObjectId, required: true, ref: "Profile" },
 });
 
 // Export model
