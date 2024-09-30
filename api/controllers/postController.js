@@ -42,8 +42,8 @@ exports.post_create = [
   }),
 ];
 
-// Handle post like on POST
-exports.post_like = [
+// Handle post like create on POST
+exports.post_like_create = [
   body("post_id")
     .trim()
     .isLength({ min: 1 })
