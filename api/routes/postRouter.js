@@ -20,4 +20,10 @@ router.post(
   postController.post_like
 );
 
+// POST request for post comment create
+router.post(
+  "/comments/create",
+  passport.authenticate("jwt", { session: false }),
+  postController.post_comment_create
+);
 module.exports = router;
