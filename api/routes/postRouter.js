@@ -13,4 +13,11 @@ router.post(
   postController.post_create
 );
 
+// POST request for post like create
+router.post(
+  "/like",
+  passport.authenticate("jwt", { session: false }),
+  postController.post_like
+);
+
 module.exports = router;
