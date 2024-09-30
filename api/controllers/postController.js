@@ -22,7 +22,7 @@ exports.post_create = [
         errors: errors.array(),
       });
     } else {
-      const profile = Profile.findOne(req.user.profile);
+      const profile = await Profile.findOne(req.user.profile);
 
       if (!profile) {
         res.json(null);
