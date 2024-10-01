@@ -14,4 +14,11 @@ router.post(
   followerController.request_create
 );
 
+// GET request for all follower requests
+router.get(
+  "/requests",
+  passport.authenticate("jwt", { session: false }),
+  followerController.requests
+);
+
 module.exports = router;
