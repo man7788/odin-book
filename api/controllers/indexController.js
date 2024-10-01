@@ -167,3 +167,9 @@ exports.profile = asyncHandler(async (req, res) => {
   const profile = await Profile.findById(req.params.profile);
   res.json({ profile });
 });
+
+// Display all profiles on GET
+exports.profile_list = asyncHandler(async (req, res) => {
+  const profiles = await Profile.find().sort({ last_name: 1 });
+  res.json({ profiles });
+});
