@@ -6,6 +6,7 @@ const ProfileSchema = new Schema(
   {
     first_name: { type: String, required: true, minLength: 1, maxLength: 25 },
     last_name: { type: String, required: true, minLength: 1, maxLength: 25 },
+    about: { type: String, required: true, minLength: 1, maxLength: 200 },
   },
   { toJSON: { virtuals: true } }
 );
