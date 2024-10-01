@@ -19,7 +19,14 @@ router.post("/signup", indexController.sign_up);
 // POST request for user log-in
 router.post("/login", indexController.log_in);
 
-// POST request for user profile
+// GET request for all user profiles
+router.get(
+  "/users",
+  passport.authenticate("jwt", { session: false }),
+  indexController.profile_list
+);
+
+// GET request for user profile
 router.get("/:profile", indexController.profile);
 
 module.exports = router;
