@@ -174,3 +174,30 @@ exports.posts_recent = asyncHandler(async (req, res, next) => {
 
   res.json({ recentPosts });
 });
+
+// Display all user posts on GET
+exports.posts_user = asyncHandler(async (req, res, next) => {
+  const posts = await Post.find({
+    profile: req.user.profile,
+  }).sort({ createdAt: -1 });
+
+  const userPosts = [];
+
+  for (const post of posts) {
+    const postWithLikesComments = {
+      profile: post.profile,
+      author: post.author,
+      text_content: post.text_content,
+    };
+
+    const likes = await Like.find({ post: post._id });
+    const comments = await Comment.find({ post: post._id });
+
+    postWithLikesComments.likes = likes;
+    postWithLikesComments.comments = comments;
+
+    userPosts.push(postWithLikesComments);
+  }
+
+  res.json({ userPosts });
+});
