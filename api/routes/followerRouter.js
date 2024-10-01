@@ -14,11 +14,18 @@ router.post(
   followerController.request_create
 );
 
-// GET request for all follower requests
+// GET request for all follower requests received
 router.get(
-  "/requests",
+  "/requests/received",
   passport.authenticate("jwt", { session: false }),
-  followerController.requests
+  followerController.requests_received
+);
+
+// GET request for all follower requests sent
+router.get(
+  "/requests/sent",
+  passport.authenticate("jwt", { session: false }),
+  followerController.requests_sent
 );
 
 // POST request for follower request accept
