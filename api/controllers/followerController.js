@@ -62,9 +62,16 @@ exports.request_create = [
   }),
 ];
 
-// Display all follower requests create on GET
-exports.requests = asyncHandler(async (req, res, next) => {
+// Display all follower requests received on GET
+exports.requests_received = asyncHandler(async (req, res, next) => {
   const requests = await Request.find({ to: req.user.profile });
+
+  res.json({ requests });
+});
+
+// Display all follower requests sent on GET
+exports.requests_sent = asyncHandler(async (req, res, next) => {
+  const requests = await Request.find({ from: req.user.profile });
 
   res.json({ requests });
 });
