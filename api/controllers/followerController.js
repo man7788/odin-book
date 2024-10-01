@@ -5,7 +5,7 @@ const Request = require("../models/requestModel");
 const Follower = require("../models/followerModel");
 const Profile = require("../models/profileModel");
 
-// Handle friend request create on POST
+// Handle follower request create on POST
 exports.request_create = [
   body("following_id")
     .trim()
@@ -61,3 +61,10 @@ exports.request_create = [
     }
   }),
 ];
+
+// Display all follower requests create on GET
+exports.requests = asyncHandler(async (req, res, next) => {
+  const requests = await Request.find({ to: req.user.profile });
+
+  res.json({ requests });
+});
