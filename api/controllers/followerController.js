@@ -68,3 +68,45 @@ exports.requests = asyncHandler(async (req, res, next) => {
 
   res.json({ requests });
 });
+
+// Handle follower request accept on POST
+exports.request_accept = [
+  body("request_id")
+    .trim()
+    .notEmpty()
+    .withMessage("Request id must not be empty")
+    .bail()
+    .custom((value) => {
+      const validId = mongoose.isValidObjectId(value);
+      if (!validId) {
+        throw new Error("Invalid request id");
+      }
+      return validId;
+    })
+    .escape(),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.json({
+        errors: errors.array(),
+      });
+    } else {
+      const request = await Request.findById(req.body.request_id);
+
+      if (!request) {
+        res.json(null);
+      } else {
+        const follower = new Follower({
+          follower: request.from,
+          following: request.to,
+        });
+
+        const createdFollower = await follower.save();
+        await request.deleteOne();
+
+        res.json({ createdFollower });
+      }
+    }
+  }),
+];
