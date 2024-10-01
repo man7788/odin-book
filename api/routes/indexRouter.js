@@ -27,6 +27,10 @@ router.get(
 );
 
 // GET request for user profile
-router.get("/:profile", indexController.profile);
+router.get(
+  "/:profile",
+  passport.authenticate("jwt", { session: false }),
+  indexController.profile
+);
 
 module.exports = router;
