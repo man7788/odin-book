@@ -6,7 +6,7 @@ const Profile = require("../models/profileModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Handle index on GET
+// Display index on GET
 exports.index = asyncHandler(async (req, res) => {
   const profile = await Profile.findById(req.user.profile);
   res.json({ full_name: profile.full_name });
@@ -161,3 +161,9 @@ exports.log_in = [
     }
   }),
 ];
+
+// Display profile on GET
+exports.profile = asyncHandler(async (req, res) => {
+  const profile = await Profile.findById(req.params.profile);
+  res.json({ profile });
+});
