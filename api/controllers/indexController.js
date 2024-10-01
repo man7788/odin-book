@@ -170,6 +170,8 @@ exports.profile = asyncHandler(async (req, res) => {
 
 // Display all profiles on GET
 exports.profile_list = asyncHandler(async (req, res) => {
-  const profiles = await Profile.find().sort({ last_name: 1 });
+  const profiles = await Profile.find({ _id: { $ne: req.user.profile } }).sort({
+    last_name: 1,
+  });
   res.json({ profiles });
 });
