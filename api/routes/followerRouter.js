@@ -21,4 +21,11 @@ router.get(
   followerController.requests
 );
 
+// POST request for follower request accept
+router.post(
+  "/requests/accept",
+  passport.authenticate("jwt", { session: false }),
+  followerController.request_accept
+);
+
 module.exports = router;
