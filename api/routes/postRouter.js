@@ -26,4 +26,12 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   postController.post_comment_create
 );
+
+// GET request for recent posts
+router.get(
+  "/recent",
+  passport.authenticate("jwt", { session: false }),
+  postController.posts_recent
+);
+
 module.exports = router;
