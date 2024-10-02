@@ -34,4 +34,11 @@ router.get(
   postController.posts_recent
 );
 
+// GET request for all user posts
+router.get(
+  "/:profile",
+  passport.authenticate("jwt", { session: false }),
+  postController.posts_user
+);
+
 module.exports = router;
