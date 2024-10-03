@@ -111,7 +111,7 @@ exports.log_in = [
     .escape(),
   body("password", "Password must not be empty")
     .trim()
-    .isLength({ min: 8, max: 200 })
+    .isLength({ min: 8 })
     .withMessage("Password must not be empty")
     .isLength({ max: 200 })
     .withMessage("Password exceeded maximum length")
