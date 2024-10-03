@@ -20,7 +20,7 @@ exports.post_create = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.json({
+      return res.status(400).json({
         errors: errors.array(),
       });
     } else {
@@ -61,7 +61,7 @@ exports.post_like_create = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.json({
+      return res.status(400).json({
         errors: errors.array(),
       });
     } else {
@@ -113,7 +113,7 @@ exports.post_comment_create = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.json({
+      return res.status(400).json({
         errors: errors.array(),
       });
     } else {
