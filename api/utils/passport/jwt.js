@@ -9,7 +9,7 @@ opts.passReqToCallback = true;
 
 module.exports = new JwtStrategy(opts, async (req, jwt_payload, done) => {
   try {
-    const user = await User.findOne({ _id: jwt_payload.sub });
+    const user = await User.findOne({ _id: jwt_payload.sub }, "profile");
 
     if (user) {
       req.user = user;
