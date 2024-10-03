@@ -3,6 +3,20 @@ const asyncHandler = require("express-async-handler");
 
 const Profile = require("../models/profileModel");
 
+// Display all user profiles on GET
+exports.profile_list = asyncHandler(async (req, res) => {
+  const profiles = await Profile.find({ _id: { $ne: req.user.profile } }).sort({
+    last_name: 1,
+  });
+  res.json({ profiles });
+});
+
+// Display a user profile on GET
+exports.profile = asyncHandler(async (req, res) => {
+  const profile = await Profile.findById(req.params.profile);
+  res.json({ profile });
+});
+
 // Handle user profile update on PUT
 exports.profile_update = [
   body("about")
