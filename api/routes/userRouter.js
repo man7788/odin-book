@@ -7,11 +7,24 @@ passport.use(jwtStrategry);
 
 const userController = require("../controllers/userController");
 
-// PUT request for profile update
+// GET request for all user profiles
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  userController.profile_list
+);
+
+//GET request for a user profile
+router.get(
+  "/:profile",
+  passport.authenticate("jwt", { session: false }),
+  userController.profile
+);
+
+// PUT request for user profile update
 router.put(
   "/profile",
   passport.authenticate("jwt", { session: false }),
   userController.profile_update
 );
-
 module.exports = router;
