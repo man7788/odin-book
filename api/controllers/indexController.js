@@ -66,7 +66,7 @@ exports.sign_up = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.json({
+      return res.status(400).json({
         errors: errors.array(),
       });
     } else {
@@ -121,7 +121,7 @@ exports.log_in = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.json({
+      return res.status(400).json({
         errors: errors.array(),
       });
     } else {
