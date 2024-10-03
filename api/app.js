@@ -36,14 +36,16 @@ app.use("/users", userRouter);
 app.use("/followers", followerRouter);
 app.use("/posts", postRouter);
 
-// catch 404 and forward to error handler
+// Catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// Error handler
 app.use(function (err, req, res, next) {
-  res.status(err.status || 500).send(err.message);
+  // Only providing error in development
+  const errMessage = req.app.get("env") === "development" ? err.message : "";
+  res.status(err.status || 500).send(errMessage);
 });
 
 module.exports = app;
