@@ -161,17 +161,3 @@ exports.log_in = [
     }
   }),
 ];
-
-// Display profile on GET
-exports.profile = asyncHandler(async (req, res) => {
-  const profile = await Profile.findById(req.params.profile);
-  res.json({ profile });
-});
-
-// Display all profiles on GET
-exports.profile_list = asyncHandler(async (req, res) => {
-  const profiles = await Profile.find({ _id: { $ne: req.user.profile } }).sort({
-    last_name: 1,
-  });
-  res.json({ profiles });
-});
