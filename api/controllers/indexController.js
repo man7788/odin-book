@@ -8,8 +8,7 @@ const jwt = require("jsonwebtoken");
 
 // Display index on GET
 exports.index = asyncHandler(async (req, res) => {
-  const profile = await Profile.findById(req.user.profile);
-  res.json({ full_name: profile.full_name });
+  res.json({ full_name: req.user.profile.full_name });
 });
 
 // Handle sign-up on POST
