@@ -43,9 +43,7 @@ app.use(function (req, res, next) {
 
 // Error handler
 app.use(function (err, req, res, next) {
-  // Only providing error in development
-  const errMessage = req.app.get("env") === "development" ? err.message : "";
-  res.status(err.status || 500).send(errMessage);
+  res.status(err.status || 500).json({ error: err.message });
 });
 
 module.exports = app;
