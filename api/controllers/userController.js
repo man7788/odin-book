@@ -51,6 +51,18 @@ exports.profile = [
 
 // Handle user profile update on PUT
 exports.profile_update = [
+  param("id")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("User id must not be empty")
+    .custom((value) => {
+      const validId = mongoose.isValidObjectId(value);
+      if (!validId) {
+        throw new Error("Invalid user ID");
+      }
+      return validId;
+    })
+    .escape(),
   body("about")
     .trim()
     .isLength({ min: 1 })
@@ -66,13 +78,27 @@ exports.profile_update = [
         errors: errors.array(),
       });
     } else {
-      const profile = await Profile.findById(req.user.profile);
+      const profile = await Profile.findById(req.params.id);
+
+      if (!profile) {
+        return res.status(404).json({
+          error: "User not found",
+        });
+      }
+
+      if (req.user.profile._id.toString() !== profile._id.toString()) {
+        return res.status(403).json({
+          error: "Forbidden to update a foreign profile",
+        });
+      }
 
       profile.about = req.body.about;
 
       const updatedProfile = await profile.save();
 
-      res.json({ updatedProfile });
+      res.json({
+        updatedProfile: updatedProfile._id,
+      });
     }
   }),
 ];
