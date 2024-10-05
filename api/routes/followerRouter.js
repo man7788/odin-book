@@ -21,11 +21,11 @@ router.get(
   followerController.requests_received
 );
 
-// GET request for all follower requests sent
+// GET request for all pending follower requests
 router.get(
-  "/requests/sent",
-  passport.authenticate("jwt", { session: false }),
-  followerController.requests_sent
+  "/requests/pending",
+  passport.authenticate("jwt", { session: false, failWithError: true }),
+  followerController.requests_pending
 );
 
 // POST request for follower request accept
