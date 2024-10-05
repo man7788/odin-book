@@ -24,21 +24,15 @@ exports.post_create = [
         errors: errors.array(),
       });
     } else {
-      const profile = await Profile.findOne(req.user.profile);
+      const post = new Post({
+        profile: req.user.profile._id,
+        author: req.user.profile.full_name,
+        text_content: req.body.text_content,
+      });
 
-      if (!profile) {
-        res.json(null);
-      } else {
-        const post = new Post({
-          profile: profile._id,
-          author: profile.full_name,
-          text_content: req.body.text_content,
-        });
+      const createdPost = await post.save();
 
-        const createdPost = await post.save();
-
-        res.json({ createdPost: createdPost._id });
-      }
+      res.json({ createdPost: createdPost._id });
     }
   }),
 ];
