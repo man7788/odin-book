@@ -94,9 +94,9 @@ exports.post_like_create = [
   }),
 ];
 
-// Handle post comment create like on POST
+// Handle post comment create on POST
 exports.post_comment_create = [
-  body("post_id")
+  param("id")
     .trim()
     .isLength({ min: 1 })
     .withMessage("Post id must not be empty")
@@ -123,25 +123,25 @@ exports.post_comment_create = [
         errors: errors.array(),
       });
     } else {
-      const post = await Post.findById(req.body.post_id);
-      const profile = await Profile.findOne(req.user.profile);
+      const post = await Post.findById(req.params.id);
 
       if (!post) {
-        res.json(null);
-      } else {
-        const comment = new Comment({
-          post: req.body.post_id,
-          profile: req.user.profile,
-          author: profile.full_name,
-          text_content: req.body.text_content,
-        });
-
-        const createdComment = await comment.save();
-
-        res.json({
-          createdComment: createdComment._id,
+        return res.status(400).json({
+          error: "Post not found",
         });
       }
+      const comment = new Comment({
+        post: post._id,
+        profile: req.user.profile,
+        author: req.user.profile.full_name,
+        text_content: req.body.text_content,
+      });
+
+      const createdComment = await comment.save();
+
+      res.json({
+        createdComment: createdComment._id,
+      });
     }
   }),
 ];
