@@ -23,8 +23,9 @@ router.get(
 
 // PUT request for user profile update
 router.put(
-  "/profile",
-  passport.authenticate("jwt", { session: false }),
+  "/:id",
+  passport.authenticate("jwt", { session: false, failWithError: true }),
   userController.profile_update
 );
+
 module.exports = router;
