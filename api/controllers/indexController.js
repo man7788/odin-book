@@ -124,10 +124,11 @@ exports.log_in = [
         errors: errors.array(),
       });
     } else {
-      const user = await User.findOne({ email: req.body.email });
+      const user = await User.findOne({ email: req.body.email }, "password");
 
       if (!user) {
-        return res.json({
+        // Response the same format as express-validator response
+        return res.status(400).json({
           errors: [{ msg: "User Not Found" }],
         });
       }
@@ -135,7 +136,8 @@ exports.log_in = [
       const match = await bcrypt.compare(req.body.password, user.password);
 
       if (!match) {
-        return res.json({
+        // Response the same format as express-validator response
+        return res.status(400).json({
           errors: [{ msg: "Incorrect Password" }],
         });
       }
