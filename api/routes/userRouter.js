@@ -10,7 +10,7 @@ const userController = require("../controllers/userController");
 // GET request for all user profiles
 router.get(
   "/",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false, failWithError: true }),
   userController.profile_list
 );
 
