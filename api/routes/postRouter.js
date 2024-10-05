@@ -15,7 +15,7 @@ router.post(
 
 // POST request for post like create
 router.post(
-  "/likes/:id",
+  "/:id/likes",
   passport.authenticate("jwt", { session: false, failWithError: true }),
   postController.post_like_create
 );
