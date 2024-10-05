@@ -9,7 +9,7 @@ passport.use(jwtStrategry);
 // GET request for index
 router.get(
   "/",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false, failWithError: true }),
   indexController.index
 );
 
