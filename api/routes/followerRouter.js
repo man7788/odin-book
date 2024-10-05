@@ -16,8 +16,8 @@ router.post(
 
 // GET request for all follower requests received
 router.get(
-  "/requests/received",
-  passport.authenticate("jwt", { session: false }),
+  "/requests",
+  passport.authenticate("jwt", { session: false, failWithError: true }),
   followerController.requests_received
 );
 
