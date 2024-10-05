@@ -72,7 +72,7 @@ exports.request_create = [
 
 // Display all follower requests received on GET
 exports.requests_received = asyncHandler(async (req, res, next) => {
-  const requests = await Request.find({ to: req.user.profile });
+  const requests = await Request.find({ to: req.user.profile._id });
 
   res.json({ requests });
 });
