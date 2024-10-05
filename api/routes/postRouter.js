@@ -34,10 +34,10 @@ router.get(
   postController.posts_recent
 );
 
-// GET request for all user posts
+// GET request for all posts of a user
 router.get(
-  "/:profile",
-  passport.authenticate("jwt", { session: false }),
+  "/users/:id",
+  passport.authenticate("jwt", { session: false, failWithError: true }),
   postController.posts_user
 );
 
