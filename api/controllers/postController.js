@@ -1,7 +1,7 @@
 const { body, param, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
-const { ObjectId } = require("mongodb");
+const Profile = require("../models/profileModel");
 const Post = require("../models/postModel");
 const Follower = require("../models/followerModel");
 const Like = require("../models/likeModel");
@@ -184,29 +184,63 @@ exports.posts_recent = asyncHandler(async (req, res, next) => {
   res.json({ posts });
 });
 
-// Display all user posts on GET
-exports.posts_user = asyncHandler(async (req, res, next) => {
-  const posts = await Post.find({
-    profile: req.user.profile,
-  }).sort({ createdAt: -1 });
+// Display all posts of a user on GET
+exports.posts_user = [
+  param("id")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("User id must not be empty")
+    .custom((value) => {
+      const validId = mongoose.isValidObjectId(value);
+      if (!validId) {
+        throw new Error("Invalid user ID");
+      }
+      return validId;
+    })
+    .escape(),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
 
-  const userPosts = [];
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    } else {
+      // Verify user profile exists in database
+      const profile = await Profile.findById(req.params.id);
 
-  for (const post of posts) {
-    const postWithLikesComments = {
-      profile: post.profile,
-      author: post.author,
-      text_content: post.text_content,
-    };
+      if (!profile) {
+        return res.status(400).json({
+          error: "User not found",
+        });
+      }
 
-    const likes = await Like.find({ post: post._id });
-    const comments = await Comment.find({ post: post._id });
-
-    postWithLikesComments.likes = likes;
-    postWithLikesComments.comments = comments;
-
-    userPosts.push(postWithLikesComments);
-  }
-
-  res.json({ userPosts });
-});
+      // Return an array of posts with likes and comments
+      const posts = await Post.aggregate([
+        {
+          $match: {
+            profile: profile._id,
+          },
+        },
+        { $sort: { createdAt: -1 } },
+        {
+          $lookup: {
+            from: "likes",
+            localField: "_id",
+            foreignField: "post",
+            as: "likes",
+          },
+        },
+        {
+          $lookup: {
+            from: "comments",
+            localField: "_id",
+            foreignField: "post",
+            as: "comments",
+          },
+        },
+      ]);
+      res.json({ posts });
+    }
+  }),
+];
