@@ -77,9 +77,9 @@ exports.requests_received = asyncHandler(async (req, res, next) => {
   res.json({ requests });
 });
 
-// Display all follower requests sent on GET
-exports.requests_sent = asyncHandler(async (req, res, next) => {
-  const requests = await Request.find({ from: req.user.profile });
+// Display all pending follower requests on GET
+exports.requests_pending = asyncHandler(async (req, res, next) => {
+  const requests = await Request.find({ from: req.user.profile._id });
 
   res.json({ requests });
 });
