@@ -9,7 +9,7 @@ passport.use(jwtStrategry);
 // POST request for post create
 router.post(
   "/",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false, failWithError: true }),
   postController.post_create
 );
 
