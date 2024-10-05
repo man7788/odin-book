@@ -30,7 +30,7 @@ router.post(
 // GET request for recent posts
 router.get(
   "/recent",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false, failWithError: true }),
   postController.posts_recent
 );
 
