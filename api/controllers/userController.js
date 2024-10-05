@@ -1,5 +1,6 @@
 const { body, param, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
+const mongoose = require("mongoose");
 
 const Profile = require("../models/profileModel");
 
@@ -14,10 +15,39 @@ exports.profile_list = asyncHandler(async (req, res) => {
 });
 
 // Display a user profile on GET
-exports.profile = asyncHandler(async (req, res) => {
-  const profile = await Profile.findById(req.params.profile);
-  res.json({ profile });
-});
+exports.profile = [
+  param("id")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("User id must not be empty")
+    .custom((value) => {
+      const validId = mongoose.isValidObjectId(value);
+      if (!validId) {
+        throw new Error("Invalid user ID");
+      }
+      return validId;
+    })
+    .escape(),
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    } else {
+      const profile = await Profile.findById(req.params.id);
+
+      if (!profile) {
+        return res.status(400).json({
+          error: "User not found",
+        });
+      }
+
+      res.json({ profile });
+    }
+  }),
+];
 
 // Handle user profile update on PUT
 exports.profile_update = [
