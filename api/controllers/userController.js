@@ -5,7 +5,9 @@ const Profile = require("../models/profileModel");
 
 // Display all user profiles on GET
 exports.profile_list = asyncHandler(async (req, res) => {
-  const profiles = await Profile.find({ _id: { $ne: req.user.profile } }).sort({
+  const profiles = await Profile.find({
+    _id: { $ne: req.user.profile._id },
+  }).sort({
     last_name: 1,
   });
   res.json({ profiles });
