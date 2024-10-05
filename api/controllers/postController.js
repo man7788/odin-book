@@ -1,7 +1,7 @@
 const { body, param, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
-const Profile = require("../models/profileModel");
+const { ObjectId } = require("mongodb");
 const Post = require("../models/postModel");
 const Follower = require("../models/followerModel");
 const Like = require("../models/likeModel");
@@ -148,37 +148,40 @@ exports.post_comment_create = [
 
 // Display recent posts on GET
 exports.posts_recent = asyncHandler(async (req, res, next) => {
-  const followers = await Follower.find({ follower: req.user.profile });
-  const followings = [];
+  // Return an array of following users profile id
+  const followings = await Follower.distinct("following", {
+    follower: req.user.profile,
+  });
 
-  for (const follower of followers) {
-    followings.push(follower.following);
-  }
+  // Return an array of posts with likes and comments
+  const posts = await Post.aggregate([
+    {
+      $match: {
+        profile: {
+          $in: [...followings, req.user.profile._id],
+        },
+      },
+    },
+    { $sort: { createdAt: -1 } },
+    {
+      $lookup: {
+        from: "likes",
+        localField: "_id",
+        foreignField: "post",
+        as: "likes",
+      },
+    },
+    {
+      $lookup: {
+        from: "comments",
+        localField: "_id",
+        foreignField: "post",
+        as: "comments",
+      },
+    },
+  ]);
 
-  const posts = await Post.find({
-    profile: { $in: [...followings, req.user.profile] },
-  })
-    .sort({ createdAt: -1 })
-    .limit(20);
-  const recentPosts = [];
-
-  for (const post of posts) {
-    const postWithLikesComments = {
-      profile: post.profile,
-      author: post.author,
-      text_content: post.text_content,
-    };
-
-    const likes = await Like.find({ post: post._id });
-    const comments = await Comment.find({ post: post._id });
-
-    postWithLikesComments.likes = likes;
-    postWithLikesComments.comments = comments;
-
-    recentPosts.push(postWithLikesComments);
-  }
-
-  res.json({ recentPosts });
+  res.json({ posts });
 });
 
 // Display all user posts on GET
