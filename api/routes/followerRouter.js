@@ -30,8 +30,8 @@ router.get(
 
 // POST request for follower request accept
 router.post(
-  "/requests/accept",
-  passport.authenticate("jwt", { session: false }),
+  "/",
+  passport.authenticate("jwt", { session: false, failWithError: true }),
   followerController.request_accept
 );
 
