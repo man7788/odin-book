@@ -31,33 +31,41 @@ exports.request_create = [
       const followingProfile = await Profile.findById(req.body.following_id);
 
       if (!followingProfile) {
-        res.json(null);
-      } else {
-        const profile = await Profile.findById(req.user.profile);
-
-        const follower = await Follower.findOne({
-          follower: profile._id,
-          following: req.body.following_id,
+        return res.status(400).json({
+          error: "User not found",
         });
-
-        const request = await Request.findOne({
-          from: profile._id,
-          to: req.body.following_id,
-        });
-
-        if (follower || request) {
-          res.json(null);
-        } else {
-          const request = new Request({
-            from: profile._id,
-            to: req.body.following_id,
-          });
-
-          const createdRequest = await request.save();
-
-          res.json({ createdRequest: createdRequest._id });
-        }
       }
+
+      const alreadyFollowing = await Follower.findOne({
+        follower: req.user.profile._id,
+        following: req.body.following_id,
+      });
+
+      if (alreadyFollowing) {
+        return res.status(400).json({
+          error: "Already following",
+        });
+      }
+
+      const pendingRequest = await Request.findOne({
+        from: req.user.profile._id,
+        to: req.body.following_id,
+      });
+
+      if (pendingRequest) {
+        return res.status(400).json({
+          error: "Request pending",
+        });
+      }
+
+      const request = new Request({
+        from: req.user.profile._id,
+        to: req.body.following_id,
+      });
+
+      const createdRequest = await request.save();
+
+      res.json({ createdRequest: createdRequest._id });
     }
   }),
 ];
