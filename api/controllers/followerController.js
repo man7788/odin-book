@@ -1,4 +1,4 @@
-const { body, validationResult } = require("express-validator");
+const { body, param, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const Request = require("../models/requestModel");
@@ -107,21 +107,26 @@ exports.request_accept = [
         errors: errors.array(),
       });
     } else {
-      const request = await Request.findById(req.body.request_id);
+      const request = await Request.findOne({
+        _id: req.body.request_id,
+        to: req.user.profile._id,
+      });
 
       if (!request) {
-        res.json(null);
-      } else {
-        const follower = new Follower({
-          follower: request.from,
-          following: request.to,
+        return res.status(400).json({
+          error: "Request not found",
         });
-
-        const createdFollower = await follower.save();
-        await request.deleteOne();
-
-        res.json({ createdFollower });
       }
+
+      const follower = new Follower({
+        follower: request.from,
+        following: request.to,
+      });
+
+      const createdFollower = await follower.save();
+      await request.deleteOne();
+
+      res.json({ createdFollower });
     }
   }),
 ];
