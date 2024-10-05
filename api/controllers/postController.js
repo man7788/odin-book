@@ -1,4 +1,4 @@
-const { body, validationResult } = require("express-validator");
+const { body, param, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const Profile = require("../models/profileModel");
@@ -39,7 +39,7 @@ exports.post_create = [
 
 // Handle post like create on POST
 exports.post_like_create = [
-  body("post_id")
+  param("id")
     .trim()
     .isLength({ min: 1 })
     .withMessage("Post id must not be empty")
@@ -59,25 +59,37 @@ exports.post_like_create = [
         errors: errors.array(),
       });
     } else {
-      const post = await Post.findById(req.body.post_id);
-      const alreadyLiked = await Like.findOne({ post: req.body.post_id });
-      const profile = await Profile.findOne(req.user.profile);
+      const post = await Post.findById(req.params.id);
 
-      if (!post || alreadyLiked) {
-        res.json(null);
-      } else {
-        const like = new Like({
-          post: req.body.post_id,
-          profile: req.user.profile,
-          author: profile.full_name,
-        });
-
-        const createdLike = await like.save();
-
-        res.json({
-          createdLike: createdLike._id,
+      if (!post) {
+        return res.status(400).json({
+          error: "Post not found",
         });
       }
+
+      const alreadyLiked = await Like.findOne({
+        post: req.params.id,
+        profile: req.user.profile,
+      });
+
+      if (alreadyLiked) {
+        const removedLike = await Like.findByIdAndDelete(alreadyLiked._id);
+        return res.json({
+          removedLike: removedLike._id,
+        });
+      }
+
+      const like = new Like({
+        post: post._id,
+        profile: req.user.profile,
+        author: req.user.profile.full_name,
+      });
+
+      const createdLike = await like.save();
+
+      res.json({
+        createdLike: createdLike._id,
+      });
     }
   }),
 ];
