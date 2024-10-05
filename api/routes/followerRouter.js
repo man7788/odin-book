@@ -9,8 +9,8 @@ const followerController = require("../controllers/followerController");
 
 // POST request for follower request create
 router.post(
-  "/requests/create",
-  passport.authenticate("jwt", { session: false }),
+  "/requests",
+  passport.authenticate("jwt", { session: false, failWithError: true }),
   followerController.request_create
 );
 
