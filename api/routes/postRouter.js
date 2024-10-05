@@ -22,8 +22,8 @@ router.post(
 
 // POST request for post comment create
 router.post(
-  "/comments/create",
-  passport.authenticate("jwt", { session: false }),
+  "/:id/comments",
+  passport.authenticate("jwt", { session: false, failWithError: true }),
   postController.post_comment_create
 );
 
