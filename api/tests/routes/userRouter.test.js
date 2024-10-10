@@ -45,7 +45,7 @@ jest.mock('passport', () => ({
   }),
 }));
 
-describe('users route', () => {
+describe('/users route', () => {
   describe('GET /:id', () => {
     test('should response with invalid user id error', async () => {
       const response = await request(app)
@@ -137,6 +137,17 @@ describe('users route', () => {
           _id: profile3._id.toString(),
         }),
       );
+    });
+  });
+
+  describe('PUT /:id', () => {
+    test('should response with invalid user id error', async () => {
+      const response = await request(app).put('/users/1234567');
+
+      const errorObj = JSON.parse(response.error.text);
+
+      expect(response.status).toEqual(400);
+      expect(errorObj.errors[0].msg).toMatch('Invalid user ID');
     });
   });
 });
