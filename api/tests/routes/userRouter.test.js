@@ -92,15 +92,14 @@ describe('users route', () => {
         expect.objectContaining({
           first_name: 'foo',
           last_name: 'bar',
+          full_name: 'foo bar',
           about: 'My name is foobar',
           _id: profile._id.toString(),
         }),
       );
     });
   });
-});
 
-describe('users route', () => {
   describe('GET /', () => {
     test('should response with all user profiles except log-in user', async () => {
       const profile1 = new Profile({
