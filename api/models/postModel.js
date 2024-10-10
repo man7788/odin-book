@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const PostSchema = new Schema(
   {
-    profile: { type: Schema.Types.ObjectId, required: true, ref: "Profile" },
+    profile: { type: Schema.Types.ObjectId, required: true, ref: 'Profile' },
     author: { type: String, required: true, minLength: 1, maxLength: 51 },
     text_content: {
       type: String,
@@ -13,8 +13,8 @@ const PostSchema = new Schema(
       maxLength: 280,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // Export model
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model('Post', PostSchema);

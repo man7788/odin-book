@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const ProfileSchema = new Schema(
   {
@@ -9,11 +9,12 @@ const ProfileSchema = new Schema(
     about: { type: String, minLength: 1, maxLength: 200 },
   },
   { toJSON: { virtuals: true } },
-  { toObject: { virtuals: true } }
+  { toObject: { virtuals: true } },
 );
 
-ProfileSchema.virtual("full_name").get(function () {
-  let fullname = "";
+// eslint-disable-next-line func-names
+ProfileSchema.virtual('full_name').get(function () {
+  let fullname = '';
   if (this.first_name && this.last_name) {
     fullname = `${this.first_name} ${this.last_name}`;
   }
@@ -22,4 +23,4 @@ ProfileSchema.virtual("full_name").get(function () {
 });
 
 // Export model
-module.exports = mongoose.model("Profile", ProfileSchema);
+module.exports = mongoose.model('Profile', ProfileSchema);
