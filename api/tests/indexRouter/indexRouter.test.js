@@ -149,9 +149,8 @@ describe('log-in route', () => {
 
     const user = new User({
       email: 'foo@bar.com',
-      first_name: 'foo',
-      last_name: 'bar',
       password: 'foobar123',
+      profile: profileId,
     });
     await user.save();
 
@@ -165,7 +164,7 @@ describe('log-in route', () => {
       .set('Content-Type', 'application/json')
       .send(payload);
 
-    expect(response.status).toEqual(200);
+    expect(response.status).toEqual(400);
     expect(response.body.errors[0].msg).toMatch('Incorrect Password');
   });
 
