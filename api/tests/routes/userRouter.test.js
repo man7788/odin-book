@@ -46,7 +46,7 @@ jest.mock('passport', () => ({
   }),
 }));
 
-describe('/users route', () => {
+describe('users router', () => {
   describe('GET /:id', () => {
     test('should response with invalid user id error', async () => {
       const response = await request(app)
@@ -197,6 +197,29 @@ describe('/users route', () => {
       expect(response.status).toEqual(400);
       expect(JSON.parse(response.error.text)).toMatchObject({
         error: 'Not allow to update a foreign profile',
+      });
+    });
+
+    test('should response with updated profile id', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+        _id: profileId1,
+      });
+      await profile.save();
+
+      const payload = {
+        about: 'My name is foobar',
+      };
+
+      const response = await request(app)
+        .put(`/users/${profileId1}`)
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toMatchObject({
+        updatedProfile: profileId1.toString(),
       });
     });
   });
