@@ -176,5 +176,28 @@ describe('/users route', () => {
         error: 'User not found',
       });
     });
+
+    test('should response with update foreign user error', async () => {
+      const profile = new Profile({
+        first_name: 'foo2',
+        last_name: 'bar2',
+        _id: profileId2,
+      });
+      await profile.save();
+
+      const payload = {
+        about: 'My name is foobar',
+      };
+
+      const response = await request(app)
+        .put(`/users/${profileId2}`)
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(400);
+      expect(JSON.parse(response.error.text)).toMatchObject({
+        error: 'Not allow to update a foreign profile',
+      });
+    });
   });
 });
