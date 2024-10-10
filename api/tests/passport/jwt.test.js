@@ -15,12 +15,13 @@ const {
 
 passport.use(jwtStrategry);
 
+const User = require('../../models/userModel');
+
+const Profile = require('../../models/profileModel');
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-const User = require('../../models/userModel');
-const Profile = require('../../models/profileModel');
 
 beforeAll(async () => {
   await connectDB();
