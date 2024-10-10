@@ -117,7 +117,8 @@ describe('sign-up route', () => {
       .send(payload);
 
     expect(response.status).toEqual(200);
-    expect(response.body).toMatchObject({ id: expect.any(String) });
+    expect(response.body).toMatchObject({ createdUser: expect.any(String) });
+    expect(mongoose.isValidObjectId(response.body.createdUser)).toBeTruthy();
   });
 });
 
