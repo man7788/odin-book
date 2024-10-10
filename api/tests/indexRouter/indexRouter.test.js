@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const request = require('supertest');
 const express = require('express');
 const bcrypt = require('bcryptjs');
@@ -31,6 +32,8 @@ afterEach(async () => {
   jest.clearAllMocks();
 });
 
+const profileId = new mongoose.Types.ObjectId();
+
 jest.mock('bcryptjs');
 jest.mock('jsonwebtoken');
 jest.mock('../../utils/passport/jwt', () => {});
@@ -43,7 +46,7 @@ jest.mock('passport', () => ({
 }));
 
 describe('index route', () => {
-  test.only("should response with login user's full name", async () => {
+  test("should response with login user's full name", async () => {
     const response = await request(app).get('/');
 
     expect(response.status).toEqual(200);
@@ -55,9 +58,8 @@ describe('sign-up route', () => {
   test('should response with email already in use form validation error', async () => {
     const user = new User({
       email: 'foo@bar.com',
-      first_name: 'foo',
-      last_name: 'bar',
       password: 'foobar123',
+      profile: profileId,
     });
     await user.save();
 
@@ -74,7 +76,7 @@ describe('sign-up route', () => {
       .set('Content-Type', 'application/json')
       .send(payload);
 
-    expect(response.status).toEqual(200);
+    expect(response.status).toEqual(400);
     expect(response.body.errors[0].msg).toMatch('Email already in use');
   });
 
