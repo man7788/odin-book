@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { MongoMemoryServer } = require("mongodb-memory-server");
+const mongoose = require('mongoose');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
 let mongo = null;
 
@@ -21,9 +21,7 @@ const dropDB = async () => {
 const dropCollections = async () => {
   if (mongo) {
     const collections = await mongoose.connection.db.collections();
-    for (let collection of collections) {
-      await collection.deleteMany();
-    }
+    await Promise.all(collections.map((collection) => collection.deleteMany()));
   }
 };
 
