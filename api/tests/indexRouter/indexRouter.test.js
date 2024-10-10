@@ -9,15 +9,14 @@ const {
   dropCollections,
 } = require('../../utils/mongoMemoryServer/setuptestdb');
 
-const app = express();
-
 const indexRouter = require('../../routes/indexRouter');
 
+const User = require('../../models/userModel');
+
+const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/', indexRouter);
-
-const User = require('../../models/userModel');
 
 beforeAll(async () => {
   await connectDB();
@@ -126,9 +125,8 @@ describe('log-in route', () => {
   test('should response with user not found error', async () => {
     const user = new User({
       email: 'foo@bar.com',
-      first_name: 'foo',
-      last_name: 'bar',
       password: 'foobar123',
+      profile: profileId,
     });
     await user.save();
 
@@ -142,7 +140,7 @@ describe('log-in route', () => {
       .set('Content-Type', 'application/json')
       .send(payload);
 
-    expect(response.status).toEqual(200);
+    expect(response.status).toEqual(400);
     expect(response.body.errors[0].msg).toMatch('User Not Found');
   });
 
