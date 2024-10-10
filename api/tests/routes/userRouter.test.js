@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const request = require('supertest');
 const express = require('express');
 const {
@@ -28,11 +29,18 @@ afterEach(async () => {
   jest.clearAllMocks();
 });
 
+const profileId = new mongoose.Types.ObjectId('507f1f77bcf86cd799439011');
+
 jest.mock('../../utils/passport/jwt', () => {});
 jest.mock('passport', () => ({
   use: jest.fn(),
   authenticate: jest.fn(() => (req, res, next) => {
-    req.user = { profile: { full_name: 'foobar' } };
+    req.user = {
+      profile: {
+        full_name: 'foobar',
+        _id: '507f1f77bcf86cd799439011',
+      },
+    };
     next();
   }),
 }));
@@ -86,6 +94,48 @@ describe('users route', () => {
           last_name: 'bar',
           about: 'My name is foobar',
           _id: profile._id.toString(),
+        }),
+      );
+    });
+  });
+});
+
+describe('users route', () => {
+  describe('GET /', () => {
+    test('should response with all user profiles except log-in user', async () => {
+      const profile1 = new Profile({
+        first_name: 'foo1',
+        last_name: 'bar1',
+        _id: profileId,
+      });
+      const profile2 = new Profile({
+        first_name: 'foo2',
+        last_name: 'bar2',
+      });
+      const profile3 = new Profile({
+        first_name: 'foo3',
+        last_name: 'bar3',
+      });
+
+      await Profile.insertMany([profile1, profile2, profile3]);
+
+      const response = await request(app).get('/users');
+
+      expect(response.status).toEqual(200);
+      expect(response.body.profiles[0]).toEqual(
+        expect.objectContaining({
+          first_name: 'foo2',
+          last_name: 'bar2',
+          full_name: 'foo2 bar2',
+          _id: profile2._id.toString(),
+        }),
+      );
+      expect(response.body.profiles[1]).toEqual(
+        expect.objectContaining({
+          first_name: 'foo3',
+          last_name: 'bar3',
+          full_name: 'foo3 bar3',
+          _id: profile3._id.toString(),
         }),
       );
     });
