@@ -8,6 +8,8 @@ const {
 
 const userRouter = require('../../routes/userRouter');
 
+const Profile = require('../../models/profileModel');
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -46,6 +48,23 @@ describe('users route', () => {
 
       expect(response.status).toEqual(400);
       expect(errorObj.errors[0].msg).toMatch('Invalid user ID');
+    });
+
+    test('should response with user not found error', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+      });
+      await profile.save();
+
+      const response = await request(app)
+        .get('/users/507f1f77bcf86cd799439011')
+        .set('Content-Type', 'application/json');
+
+      expect(response.status).toEqual(400);
+      expect(JSON.parse(response.error.text)).toMatchObject({
+        error: 'User not found',
+      });
     });
   });
 });
