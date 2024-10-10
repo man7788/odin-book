@@ -29,7 +29,8 @@ afterEach(async () => {
   jest.clearAllMocks();
 });
 
-const profileId = new mongoose.Types.ObjectId('507f1f77bcf86cd799439011');
+const profileId1 = new mongoose.Types.ObjectId('507f1f77bcf86cd799439011');
+const profileId2 = new mongoose.Types.ObjectId('6708220913bf16f4f534c2f1');
 
 jest.mock('../../utils/passport/jwt', () => {});
 jest.mock('passport', () => ({
@@ -105,7 +106,7 @@ describe('/users route', () => {
       const profile1 = new Profile({
         first_name: 'foo1',
         last_name: 'bar1',
-        _id: profileId,
+        _id: profileId1,
       });
       const profile2 = new Profile({
         first_name: 'foo2',
@@ -121,6 +122,9 @@ describe('/users route', () => {
       const response = await request(app).get('/users');
 
       expect(response.status).toEqual(200);
+
+      // Query returns an array in accending order by last_name
+      // First item should not be profile1
       expect(response.body.profiles[0]).toEqual(
         expect.objectContaining({
           first_name: 'foo2',
@@ -148,6 +152,29 @@ describe('/users route', () => {
 
       expect(response.status).toEqual(400);
       expect(errorObj.errors[0].msg).toMatch('Invalid user ID');
+    });
+
+    test('should response with user not found error', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+        _id: profileId1,
+      });
+      await profile.save();
+
+      const payload = {
+        about: 'My name is foobar',
+      };
+
+      const response = await request(app)
+        .put(`/users/${profileId2}`)
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(400);
+      expect(JSON.parse(response.error.text)).toMatchObject({
+        error: 'User not found',
+      });
     });
   });
 });
