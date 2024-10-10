@@ -42,6 +42,8 @@ export default [
         'off',
         { devDependencies: true, bundledDependencies: true },
       ],
+      'no-console': 'off',
+      camelcase: 'off',
     },
   },
   eslintConfigPrettier,
