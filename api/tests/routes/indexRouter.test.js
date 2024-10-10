@@ -44,155 +44,157 @@ jest.mock('passport', () => ({
   }),
 }));
 
-describe('index route', () => {
-  test("should response with login user's full name", async () => {
-    const response = await request(app).get('/');
+describe('index router', () => {
+  describe('GET /', () => {
+    test("should response with login user's full name", async () => {
+      const response = await request(app).get('/');
 
-    expect(response.status).toEqual(200);
-    expect(response.body).toMatchObject({ full_name: expect.any(String) });
-  });
-});
-
-describe('sign-up route', () => {
-  test('should response with email already in use form validation error', async () => {
-    const user = new User({
-      email: 'foo@bar.com',
-      password: 'foobar123',
-      profile: profileId,
+      expect(response.status).toEqual(200);
+      expect(response.body).toMatchObject({ full_name: expect.any(String) });
     });
-    await user.save();
-
-    const payload = {
-      email: 'foo@bar.com',
-      first_name: 'foo',
-      last_name: 'bar',
-      password: 'foobar123',
-      confirm_password: 'foobar123',
-    };
-
-    const response = await request(app)
-      .post('/signup')
-      .set('Content-Type', 'application/json')
-      .send(payload);
-
-    expect(response.status).toEqual(400);
-    expect(response.body.errors[0].msg).toMatch('Email already in use');
   });
 
-  test('should response with passwords do not match form validation error', async () => {
-    const payload = {
-      email: 'foo@bar.com',
-      first_name: 'foo',
-      last_name: 'bar',
-      password: 'foobar123',
-      confirm_password: 'johndoe123',
-    };
+  describe('POST /signup', () => {
+    test('should response with email already in use form validation error', async () => {
+      const user = new User({
+        email: 'foo@bar.com',
+        password: 'foobar123',
+        profile: profileId,
+      });
+      await user.save();
 
-    const response = await request(app)
-      .post('/signup')
-      .set('Content-Type', 'application/json')
-      .send(payload);
+      const payload = {
+        email: 'foo@bar.com',
+        first_name: 'foo',
+        last_name: 'bar',
+        password: 'foobar123',
+        confirm_password: 'foobar123',
+      };
 
-    expect(response.status).toEqual(400);
-    expect(response.body.errors[0].msg).toMatch('Passwords do not match');
-  });
+      const response = await request(app)
+        .post('/signup')
+        .set('Content-Type', 'application/json')
+        .send(payload);
 
-  test("should response with created user's id", async () => {
-    bcrypt.hash.mockImplementationOnce((password, salt, callback) =>
-      callback(null, 'hashedpassword'),
-    );
-
-    const payload = {
-      email: 'foo@bar.com',
-      first_name: 'foo',
-      last_name: 'bar',
-      password: 'foobar123',
-      confirm_password: 'foobar123',
-    };
-
-    const response = await request(app)
-      .post('/signup')
-      .set('Content-Type', 'application/json')
-      .send(payload);
-
-    expect(response.status).toEqual(200);
-    expect(response.body).toMatchObject({ createdUser: expect.any(String) });
-    expect(mongoose.isValidObjectId(response.body.createdUser)).toBeTruthy();
-  });
-});
-
-describe('log-in route', () => {
-  test('should response with user not found error', async () => {
-    const user = new User({
-      email: 'foo@bar.com',
-      password: 'foobar123',
-      profile: profileId,
+      expect(response.status).toEqual(400);
+      expect(response.body.errors[0].msg).toMatch('Email already in use');
     });
-    await user.save();
 
-    const payload = {
-      email: 'john@doe.com',
-      password: 'johndoe123',
-    };
+    test('should response with passwords do not match form validation error', async () => {
+      const payload = {
+        email: 'foo@bar.com',
+        first_name: 'foo',
+        last_name: 'bar',
+        password: 'foobar123',
+        confirm_password: 'johndoe123',
+      };
 
-    const response = await request(app)
-      .post('/login')
-      .set('Content-Type', 'application/json')
-      .send(payload);
+      const response = await request(app)
+        .post('/signup')
+        .set('Content-Type', 'application/json')
+        .send(payload);
 
-    expect(response.status).toEqual(400);
-    expect(response.body.errors[0].msg).toMatch('User Not Found');
+      expect(response.status).toEqual(400);
+      expect(response.body.errors[0].msg).toMatch('Passwords do not match');
+    });
+
+    test("should response with created user's id", async () => {
+      bcrypt.hash.mockImplementationOnce((password, salt, callback) =>
+        callback(null, 'hashedpassword'),
+      );
+
+      const payload = {
+        email: 'foo@bar.com',
+        first_name: 'foo',
+        last_name: 'bar',
+        password: 'foobar123',
+        confirm_password: 'foobar123',
+      };
+
+      const response = await request(app)
+        .post('/signup')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toMatchObject({ createdUser: expect.any(String) });
+      expect(mongoose.isValidObjectId(response.body.createdUser)).toBeTruthy();
+    });
   });
 
-  test('should response with incorrect password error', async () => {
-    bcrypt.compare.mockImplementationOnce(() => false);
+  describe('POST /login', () => {
+    test('should response with user not found error', async () => {
+      const user = new User({
+        email: 'foo@bar.com',
+        password: 'foobar123',
+        profile: profileId,
+      });
+      await user.save();
 
-    const user = new User({
-      email: 'foo@bar.com',
-      password: 'foobar123',
-      profile: profileId,
+      const payload = {
+        email: 'john@doe.com',
+        password: 'johndoe123',
+      };
+
+      const response = await request(app)
+        .post('/login')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(400);
+      expect(response.body.errors[0].msg).toMatch('User Not Found');
     });
-    await user.save();
 
-    const payload = {
-      email: 'foo@bar.com',
-      password: 'johndoe123',
-    };
+    test('should response with incorrect password error', async () => {
+      bcrypt.compare.mockImplementationOnce(() => false);
 
-    const response = await request(app)
-      .post('/login')
-      .set('Content-Type', 'application/json')
-      .send(payload);
+      const user = new User({
+        email: 'foo@bar.com',
+        password: 'foobar123',
+        profile: profileId,
+      });
+      await user.save();
 
-    expect(response.status).toEqual(400);
-    expect(response.body.errors[0].msg).toMatch('Incorrect Password');
-  });
+      const payload = {
+        email: 'foo@bar.com',
+        password: 'johndoe123',
+      };
 
-  test('should response json web token', async () => {
-    bcrypt.compare.mockImplementationOnce(() => true);
-    jwt.sign.mockImplementationOnce(
-      (token, secretOrPublicKey, options, callback) =>
-        callback(null, '123abc$'),
-    );
+      const response = await request(app)
+        .post('/login')
+        .set('Content-Type', 'application/json')
+        .send(payload);
 
-    const user = new User({
-      email: 'foo@bar.com',
-      password: 'foobar123',
-      profile: profileId,
+      expect(response.status).toEqual(400);
+      expect(response.body.errors[0].msg).toMatch('Incorrect Password');
     });
-    await user.save();
 
-    const payload = {
-      email: 'foo@bar.com',
-      password: 'johndoe123',
-    };
+    test('should response json web token', async () => {
+      bcrypt.compare.mockImplementationOnce(() => true);
+      jwt.sign.mockImplementationOnce(
+        (token, secretOrPublicKey, options, callback) =>
+          callback(null, '123abc$'),
+      );
 
-    const response = await request(app)
-      .post('/login')
-      .set('Content-Type', 'application/json')
-      .send(payload);
+      const user = new User({
+        email: 'foo@bar.com',
+        password: 'foobar123',
+        profile: profileId,
+      });
+      await user.save();
 
-    expect(response.status).toEqual(200);
-    expect(response.body).toMatchObject({ token: '123abc$' });
+      const payload = {
+        email: 'foo@bar.com',
+        password: 'johndoe123',
+      };
+
+      const response = await request(app)
+        .post('/login')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toMatchObject({ token: '123abc$' });
+    });
   });
 });
