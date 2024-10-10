@@ -177,9 +177,8 @@ describe('log-in route', () => {
 
     const user = new User({
       email: 'foo@bar.com',
-      first_name: 'foo',
-      last_name: 'bar',
       password: 'foobar123',
+      profile: profileId,
     });
     await user.save();
 
