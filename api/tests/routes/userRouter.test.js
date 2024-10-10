@@ -66,5 +66,28 @@ describe('users route', () => {
         error: 'User not found',
       });
     });
+
+    test('should response with user profile', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+        about: 'My name is foobar',
+      });
+      await profile.save();
+
+      const response = await request(app)
+        .get(`/users/${profile._id}`)
+        .set('Content-Type', 'application/json');
+
+      expect(response.status).toEqual(200);
+      expect(response.body.profile).toEqual(
+        expect.objectContaining({
+          first_name: 'foo',
+          last_name: 'bar',
+          about: 'My name is foobar',
+          _id: profile._id.toString(),
+        }),
+      );
+    });
   });
 });
