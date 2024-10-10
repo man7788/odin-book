@@ -94,7 +94,7 @@ describe('sign-up route', () => {
       .set('Content-Type', 'application/json')
       .send(payload);
 
-    expect(response.status).toEqual(200);
+    expect(response.status).toEqual(400);
     expect(response.body.errors[0].msg).toMatch('Passwords do not match');
   });
 
