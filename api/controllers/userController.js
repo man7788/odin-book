@@ -82,14 +82,14 @@ exports.profile_update = [
     const profile = await Profile.findById(req.params.id);
 
     if (!profile) {
-      return res.status(404).json({
+      return res.status(400).json({
         error: 'User not found',
       });
     }
 
     if (req.user.profile._id.toString() !== profile._id.toString()) {
-      return res.status(403).json({
-        error: 'Forbidden to update a foreign profile',
+      return res.status(400).json({
+        error: 'Not allow to update a foreign profile',
       });
     }
 
