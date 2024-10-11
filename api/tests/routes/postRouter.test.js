@@ -113,5 +113,24 @@ describe('posts router', () => {
       expect(response.status).toEqual(200);
       expect(response.body).toMatchObject({ removedLike: like._id.toString() });
     });
+
+    test('should response with created like', async () => {
+      const post = new Post({
+        profile: profileId1,
+        author: 'foobar',
+        text_content: 'Text content is foobar',
+        _id: postId1,
+      });
+
+      await post.save();
+
+      const response = await request(app)
+        .post(`/posts/${postId1}/likes`)
+        .set('Content-Type', 'application/json');
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toMatchObject({ createdLike: expect.any(String) });
+      expect(mongoose.isValidObjectId(response.body.createdLike)).toBeTruthy();
+    });
   });
 });
