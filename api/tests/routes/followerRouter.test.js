@@ -245,5 +245,19 @@ describe('follower router', () => {
       expect(response.status).toEqual(400);
       expect(errorObj.errors[0].msg).toMatch('Invalid request id');
     });
+
+    test('should response with request not found error', async () => {
+      const payload = {
+        request_id: new mongoose.Types.ObjectId(),
+      };
+
+      const response = await request(app)
+        .post('/followers')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(400);
+      expect(response.body.error).toMatch('Request not found');
+    });
   });
 });
