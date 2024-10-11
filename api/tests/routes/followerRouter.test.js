@@ -138,5 +138,31 @@ describe('follower router', () => {
         error: 'Request pending',
       });
     });
+
+    test('should response with created request id', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+        _id: profileId2,
+      });
+      await profile.save();
+
+      const payload = {
+        following_id: profileId2,
+      };
+
+      const response = await request(app)
+        .post('/followers/requests')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toMatchObject({
+        createdRequest: expect.any(String),
+      });
+      expect(
+        mongoose.isValidObjectId(response.body.createdRequest),
+      ).toBeTruthy();
+    });
   });
 });
