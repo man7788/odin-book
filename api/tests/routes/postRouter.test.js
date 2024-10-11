@@ -58,4 +58,17 @@ describe('posts router', () => {
       expect(mongoose.isValidObjectId(response.body.createdPost)).toBeTruthy();
     });
   });
+
+  describe('POST /:id/likes', () => {
+    test('should response with invalid post id error', async () => {
+      const response = await request(app)
+        .post('/posts/123456/likes')
+        .set('Content-Type', 'application/json');
+
+      const errorObj = JSON.parse(response.error.text);
+
+      expect(response.status).toEqual(400);
+      expect(errorObj.errors[0].msg).toMatch('Invalid post ID');
+    });
+  });
 });
