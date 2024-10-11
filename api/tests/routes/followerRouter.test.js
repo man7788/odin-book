@@ -33,6 +33,7 @@ afterEach(async () => {
 
 const profileId1 = new mongoose.Types.ObjectId('507f1f77bcf86cd799439011');
 const profileId2 = new mongoose.Types.ObjectId('6708220913bf16f4f534c2f1');
+const profileId3 = new mongoose.Types.ObjectId('67088226de1902dd3ad66a84');
 
 jest.mock('bcryptjs');
 jest.mock('jsonwebtoken');
@@ -163,6 +164,37 @@ describe('follower router', () => {
       expect(
         mongoose.isValidObjectId(response.body.createdRequest),
       ).toBeTruthy();
+    });
+  });
+
+  describe('GET /requests', () => {
+    test('should response with all follower requests ', async () => {
+      const followerRequest1 = new Request({
+        from: profileId2,
+        to: profileId1,
+      });
+
+      const followerRequest2 = new Request({
+        from: profileId3,
+        to: profileId1,
+      });
+
+      await Request.insertMany([followerRequest1, followerRequest2]);
+
+      const response = await request(app).get('/followers/requests');
+
+      expect(response.body.requests[0]).toEqual(
+        expect.objectContaining({
+          from: profileId2.toString(),
+          to: profileId1.toString(),
+        }),
+      );
+      expect(response.body.requests[1]).toEqual(
+        expect.objectContaining({
+          from: profileId3.toString(),
+          to: profileId1.toString(),
+        }),
+      );
     });
   });
 });
