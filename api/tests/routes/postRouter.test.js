@@ -1,0 +1,61 @@
+const mongoose = require('mongoose');
+const request = require('supertest');
+const express = require('express');
+const {
+  connectDB,
+  dropDB,
+  dropCollections,
+} = require('../../utils/mongoMemoryServer/setuptestdb');
+
+const postRouter = require('../../routes/postRouter');
+
+const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use('/posts', postRouter);
+
+beforeAll(async () => {
+  await connectDB();
+});
+
+afterAll(async () => {
+  await dropDB();
+});
+
+afterEach(async () => {
+  await dropCollections();
+  jest.clearAllMocks();
+});
+
+jest.mock('../../utils/passport/jwt', () => {});
+jest.mock('passport', () => ({
+  use: jest.fn(),
+  authenticate: jest.fn(() => (req, res, next) => {
+    req.user = {
+      profile: {
+        full_name: 'foobar',
+        _id: '507f1f77bcf86cd799439011',
+      },
+    };
+    next();
+  }),
+}));
+
+describe('posts router', () => {
+  describe('POST /', () => {
+    test('should response with created post id', async () => {
+      const payload = {
+        text_content: 'Text content is foobar',
+      };
+
+      const response = await request(app)
+        .post('/posts')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toMatchObject({ createdPost: expect.any(String) });
+      expect(mongoose.isValidObjectId(response.body.createdPost)).toBeTruthy();
+    });
+  });
+});
