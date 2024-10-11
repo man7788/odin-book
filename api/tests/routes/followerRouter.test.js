@@ -197,4 +197,35 @@ describe('follower router', () => {
       );
     });
   });
+
+  describe('GET /requests/pending', () => {
+    test('should response with all follower requests ', async () => {
+      const followerRequest1 = new Request({
+        from: profileId1,
+        to: profileId2,
+      });
+
+      const followerRequest2 = new Request({
+        from: profileId1,
+        to: profileId3,
+      });
+
+      await Request.insertMany([followerRequest1, followerRequest2]);
+
+      const response = await request(app).get('/followers/requests/pending');
+
+      expect(response.body.requests[0]).toEqual(
+        expect.objectContaining({
+          from: profileId1.toString(),
+          to: profileId2.toString(),
+        }),
+      );
+      expect(response.body.requests[1]).toEqual(
+        expect.objectContaining({
+          from: profileId1.toString(),
+          to: profileId3.toString(),
+        }),
+      );
+    });
+  });
 });
