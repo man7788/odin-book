@@ -11,6 +11,7 @@ const followerRouter = require('../../routes/followerRouter');
 
 const Profile = require('../../models/profileModel');
 const Follower = require('../../models/followerModel');
+const Request = require('../../models/requestModel');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -106,6 +107,35 @@ describe('follower router', () => {
       expect(response.status).toEqual(400);
       expect(JSON.parse(response.error.text)).toMatchObject({
         error: 'Already following',
+      });
+    });
+
+    test('should response with request pending error', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+        _id: profileId2,
+      });
+      await profile.save();
+
+      const followerRequest = new Request({
+        from: profileId1,
+        to: profileId2,
+      });
+      await followerRequest.save();
+
+      const payload = {
+        following_id: profileId2,
+      };
+
+      const response = await request(app)
+        .post('/followers/requests')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(400);
+      expect(JSON.parse(response.error.text)).toMatchObject({
+        error: 'Request pending',
       });
     });
   });
