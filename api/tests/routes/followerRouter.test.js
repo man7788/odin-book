@@ -79,5 +79,34 @@ describe('follower router', () => {
         error: 'User not found',
       });
     });
+
+    test('should response with already following error', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+        _id: profileId2,
+      });
+      await profile.save();
+
+      const follower = new Follower({
+        follower: profileId1,
+        following: profileId2,
+      });
+      await follower.save();
+
+      const payload = {
+        following_id: profileId2,
+      };
+
+      const response = await request(app)
+        .post('/followers/requests')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(400);
+      expect(JSON.parse(response.error.text)).toMatchObject({
+        error: 'Already following',
+      });
+    });
   });
 });
