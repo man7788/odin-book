@@ -159,5 +159,31 @@ describe('posts router', () => {
         error: 'Post not found',
       });
     });
+
+    test('should response with created comment id', async () => {
+      const post = new Post({
+        profile: profileId1,
+        author: 'foobar',
+        text_content: 'Text content is foobar',
+        _id: postId1,
+      });
+
+      await post.save();
+
+      const payload = { text_content: 'Text content is foobar' };
+
+      const response = await request(app)
+        .post(`/posts/${postId1}/comments`)
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toMatchObject({
+        createdComment: expect.any(String),
+      });
+      expect(
+        mongoose.isValidObjectId(response.body.createdComment),
+      ).toBeTruthy();
+    });
   });
 });
