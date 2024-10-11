@@ -228,4 +228,22 @@ describe('follower router', () => {
       );
     });
   });
+
+  describe('POST /', () => {
+    test('should response with invalid request id error', async () => {
+      const payload = {
+        request_id: '123456',
+      };
+
+      const response = await request(app)
+        .post('/followers')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      const errorObj = JSON.parse(response.error.text);
+
+      expect(response.status).toEqual(400);
+      expect(errorObj.errors[0].msg).toMatch('Invalid request id');
+    });
+  });
 });
