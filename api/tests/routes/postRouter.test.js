@@ -145,5 +145,19 @@ describe('posts router', () => {
       expect(response.status).toEqual(400);
       expect(errorObj.errors[0].msg).toMatch('Invalid post ID');
     });
+
+    test('should response with post not found error', async () => {
+      const payload = { text_content: 'Text content is foobar' };
+
+      const response = await request(app)
+        .post(`/posts/${postId1}/comments`)
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(400);
+      expect(JSON.parse(response.error.text)).toMatchObject({
+        error: 'Post not found',
+      });
+    });
   });
 });
