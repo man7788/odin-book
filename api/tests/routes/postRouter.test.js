@@ -133,4 +133,17 @@ describe('posts router', () => {
       expect(mongoose.isValidObjectId(response.body.createdLike)).toBeTruthy();
     });
   });
+
+  describe('POST /:id/comments', () => {
+    test('should response with invalid post id error', async () => {
+      const response = await request(app)
+        .post('/posts/123456/comments')
+        .set('Content-Type', 'application/json');
+
+      const errorObj = JSON.parse(response.error.text);
+
+      expect(response.status).toEqual(400);
+      expect(errorObj.errors[0].msg).toMatch('Invalid post ID');
+    });
+  });
 });
