@@ -27,6 +27,8 @@ afterEach(async () => {
   jest.clearAllMocks();
 });
 
+const postId1 = new mongoose.Types.ObjectId('6708b3fba712a7ae310e91e7');
+
 jest.mock('../../utils/passport/jwt', () => {});
 jest.mock('passport', () => ({
   use: jest.fn(),
@@ -69,6 +71,17 @@ describe('posts router', () => {
 
       expect(response.status).toEqual(400);
       expect(errorObj.errors[0].msg).toMatch('Invalid post ID');
+    });
+
+    test('should response with post not found error', async () => {
+      const response = await request(app)
+        .post(`/posts/${postId1}/likes`)
+        .set('Content-Type', 'application/json');
+
+      expect(response.status).toEqual(400);
+      expect(JSON.parse(response.error.text)).toMatchObject({
+        error: 'Post not found',
+      });
     });
   });
 });
