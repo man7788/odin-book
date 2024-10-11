@@ -10,6 +10,7 @@ const {
 const followerRouter = require('../../routes/followerRouter');
 
 const Profile = require('../../models/profileModel');
+const Follower = require('../../models/followerModel');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -61,6 +62,22 @@ describe('follower router', () => {
 
       expect(response.status).toEqual(400);
       expect(errorObj.errors[0].msg).toMatch('Invalid following user id');
+    });
+
+    test('should response with user not found error', async () => {
+      const payload = {
+        following_id: profileId2,
+      };
+
+      const response = await request(app)
+        .post('/followers/requests')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(400);
+      expect(JSON.parse(response.error.text)).toMatchObject({
+        error: 'User not found',
+      });
     });
   });
 });
