@@ -9,6 +9,9 @@ const {
 
 const postRouter = require('../../routes/postRouter');
 
+const Post = require('../../models/postModel');
+const Like = require('../../models/likeModel');
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -26,6 +29,8 @@ afterEach(async () => {
   await dropCollections();
   jest.clearAllMocks();
 });
+
+const profileId1 = new mongoose.Types.ObjectId('507f1f77bcf86cd799439011');
 
 const postId1 = new mongoose.Types.ObjectId('6708b3fba712a7ae310e91e7');
 
@@ -82,6 +87,31 @@ describe('posts router', () => {
       expect(JSON.parse(response.error.text)).toMatchObject({
         error: 'Post not found',
       });
+    });
+
+    test('should response with deleted like', async () => {
+      const post = new Post({
+        profile: profileId1,
+        author: 'foobar',
+        text_content: 'Text content is foobar',
+        _id: postId1,
+      });
+
+      await post.save();
+
+      const like = new Like({
+        post: postId1,
+        profile: profileId1,
+        author: 'foobar',
+      });
+      await like.save();
+
+      const response = await request(app)
+        .post(`/posts/${postId1}/likes`)
+        .set('Content-Type', 'application/json');
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toMatchObject({ removedLike: like._id.toString() });
     });
   });
 });
