@@ -259,5 +259,31 @@ describe('follower router', () => {
       expect(response.status).toEqual(400);
       expect(response.body.error).toMatch('Request not found');
     });
+
+    test('should response with created follower', async () => {
+      const followerRequest = new Request({
+        from: profileId2,
+        to: profileId1,
+      });
+
+      await followerRequest.save();
+
+      const payload = {
+        request_id: followerRequest._id,
+      };
+
+      const response = await request(app)
+        .post('/followers')
+        .set('Content-Type', 'application/json')
+        .send(payload);
+
+      expect(response.status).toEqual(200);
+      expect(response.body.createdFollower).toEqual(
+        expect.objectContaining({
+          follower: profileId2.toString(),
+          following: profileId1.toString(),
+        }),
+      );
+    });
   });
 });
