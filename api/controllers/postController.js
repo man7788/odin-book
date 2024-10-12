@@ -148,7 +148,7 @@ exports.post_comment_create = [
 exports.posts_recent = asyncHandler(async (req, res) => {
   // Return an array of following users profile id
   const followings = await Follower.distinct('following', {
-    follower: req.user.profile,
+    follower: req.user.profile._id,
   });
 
   // Return an array of posts with likes and comments
