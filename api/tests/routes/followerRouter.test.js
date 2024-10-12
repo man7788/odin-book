@@ -284,6 +284,10 @@ describe('follower router', () => {
           following: profileId1.toString(),
         }),
       );
+
+      const deletedRequest = await Request.findById(followerRequest._id);
+
+      expect(deletedRequest).toBeNull();
     });
   });
 });
