@@ -41,4 +41,17 @@ describe('validation result', () => {
       errors: expect.arrayContaining([expect.any(Object)]),
     });
   });
+
+  test('should response with status 200', async () => {
+    const payload = {
+      test_field1: 'foobar',
+      test_field2: 'foobar',
+    };
+    const response = await request(app)
+      .post('/')
+      .set('Content-Type', 'application/json')
+      .send(payload);
+
+    expect(response.status).toEqual(200);
+  });
 });
