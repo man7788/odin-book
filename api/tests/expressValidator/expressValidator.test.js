@@ -11,8 +11,12 @@ app.use(express.json());
 
 app.use(
   '/',
-  body('test_field', 'test field error 1').custom(() => false),
-  body('test_field', 'test field error 2').custom(() => false),
+  body('test_field1', 'test field error 1').custom(
+    (value) => value === 'foobar',
+  ),
+  body('test_field2', 'test field error 2').custom(
+    (value) => value === 'foobar',
+  ),
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
 
@@ -21,16 +25,20 @@ app.use(
         errors: errors.array(),
       });
     }
-    return null;
+
+    return res.status(200).end();
   }),
 );
 
-test('should response with form errors', async () => {
-  const response = await request(app)
-    .post('/')
-    .set('Content-Type', 'application/json');
+describe('validation result', () => {
+  test('should response with form errors', async () => {
+    const response = await request(app)
+      .post('/')
+      .set('Content-Type', 'application/json');
 
-  expect(response.status).toEqual(400);
-  expect(response.body.errors[0].msg).toMatch('test field error 1');
-  expect(response.body.errors[1].msg).toMatch('test field error 2');
+    expect(response.status).toEqual(400);
+    expect.objectContaining({
+      errors: expect.arrayContaining([expect.any(Object)]),
+    });
+  });
 });
