@@ -127,6 +127,6 @@ exports.request_accept = [
     const createdFollower = await follower.save();
     await request.deleteOne();
 
-    return res.json({ createdFollower });
+    return res.json({ createdFollower: createdFollower._id });
   }),
 ];
