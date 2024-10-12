@@ -278,12 +278,12 @@ describe('follower router', () => {
         .send(payload);
 
       expect(response.status).toEqual(200);
-      expect(response.body.createdFollower).toEqual(
-        expect.objectContaining({
-          follower: profileId2.toString(),
-          following: profileId1.toString(),
-        }),
-      );
+      expect(response.body).toMatchObject({
+        createdFollower: expect.any(String),
+      });
+      expect(
+        mongoose.isValidObjectId(response.body.createdFollower),
+      ).toBeTruthy();
 
       const deletedRequest = await Request.findById(followerRequest._id);
 
