@@ -18,14 +18,14 @@ const useAuth = () => {
         });
 
         if (response.status >= 400) {
-          const error = await response.json();
-          throw new Error(error.message);
+          throw new Error(response.statusText);
         }
 
         const responseData = await response.json();
 
         setAuthResult(responseData);
       } catch (error) {
+        console.log(error);
         setAuthError(error);
       } finally {
         setAuthLoading(false);
