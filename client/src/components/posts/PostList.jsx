@@ -1,9 +1,10 @@
 import styles from './PostList.module.css';
+import PropTypes from 'prop-types';
 import usePost from '../../hooks/usePosts';
 import Post from './Post';
 
-function PostList() {
-  const { postResult, postLoading, postError } = usePost();
+function PostList({ profileId = 'recent' }) {
+  const { postResult, postLoading, postError } = usePost(profileId);
 
   if (postLoading) {
     return <div className={styles.App}>Loading...</div>;
@@ -21,5 +22,9 @@ function PostList() {
     </div>
   );
 }
+
+PostList.propTypes = {
+  profileId: PropTypes.string,
+};
 
 export default PostList;
