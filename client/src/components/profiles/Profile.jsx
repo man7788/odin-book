@@ -1,14 +1,23 @@
 import styles from './Profile.module.css';
 import { useParams } from 'react-router-dom';
+import useProfile from '../../hooks/useProfile';
 import PostList from '../posts/postList';
 
 function Profile() {
   let { profileId } = useParams();
-  profileId = '/users/' + profileId;
+  const { profileResult, profileLoading, profileError } = useProfile(profileId);
+
+  if (profileLoading) {
+    return <div className={styles.App}>Loading...</div>;
+  }
+
+  if (profileError) {
+    return <div className={styles.App}>Server Error</div>;
+  }
 
   return (
     <div className={styles.Profile}>
-      John Doe
+      {profileResult?.profile.full_name}
       <PostList profileId={profileId} />
     </div>
   );
