@@ -1,6 +1,6 @@
 import styles from './App.module.css';
 import { useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className={styles.App}>
-      Odin Book
+      <Link to="/">Odin Book</Link>
       <br></br>
       {authResult?.full_name}
       <br></br>
