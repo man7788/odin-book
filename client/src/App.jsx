@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import styles from './App.module.css';
+import { useEffect, useState } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
-import { Navigate } from 'react-router-dom';
 
 function App() {
   const { authResult, authLoading, authError } = useAuth();
@@ -26,8 +26,11 @@ function App() {
 
   return (
     <div className={styles.App}>
-      Odin Book<br></br>
+      Odin Book
+      <br></br>
       {authResult?.full_name}
+      <br></br>
+      <Outlet />
       {navLogin && <Navigate to="/login" replace={true} />}
     </div>
   );
