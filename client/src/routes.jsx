@@ -1,15 +1,22 @@
-import App from "./App";
-import Login from "./components/Login";
-import ErrorPage from "./ErrorPage";
+import App from './App';
+import Login from './components/Login';
+import PostList from './components/posts/postList';
+import Profile from './components/profiles/Profile';
+
+import ErrorPage from './ErrorPage';
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <PostList /> },
+      { path: ':profileId', element: <Profile /> },
+    ],
   },
   {
-    path: "/login",
+    path: 'login',
     element: <Login />,
     errorElement: <ErrorPage />,
   },
