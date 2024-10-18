@@ -30,7 +30,7 @@ function Login() {
       setFromError(error.errors);
     }
 
-    if (error?.message) {
+    if (error?.code) {
       setServerError(true);
     }
 
