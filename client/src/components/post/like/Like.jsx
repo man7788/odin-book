@@ -1,7 +1,7 @@
 import styles from './Like.module.css';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import likeFetch from '../../fetch/likeFetch';
+import likeFetch from '../../../fetch/likeFetch';
 
 function Like({ postId, likes }) {
   const [loading, setLoading] = useState(false);
