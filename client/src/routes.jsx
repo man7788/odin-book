@@ -1,7 +1,7 @@
 import App from './App';
 import Login from './components/Login';
-import PostList from './components/posts/postList';
-import Profile from './components/profiles/Profile';
+import PostList from './components/post/postList';
+import Profile from './components/profile/Profile';
 
 import ErrorPage from './ErrorPage';
 
