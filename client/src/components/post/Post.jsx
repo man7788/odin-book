@@ -1,8 +1,8 @@
 import styles from './PostList.module.css';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import CommentList from './CommentList';
-import Like from './Like';
+import CommentList from './comment/CommentList';
+import Like from './like/Like';
 
 function Post(props) {
   const { profile, author, text_content, likes, comments, _id } = props;
