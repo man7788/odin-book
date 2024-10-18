@@ -15,7 +15,9 @@ const loginFetch = async (loginPayload) => {
     }
 
     if (response.status > 400) {
-      throw new Error(response.statusText);
+      const error = new Error(response.statusText);
+      error.code = response.status;
+      throw error;
     }
 
     const result = await response.json();
