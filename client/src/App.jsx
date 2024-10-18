@@ -9,7 +9,7 @@ function App() {
   const [serverError, setServerError] = useState(false);
 
   useEffect(() => {
-    if (authError?.message === 'Unauthorized') {
+    if (authError?.code === 401) {
       setNavLogin(true);
     } else if (authError) {
       setServerError(true);
@@ -30,7 +30,7 @@ function App() {
       <br></br>
       {authResult?.full_name}
       <br></br>
-      <Outlet />
+      {!authError && <Outlet />}
       {navLogin && <Navigate to="/login" replace={true} />}
     </div>
   );
