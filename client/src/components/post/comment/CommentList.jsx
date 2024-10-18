@@ -2,7 +2,7 @@ import styles from './CommentList.module.css';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Comment from './Comment';
-import commentFetch from '../../fetch/commentFetch';
+import commentFetch from '../../../fetch/commentFetch';
 
 function CommentList({ postId, comments }) {
   const [comment, setComment] = useState('');
