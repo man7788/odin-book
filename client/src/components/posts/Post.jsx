@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import likeFetch from '../../fetch/likeFetch';
-import Comment from './Comment';
+import CommentList from './CommentList';
 
 function Post(props) {
   const { profile, author, text_content, likes, comments, _id } = props;
@@ -13,7 +13,6 @@ function Post(props) {
   const onLike = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(_id);
 
     const { result, error } = await likeFetch(_id);
 
@@ -46,11 +45,7 @@ function Post(props) {
       <br></br>
       {likes ? likes?.length : 0} Likes
       <br></br>
-      {'Comments: '}
-      <br></br>
-      {comments
-        ? comments.map((comment) => <Comment key={comment._id} {...comment} />)
-        : null}
+      <CommentList postId={_id} comments={comments} />
     </div>
   );
 }
