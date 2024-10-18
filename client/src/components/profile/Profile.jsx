@@ -4,7 +4,7 @@ import useProfile from '../../hooks/useProfile';
 import PostList from '../post/postList';
 
 function Profile() {
-  let { profileId } = useParams();
+  const { profileId } = useParams();
   const { profileResult, profileLoading, profileError } = useProfile(profileId);
 
   if (profileLoading) {
@@ -18,6 +18,8 @@ function Profile() {
   return (
     <div className={styles.Profile}>
       {profileResult?.profile.full_name}
+      <br></br>
+      {profileResult?.profile.about}
       <PostList profileId={profileId} />
     </div>
   );
