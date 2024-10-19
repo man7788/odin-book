@@ -124,7 +124,8 @@ exports.check_following_single = [
       });
     }
 
-    const currentProfile = req.params.id === req.user.profile._id;
+    const currentProfile =
+      req.params.id.toString() === req.user.profile._id.toString();
 
     if (currentProfile) {
       return res.json({ currentUser: true });
