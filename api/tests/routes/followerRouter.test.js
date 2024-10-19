@@ -238,6 +238,23 @@ describe('follower router', () => {
       expect(response.status).toEqual(400);
       expect(errorObj.errors[0].msg).toMatch('Invalid user ID');
     });
+
+    test('should response with user not found error', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+      });
+      await profile.save();
+
+      const response = await request(app).get(
+        '/followers/following/507f1f77bcf86cd799439011',
+      );
+
+      expect(response.status).toEqual(400);
+      expect(JSON.parse(response.error.text)).toMatchObject({
+        error: 'User not found',
+      });
+    });
   });
 
   describe('POST /', () => {
