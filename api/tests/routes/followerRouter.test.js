@@ -273,11 +273,20 @@ describe('follower router', () => {
     });
 
     test('should response with user following false', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+        _id: profileId2,
+      });
+
+      await profile.save();
+
+      // profileId2
       const response = await request(app).get(
         '/followers/following/6708220913bf16f4f534c2f1',
       );
 
-      expect(response.body.following).not.toBeTruthy();
+      expect(response.body.following).toBe(false);
     });
 
     test('should response with user following true', async () => {
