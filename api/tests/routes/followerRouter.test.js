@@ -255,6 +255,14 @@ describe('follower router', () => {
         error: 'User not found',
       });
     });
+
+    test('should response with user following false', async () => {
+      const response = await request(app).get(
+        '/followers/following/507f1f77bcf86cd799439011',
+      );
+
+      expect(response.body.following).not.toBeTruthy();
+    });
   });
 
   describe('POST /', () => {
