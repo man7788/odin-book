@@ -303,11 +303,12 @@ describe('follower router', () => {
       });
       await follower.save();
 
+      // profileId2
       const response = await request(app).get(
         '/followers/following/6708220913bf16f4f534c2f1',
       );
 
-      expect(response.body.following).toBeTruthy();
+      expect(response.body.following).toBe(true);
     });
   });
 
