@@ -84,6 +84,56 @@ exports.requests_pending = asyncHandler(async (req, res) => {
   res.json({ requests });
 });
 
+// Handle check single following user on GET
+exports.check_following_single = [
+  param('id')
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage('User id must not be empty')
+    .custom((value) => {
+      const validId = mongoose.isValidObjectId(value);
+      if (!validId) {
+        throw new Error('Invalid user ID');
+      }
+      return validId;
+    })
+    .escape(),
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    }
+
+    const alreadyFollowing = await Follower.findOne({
+      follower: req.user.profile._id,
+      following: req.params.id,
+    });
+
+    if (alreadyFollowing) {
+      return res.json({ following: true });
+    }
+
+    const profile = await Profile.findById(req.params.id);
+
+    if (!profile) {
+      return res.status(400).json({
+        error: 'User not found',
+      });
+    }
+
+    const currentProfile = req.params.id === req.user.profile._id;
+
+    if (currentProfile) {
+      return res.json({ currentUser: true });
+    }
+
+    return res.json({ following: false });
+  }),
+];
+
 // Handle follower request accept on POST
 exports.request_accept = [
   body('request_id')
@@ -128,49 +178,5 @@ exports.request_accept = [
     await request.deleteOne();
 
     return res.json({ createdFollower: createdFollower._id });
-  }),
-];
-
-// Handle check single following user on GET
-exports.check_following_single = [
-  param('id')
-    .trim()
-    .isLength({ min: 1 })
-    .withMessage('User id must not be empty')
-    .custom((value) => {
-      const validId = mongoose.isValidObjectId(value);
-      if (!validId) {
-        throw new Error('Invalid user ID');
-      }
-      return validId;
-    })
-    .escape(),
-  asyncHandler(async (req, res) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        errors: errors.array(),
-      });
-    }
-
-    const profile = await Profile.findById(req.params.id);
-
-    if (!profile) {
-      return res.status(400).json({
-        error: 'User not found',
-      });
-    }
-
-    const alreadyFollowing = await Follower.findOne({
-      follower: req.user.profile._id,
-      following: req.params.id,
-    });
-
-    if (alreadyFollowing) {
-      return res.json({ following: true });
-    }
-
-    return res.json({ following: false });
   }),
 ];
