@@ -1,7 +1,9 @@
 import styles from './Profile.module.css';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useProfile from '../../hooks/useProfile';
 import useFollowing from '../../hooks/useFollowing';
+import requestFetch from '../../fetch/requestFetch';
 import PostList from '../post/postList';
 
 function Profile() {
@@ -10,11 +12,32 @@ function Profile() {
   const { followingResult, followingLoading, followingError } =
     useFollowing(profileId);
 
-  if (profileLoading || followingLoading) {
+  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState(null);
+
+  const onSubmitRequest = async () => {
+    setLoading(true);
+
+    const requestPayload = { following_id: profileId };
+
+    const { result, error } = await requestFetch(requestPayload);
+
+    if (error?.code) {
+      setServerError(true);
+    }
+
+    if (result) {
+      console.log(result);
+    }
+
+    setLoading(false);
+  };
+
+  if (profileLoading || followingLoading || loading) {
     return <div className={styles.App}>Loading...</div>;
   }
 
-  if (profileError || followingError) {
+  if (profileError || followingError || serverError) {
     return <div className={styles.App}>Server Error</div>;
   }
 
@@ -27,7 +50,7 @@ function Profile() {
       {followingResult?.currentUser ? null : followingResult?.following ? (
         'Following'
       ) : (
-        <button>Follow</button>
+        <button onClick={onSubmitRequest}>Follow</button>
       )}
 
       <PostList profileId={profileId} />
