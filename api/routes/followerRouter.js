@@ -29,6 +29,13 @@ router.get(
   followerController.requests_pending,
 );
 
+// GET request for check single following user
+router.get(
+  '/following/:id',
+  passport.authenticate('jwt', { session: false, failWithError: true }),
+  followerController.check_following_single,
+);
+
 // POST request for follower request accept
 router.post(
   '/',
