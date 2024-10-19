@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator');
+const { body, param, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
 const Request = require('../models/requestModel');
@@ -128,5 +128,49 @@ exports.request_accept = [
     await request.deleteOne();
 
     return res.json({ createdFollower: createdFollower._id });
+  }),
+];
+
+// Handle check single following user on GET
+exports.check_following_single = [
+  param('id')
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage('User id must not be empty')
+    .custom((value) => {
+      const validId = mongoose.isValidObjectId(value);
+      if (!validId) {
+        throw new Error('Invalid user ID');
+      }
+      return validId;
+    })
+    .escape(),
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    }
+
+    const profile = await Profile.findById(req.params.id);
+
+    if (!profile) {
+      return res.status(400).json({
+        error: 'User not found',
+      });
+    }
+
+    const alreadyFollowing = await Follower.findOne({
+      follower: req.user.profile._id,
+      following: req.params.id,
+    });
+
+    if (alreadyFollowing) {
+      return res.json({ following: true });
+    }
+
+    return res.json({ following: false });
   }),
 ];
