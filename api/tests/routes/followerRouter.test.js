@@ -256,9 +256,25 @@ describe('follower router', () => {
       });
     });
 
-    test('should response with user following false', async () => {
+    test('should response with current user true', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+        _id: profileId1,
+      });
+
+      await profile.save();
+
+      // profileId1
       const response = await request(app).get(
         '/followers/following/507f1f77bcf86cd799439011',
+      );
+      expect(response.body.currentUser).toBe(true);
+    });
+
+    test('should response with user following false', async () => {
+      const response = await request(app).get(
+        '/followers/following/6708220913bf16f4f534c2f1',
       );
 
       expect(response.body.following).not.toBeTruthy();
