@@ -131,6 +131,15 @@ exports.check_following_single = [
       return res.json({ currentUser: true });
     }
 
+    const pendingRequest = await Request.findOne({
+      from: req.user.profile._id,
+      to: req.params.id,
+    });
+
+    if (pendingRequest) {
+      return res.json({ pending: true });
+    }
+
     return res.json({ following: false });
   }),
 ];
