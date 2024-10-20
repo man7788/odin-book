@@ -47,7 +47,9 @@ function Profile() {
       <br></br>
       {profileResult?.profile.about}
       <br></br>
-      {followingResult?.currentUser ? null : followingResult?.following ? (
+      {followingResult?.currentUser ? null : followingResult?.pending ? (
+        'Pending'
+      ) : followingResult?.following ? (
         'Following'
       ) : (
         <button onClick={onSubmitRequest}>Follow</button>
