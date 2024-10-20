@@ -272,10 +272,34 @@ describe('follower router', () => {
       expect(response.body.currentUser).toBe(true);
     });
 
+    test('should response with request pending true', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar2',
+        _id: profileId2,
+      });
+
+      await profile.save();
+
+      const followerRequest = new Request({
+        from: profileId1,
+        to: profileId2,
+      });
+
+      await followerRequest.save();
+
+      // profileId1
+      const response = await request(app).get(
+        '/followers/following/6708220913bf16f4f534c2f1',
+      );
+
+      expect(response.body.pending).toBe(true);
+    });
+
     test('should response with user following false', async () => {
       const profile = new Profile({
         first_name: 'foo',
-        last_name: 'bar',
+        last_name: 'bar2',
         _id: profileId2,
       });
 
