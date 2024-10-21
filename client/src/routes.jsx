@@ -1,6 +1,6 @@
 import App from './App';
 import Login from './components/Login';
-import PostList from './components/post/postList';
+import Home from './components/home/home';
 import Profile from './components/profile/Profile';
 
 import ErrorPage from './ErrorPage';
@@ -11,7 +11,7 @@ const routes = [
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <PostList /> },
+      { index: true, element: <Home /> },
       { path: ':profileId', element: <Profile /> },
     ],
   },
