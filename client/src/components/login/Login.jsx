@@ -1,7 +1,7 @@
 import styles from './Login.module.css';
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import loginFetch from '../fetch/loginFetch';
+import loginFetch from '../../fetch/loginFetch';
 
 function Login() {
   const [navHome, setNavHome] = useState(false);
