@@ -2,7 +2,6 @@ import styles from './App.module.css';
 import { useEffect, useState } from 'react';
 import { Link, Navigate, Outlet } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
-import Create from './components/create/Create';
 
 function App() {
   const { authResult, authLoading, authError } = useAuth();
@@ -30,7 +29,6 @@ function App() {
       <Link to="/">Odin Book</Link>
       <br></br>
       {authResult?.full_name}
-      <Create />
       <br></br>
       {!authError && <Outlet />}
       {navLogin && <Navigate to="/login" replace={true} />}
