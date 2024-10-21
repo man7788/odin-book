@@ -1,5 +1,5 @@
 import App from './App';
-import Login from './components/Login';
+import Login from './components/login/Login';
 import Home from './components/home/home';
 import Profile from './components/profile/Profile';
 
