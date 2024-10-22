@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-const usePost = (profileId) => {
-  const [postResult, setPostResult] = useState(null);
-  const [postLoading, setPostLoading] = useState(true);
-  const [postError, setPostError] = useState(null);
+const usePosts = (profileId) => {
+  const [postsResult, setPostsResult] = useState(null);
+  const [postsLoading, setPostsLoading] = useState(true);
+  const [postsError, setPostsError] = useState(null);
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -27,17 +27,17 @@ const usePost = (profileId) => {
 
         const responseData = await response.json();
 
-        setPostResult(responseData);
+        setPostsResult(responseData);
       } catch (error) {
-        setPostError(error);
+        setPostsError(error);
       } finally {
-        setPostLoading(false);
+        setPostsLoading(false);
       }
     };
     fetchPosts();
   }, [profileId]);
 
-  return { postResult, postLoading, postError };
+  return { postsResult, postsLoading, postsError };
 };
 
-export default usePost;
+export default usePosts;
