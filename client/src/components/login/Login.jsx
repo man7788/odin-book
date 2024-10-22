@@ -1,6 +1,6 @@
 import styles from './Login.module.css';
 import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import loginFetch from '../../fetch/loginFetch';
 
 function Login() {
@@ -84,6 +84,9 @@ function Login() {
         {formError &&
           formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
       </div>
+      <Link exact="true" to="/signup">
+        Sign Up
+      </Link>
       {navHome && <Navigate to="/" replace={true} />}
     </div>
   );
