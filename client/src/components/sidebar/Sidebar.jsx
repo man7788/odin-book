@@ -6,6 +6,7 @@ function Sidebar() {
     <div className={styles.Sidebar}>
       <Link to="/">Home</Link>
       <Link to="users">Users</Link>
+      <Link to="users/requests">Requests</Link>
     </div>
   );
 }
