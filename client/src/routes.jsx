@@ -1,5 +1,6 @@
 import App from './App';
 import Login from './components/login/Login';
+import SignUp from './components/signup/Signup';
 import Home from './components/home/home';
 import Profile from './components/profile/Profile';
 import UserList from './components/users/UserList';
@@ -18,10 +19,14 @@ const routes = [
       { path: 'users/requests', element: <RequestList /> },
     ],
   },
-
   {
     path: 'login',
     element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: 'signup',
+    element: <SignUp />,
     errorElement: <ErrorPage />,
   },
 ];
