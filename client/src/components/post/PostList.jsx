@@ -1,22 +1,22 @@
 import styles from './PostList.module.css';
 import PropTypes from 'prop-types';
-import usePost from '../../hooks/usePosts';
+import usePosts from '../../hooks/usePosts';
 import Post from './Post';
 
 function PostList({ profileId = 'recent' }) {
-  const { postResult, postLoading, postError } = usePost(profileId);
+  const { postsResult, postsLoading, postsError } = usePosts(profileId);
 
-  if (postLoading) {
+  if (postsLoading) {
     return <div className={styles.App}>Loading...</div>;
   }
 
-  if (postError) {
+  if (postsError) {
     return <div className={styles.App}>Server Error</div>;
   }
 
   return (
     <div className={styles.PostList}>
-      {postResult?.posts.map((post) => (
+      {postsResult?.posts.map((post) => (
         <Post key={post._id} {...post} />
       ))}
     </div>
