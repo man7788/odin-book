@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import useProfile from '../../hooks/useProfile';
 import useFollowing from '../../hooks/useFollowing';
 import requestFetch from '../../fetch/requestFetch';
-import PostList from '../post/postList';
+import PostList from '../posts/PostList';
 
 function Profile() {
   const { profileId } = useParams();
