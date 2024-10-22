@@ -15,8 +15,8 @@ function UserList() {
 
   return (
     <div className={styles.UserList}>
-      {usersResult?.profiles.map((profiles) => (
-        <User key={profiles._id} {...profiles} />
+      {usersResult?.profiles.map((profile) => (
+        <User key={profile._id} {...profile} />
       ))}
     </div>
   );
