@@ -102,21 +102,18 @@ exports.log_in = [
     .trim()
     .isLength({ min: 1 })
     .withMessage('Email must not be empty')
-    .isLength({ max: 200 })
-    .withMessage('Email exceeded maximum length')
     .bail()
     .isEmail()
     .withMessage('Email format is invalid')
-    .bail()
+    .isLength({ max: 255 })
+    .withMessage('Email exceeded maximum length')
     .escape(),
   body('password', 'Password must not be empty')
     .trim()
     .isLength({ min: 1 })
     .withMessage('Password must not be empty')
-    .bail()
     .isLength({ max: 200 })
     .withMessage('Password exceeded maximum length')
-    .bail()
     .escape(),
 
   // eslint-disable-next-line consistent-return
