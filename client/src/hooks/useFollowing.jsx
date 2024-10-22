@@ -7,7 +7,7 @@ const useFollowing = (profileId) => {
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
-    const fetchStatus = async () => {
+    const fetchFollowing = async () => {
       try {
         const response = await fetch(
           `http://localhost:3000/followers/following/${profileId}`,
@@ -35,7 +35,7 @@ const useFollowing = (profileId) => {
         setFollowingLoading(false);
       }
     };
-    fetchStatus();
+    fetchFollowing();
   }, [profileId]);
 
   return { followingResult, followingLoading, followingError };

@@ -9,7 +9,7 @@ const usePost = (profileId) => {
     const token = JSON.parse(localStorage.getItem('token'));
     const path = profileId === 'recent' ? 'recent' : `users/${profileId}`;
 
-    const fetchStatus = async () => {
+    const fetchPosts = async () => {
       try {
         const response = await fetch(`http://localhost:3000/posts/${path}`, {
           mode: 'cors',
@@ -34,7 +34,7 @@ const usePost = (profileId) => {
         setPostLoading(false);
       }
     };
-    fetchStatus();
+    fetchPosts();
   }, [profileId]);
 
   return { postResult, postLoading, postError };

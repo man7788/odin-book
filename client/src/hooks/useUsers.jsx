@@ -7,7 +7,7 @@ const useUsers = () => {
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
-    const fetchStatus = async () => {
+    const fetchUsers = async () => {
       try {
         const response = await fetch(`http://localhost:3000/users`, {
           mode: 'cors',
@@ -32,7 +32,7 @@ const useUsers = () => {
         setUsersLoading(false);
       }
     };
-    fetchStatus();
+    fetchUsers();
   }, []);
 
   return { usersResult, usersLoading, usersError };

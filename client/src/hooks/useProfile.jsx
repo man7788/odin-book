@@ -7,7 +7,7 @@ const useProfile = (profileId) => {
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
-    const fetchStatus = async () => {
+    const fetchProfile = async () => {
       try {
         const response = await fetch(
           `http://localhost:3000/users/${profileId}`,
@@ -35,7 +35,7 @@ const useProfile = (profileId) => {
         setProfileLoading(false);
       }
     };
-    fetchStatus();
+    fetchProfile();
   }, [profileId]);
 
   return { profileResult, profileLoading, profileError };
