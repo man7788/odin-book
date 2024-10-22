@@ -9,6 +9,11 @@ function App() {
   const [navLogin, setNavLogin] = useState(false);
   const [serverError, setServerError] = useState(false);
 
+  const onLogout = () => {
+    localStorage.clear();
+    setNavLogin(true);
+  };
+
   useEffect(() => {
     if (authError?.code === 401) {
       setNavLogin(true);
@@ -28,6 +33,9 @@ function App() {
   return (
     <div className={styles.App}>
       <Link to="/">Odin Book</Link>
+      <Link onClick={onLogout} to="/login">
+        Log Out
+      </Link>
       <br></br>
       {authResult?.full_name}
       <Sidebar />
