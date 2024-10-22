@@ -13,7 +13,6 @@ const likeFetch = async (postId) => {
       },
     );
     if (response.status >= 400) {
-      console.log(response.status);
       const error = new Error(response.statusText);
       error.code = response.status;
       throw error;
