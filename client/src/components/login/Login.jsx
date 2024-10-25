@@ -52,11 +52,19 @@ function Login() {
 
   return (
     <div className={styles.Login}>
-      Login
       <div className={styles.formContainer}>
-        <form action="" method="post" onSubmit={onSubmitForm}>
+        <div className={styles.heading}>
+          <h1>Odin Book</h1>
+        </div>
+        <form
+          className={styles.form}
+          action=""
+          method="post"
+          onSubmit={onSubmitForm}
+        >
           <div className={styles.inputContainer}>
             <input
+              className={styles.input}
               type="text"
               name="email"
               id="email"
@@ -67,6 +75,7 @@ function Login() {
           </div>
           <div className={styles.inputContainer}>
             <input
+              className={styles.input}
               type="password"
               name="password"
               id="password"
@@ -75,18 +84,20 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
             ></input>
           </div>
-          <div className={styles.loginBtn}>
+          <div className={styles.loginButton}>
             <button className={styles.button} type="submit">
               Log In
             </button>
+          </div>
+          <div className={styles.signupLink}>
+            <Link className={styles.a} exact="true" to="/signup">
+              Sign Up
+            </Link>
           </div>
         </form>
         {formError &&
           formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
       </div>
-      <Link exact="true" to="/signup">
-        Sign Up
-      </Link>
       {navHome && <Navigate to="/" replace={true} />}
     </div>
   );
