@@ -1,0 +1,14 @@
+:root {
+  /* Input */
+  --input-background-dark-gray: #242424;
+  --input-placeholder-light-gray: #ffffffa0;
+  --input-focus-shadow-white: #ffffffde;
+
+  /* Button */
+  --button-background-white: #ffffffde;
+  --button-border-white: #ffffffde;
+  --button-color-almost-black: #121212;
+  --button-color-white: #ffffffde;
+  --button-hover-light-gray: #ffffffd0;
+  --button-hover-dark-gray: #202020;
+}
