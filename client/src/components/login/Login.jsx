@@ -14,6 +14,8 @@ function Login() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  const [loginActive, setLoginActive] = useState(false);
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
 
@@ -33,6 +35,14 @@ function Login() {
       }
     }
   }, [formError]);
+
+  useEffect(() => {
+    if (email.length > 0 && password.length > 0) {
+      setLoginActive(true);
+    } else {
+      setLoginActive(false);
+    }
+  }, [email, password]);
 
   useEffect(() => {
     setEmailError(null);
@@ -110,7 +120,10 @@ function Login() {
             <div className={styles.error}>{passwordError}</div>
           </div>
           <div className={styles.loginButton}>
-            <button className={styles.button} type="submit">
+            <button
+              className={loginActive ? styles.button : styles.disableButton}
+              type="submit"
+            >
               Log In
             </button>
           </div>
