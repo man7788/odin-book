@@ -7,9 +7,12 @@ function Login() {
   const [navHome, setNavHome] = useState(false);
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(null);
-  const [formError, setFromError] = useState(null);
+  const [formError, setFromError] = useState([]);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -18,6 +21,26 @@ function Login() {
       setNavHome(true);
     }
   }, []);
+
+  useEffect(() => {
+    for (const error of formError) {
+      if (/email/i.test(error.msg)) {
+        setEmailError(error.msg);
+      } else if (/user/i.test(error.msg)) {
+        setEmailError(error.msg);
+      } else if (/password/i.test(error.msg)) {
+        setPasswordError(error.msg);
+      }
+    }
+  }, [formError]);
+
+  useEffect(() => {
+    setEmailError(null);
+  }, [email]);
+
+  useEffect(() => {
+    setPasswordError(null);
+  }, [password]);
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
@@ -64,7 +87,7 @@ function Login() {
         >
           <div className={styles.inputContainer}>
             <input
-              className={styles.input}
+              className={emailError ? styles.inputError : styles.input}
               type="text"
               name="email"
               id="email"
@@ -72,10 +95,11 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></input>
+            <div className={styles.error}>{emailError}</div>
           </div>
           <div className={styles.inputContainer}>
             <input
-              className={styles.input}
+              className={passwordError ? styles.inputError : styles.input}
               type="password"
               name="password"
               id="password"
@@ -83,6 +107,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></input>
+            <div className={styles.error}>{passwordError}</div>
           </div>
           <div className={styles.loginButton}>
             <button className={styles.button} type="submit">
@@ -95,8 +120,6 @@ function Login() {
             </Link>
           </div>
         </form>
-        {formError &&
-          formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
       </div>
       {navHome && <Navigate to="/" replace={true} />}
     </div>
