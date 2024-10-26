@@ -61,13 +61,15 @@ function Login() {
 
     if (error?.errors) {
       setFromError(error.errors);
+      setLoading(false);
+      return;
     }
 
-    if (error?.code) {
+    if (error) {
       setServerError(true);
     }
 
-    if (result?.token) {
+    if (result) {
       localStorage.setItem('token', JSON.stringify(result.token));
       setNavHome(true);
     }
