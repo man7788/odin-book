@@ -1,4 +1,8 @@
 :root {
+  /* Loader */
+  --loader-border-white: #ffffffde;
+  --loader-border-top-blue: #3498db;
+
   /* Input */
   --input-background-dark-gray: #242424;
   --input-placeholder-light-gray: #ffffffa0;
