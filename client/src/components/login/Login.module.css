@@ -29,27 +29,66 @@
 }
 
 .inputContainer {
+  --input-border-radius: 10px;
+  --input-height: 45px;
+  --input-padding-left: 10px;
+  --input-font-size: 1rem;
+  --input-placeholder: 1rem;
+  --input-border: none;
+  --input-focus-outline: none;
+  --input-focus-box-shadow: 0 0 0 1px var(--input-focus-shadow-white);
+  --input-error-focus-box-shadow: 0 0 0 1px var(--input-focus-shadow-red);
+  --error-height: 25px;
+
   width: 300px;
-  height: 45px;
   display: flex;
+  flex-direction: column;
 }
 
 .input {
-  border: 0;
-  border-radius: 10px;
+  border: var(--input-border);
+  border-radius: var(--input-border-radius);
   background-color: var(--input-background-dark-gray);
-  width: 100%;
-  padding-left: 10px;
+  width: var(--input-width);
+  height: var(--input-height);
+  font-size: var(--input-font-size);
+  padding-left: var(--input-padding-left);
 }
 
 .input::placeholder {
   color: var(--input-placeholder-light-gray);
-  font-size: 1rem;
+  font-size: var(--input-placeholder);
 }
 
 .input:focus {
-  outline: none;
-  box-shadow: 0 0 0 1px var(--input-focus-shadow-white);
+  outline: var(--input-focus-outline);
+  box-shadow: var(--input-focus-box-shadow);
+}
+
+.inputError {
+  border: var(--input-border);
+  border-radius: var(--input-border-radius);
+  box-shadow: var(--input-error-focus-box-shadow);
+  background-color: var(--input-background-dark-gray);
+  width: var(--input-width);
+  height: var(--input-height);
+  font-size: var(--input-font-size);
+  padding-left: var(--input-padding-left);
+}
+
+.inputError::placeholder {
+  color: var(--input-placeholder-light-gray);
+  font-size: var(--input-placeholder);
+}
+
+.inputError:focus {
+  outline: var(--input-focus-outline);
+  box-shadow: var(--input-focus-box-shadow);
+}
+
+.error {
+  color: var(--input-focus-shadow-red);
+  height: var(--error-height);
 }
 
 .loginButton {
