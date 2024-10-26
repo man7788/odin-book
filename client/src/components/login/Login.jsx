@@ -5,7 +5,6 @@ import loginFetch from '../../fetch/loginFetch';
 
 function Login() {
   const [navHome, setNavHome] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(null);
   const [formError, setFromError] = useState([]);
 
@@ -14,6 +13,7 @@ function Login() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  const [formLoading, setFormLoading] = useState(false);
   const [loginActive, setLoginActive] = useState(false);
 
   useEffect(() => {
@@ -54,14 +54,16 @@ function Login() {
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setPasswordError('');
+    setEmailError('');
+    setFormLoading(true);
 
     const loginPayload = { email, password };
     const { result, error } = await loginFetch(loginPayload);
 
     if (error?.errors) {
+      setFormLoading(false);
       setFromError(error.errors);
-      setLoading(false);
       return;
     }
 
@@ -73,17 +75,7 @@ function Login() {
       localStorage.setItem('token', JSON.stringify(result.token));
       setNavHome(true);
     }
-
-    setLoading(false);
   };
-
-  if (loading) {
-    return (
-      <div className={styles.loaderContainer}>
-        <div className={styles.loader}></div>
-      </div>
-    );
-  }
 
   if (serverError) {
     return <div className={styles.App}>Server Error</div>;
@@ -126,12 +118,18 @@ function Login() {
             <div className={styles.error}>{passwordError}</div>
           </div>
           <div className={styles.loginButton}>
-            <button
-              className={loginActive ? styles.button : styles.disableButton}
-              type="submit"
-            >
-              Log In
-            </button>
+            {formLoading ? (
+              <div className={styles.formLoaderContainer}>
+                <div className={styles.formLoader}></div>
+              </div>
+            ) : (
+              <button
+                className={loginActive ? styles.button : styles.disableButton}
+                type="submit"
+              >
+                Log In
+              </button>
+            )}
           </div>
           <div className={styles.signupLink}>
             <Link className={styles.a} exact="true" to="/signup">
