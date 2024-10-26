@@ -92,6 +92,11 @@
 }
 
 .loginButton {
+  --button-radius: 10px;
+  --button-height: 100%;
+  --button-width: 100%;
+  --button-font-weight: 600;
+  --button-align-self: center;
   width: 300px;
   height: 45px;
   display: flex;
@@ -100,17 +105,28 @@
 }
 
 .loginButton .button {
-  border-radius: 10px;
+  border-radius: var(--button-radius);
   background: var(--button-background-white);
   color: var(--button-color-almost-black);
-  height: 100%;
-  width: 100%;
-  font-weight: 600;
-  align-self: center;
+  height: var(--button-height);
+  width: var(--button-width);
+  font-weight: var(--button-font-weight);
+  align-self: var(--button-align-self);
 }
 
 .loginButton .button:hover {
   background: var(--button-hover-light-gray);
+}
+
+.disableButton {
+  border-radius: var(--button-radius);
+  background: var(--button-disable-dark-gray);
+  color: var(--button-color-almost-black);
+  height: var(--button-height);
+  width: var(--button-width);
+  font-weight: var(--button-font-weight);
+  align-self: var(--button-align-self);
+  pointer-events: none;
 }
 
 .signupLink .a {
