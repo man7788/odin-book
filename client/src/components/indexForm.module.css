@@ -1,0 +1,135 @@
+.pageLayout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.formLayout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputContainer {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border: none;
+  border-radius: 10px;
+  background-color: var(--input-background-dark-gray);
+  height: 45px;
+  font-size: 1rem;
+  padding-left: 10px;
+}
+
+.input::placeholder {
+  color: var(--input-placeholder-light-gray);
+  font-size: 1rem;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--input-focus-shadow-white);
+}
+
+.inputError {
+  composes: input;
+  box-shadow: 0 0 0 1px var(--input-focus-shadow-red);
+}
+
+.error {
+  color: var(--input-focus-shadow-red);
+  height: 25px;
+}
+
+.button {
+  border-radius: 10px;
+  background: var(--button-background-white);
+  color: var(--button-color-almost-black);
+  width: 300px;
+  height: 45px;
+  font-weight: 600;
+}
+
+.button:hover {
+  background: var(--button-hover-light-gray);
+}
+
+.buttonDisable {
+  composes: button;
+  background: var(--button-disable-dark-gray);
+  pointer-events: none;
+}
+
+.formLoaderContainer {
+  composes: button;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formLoader {
+  width: 25px;
+  aspect-ratio: 1;
+  display: grid;
+  border-radius: 50%;
+  background: linear-gradient(
+        0deg,
+        rgb(0 0 0/50%) 30%,
+        #0000 0 70%,
+        rgb(0 0 0/100%) 0
+      )
+      50%/8% 100%,
+    linear-gradient(90deg, rgb(0 0 0/25%) 30%, #0000 0 70%, rgb(0 0 0/75%) 0)
+      50%/100% 8%;
+  background-repeat: no-repeat;
+  animation: l23 1s infinite steps(12);
+}
+
+.formLoader::before,
+.formLoader::after {
+  content: '';
+  grid-area: 1/1;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.915;
+  transform: rotate(30deg);
+}
+
+.formLoader::after {
+  opacity: 0.83;
+  transform: rotate(60deg);
+}
+
+@keyframes l23 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.a {
+  border: 1px solid var(--button-border-white);
+  border-radius: 10px;
+  color: var(--button-color-white);
+  height: 45px;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.a:hover {
+  background: var(--button-hover-dark-gray);
+}
