@@ -1,12 +1,11 @@
 import styles from './SignUp.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import signUpFetch from '../../fetch/signUpFetch';
 import loginFetch from '../../fetch/loginFetch';
 
 function SignUp() {
   const [navHome, setNavHome] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(null);
   const [formError, setFromError] = useState(null);
 
@@ -16,31 +15,50 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const [formLoading, setFormLoading] = useState(false);
+  const [loginActive, setLoginActive] = useState(false);
+
+  useEffect(() => {
+    if (
+      firstName.length > 0 &&
+      lastName.length > 0 &&
+      email.length > 0 &&
+      password.length > 0 &&
+      confirmPassword.length > 0
+    ) {
+      setLoginActive(true);
+    } else {
+      setLoginActive(false);
+    }
+  }, [firstName, lastName, email, password, confirmPassword]);
+
   const autoLogin = async () => {
-    setLoading(true);
+    setFormLoading(true);
 
     const loginPayload = { email, password };
     const { result, error } = await loginFetch(loginPayload);
 
     if (error?.errors) {
+      setFormLoading(false);
       setFromError(error.errors);
+      return;
     }
 
-    if (error?.code) {
+    if (error) {
       setServerError(true);
     }
 
-    if (result?.token) {
+    if (result) {
       localStorage.setItem('token', JSON.stringify(result.token));
       setNavHome(true);
     }
 
-    setLoading(false);
+    setFormLoading(false);
   };
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setFormLoading(true);
 
     const signUpPayload = {
       first_name: firstName,
@@ -52,10 +70,12 @@ function SignUp() {
     const { result, error } = await signUpFetch(signUpPayload);
 
     if (error?.errors) {
+      setFormLoading(false);
       setFromError(error.errors);
+      return;
     }
 
-    if (error?.code) {
+    if (error) {
       setServerError(true);
     }
 
@@ -64,12 +84,8 @@ function SignUp() {
       autoLogin();
     }
 
-    setLoading(false);
+    setFormLoading(false);
   };
-
-  if (loading) {
-    return <div className={styles.SignUp}>Loading...</div>;
-  }
 
   if (serverError) {
     return <div className={styles.SignUp}>Server Error</div>;
@@ -145,9 +161,15 @@ function SignUp() {
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></input>
           </div>
-          <button className={styles.button} type="submit">
-            Sign Up
-          </button>
+          {formLoading ? null : (
+            <button
+              className={loginActive ? styles.button : styles.buttonDisable}
+              type="submit"
+            >
+              Sign Up
+            </button>
+          )}
+
           <Link className={styles.a} to="/login">
             Log In
           </Link>
