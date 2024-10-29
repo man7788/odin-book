@@ -1,198 +1,54 @@
 .Login {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  composes: pageLayout from '../indexForm.module.css';
 }
 
 .formContainer {
-  width: 350px;
   height: 465px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .form {
-  display: flex;
+  composes: formLayout from '../indexForm.module.css';
   height: 290px;
-  flex-direction: column;
-  justify-content: space-around;
 }
 
 .heading {
+  composes: heading from '../indexForm.module.css';
   height: 90px;
   font-size: 1.3rem;
-  display: flex;
-  align-items: center;
 }
 
 .inputContainer {
-  --input-border-radius: 10px;
-  --input-height: 45px;
-  --input-padding-left: 10px;
-  --input-font-size: 1rem;
-  --input-placeholder: 1rem;
-  --input-border: none;
-  --input-focus-outline: none;
-  --input-focus-box-shadow: 0 0 0 1px var(--input-focus-shadow-white);
-  --input-error-focus-box-shadow: 0 0 0 1px var(--input-focus-shadow-red);
-  --error-height: 25px;
-
-  width: 300px;
-  display: flex;
-  flex-direction: column;
+  composes: inputContainer from '../indexForm.module.css';
 }
 
 .input {
-  border: var(--input-border);
-  border-radius: var(--input-border-radius);
-  background-color: var(--input-background-dark-gray);
-  width: var(--input-width);
-  height: var(--input-height);
-  font-size: var(--input-font-size);
-  padding-left: var(--input-padding-left);
-}
-
-.input::placeholder {
-  color: var(--input-placeholder-light-gray);
-  font-size: var(--input-placeholder);
-}
-
-.input:focus {
-  outline: var(--input-focus-outline);
-  box-shadow: var(--input-focus-box-shadow);
+  composes: input from '../indexForm.module.css';
 }
 
 .inputError {
-  border: var(--input-border);
-  border-radius: var(--input-border-radius);
-  box-shadow: var(--input-error-focus-box-shadow);
-  background-color: var(--input-background-dark-gray);
-  width: var(--input-width);
-  height: var(--input-height);
-  font-size: var(--input-font-size);
-  padding-left: var(--input-padding-left);
-}
-
-.inputError::placeholder {
-  color: var(--input-placeholder-light-gray);
-  font-size: var(--input-placeholder);
-}
-
-.inputError:focus {
-  outline: var(--input-focus-outline);
-  box-shadow: var(--input-focus-box-shadow);
+  composes: inputError from '../indexForm.module.css';
 }
 
 .error {
-  color: var(--input-focus-shadow-red);
-  height: var(--error-height);
+  composes: error from '../indexForm.module.css';
 }
 
-.loginButton {
-  --button-radius: 10px;
-  --button-height: 100%;
-  --button-width: 100%;
-  --button-font-weight: 600;
-  --button-align-self: center;
-  width: 300px;
-  height: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.button {
+  composes: button from '../indexForm.module.css';
 }
 
-.loginButton .button {
-  border-radius: var(--button-radius);
-  background: var(--button-background-white);
-  color: var(--button-color-almost-black);
-  height: var(--button-height);
-  width: var(--button-width);
-  font-weight: var(--button-font-weight);
-  align-self: var(--button-align-self);
-}
-
-.loginButton .button:hover {
-  background: var(--button-hover-light-gray);
-}
-
-.disableButton {
-  border-radius: var(--button-radius);
-  background: var(--button-disable-dark-gray);
-  color: var(--button-color-almost-black);
-  height: var(--button-height);
-  width: var(--button-width);
-  font-weight: var(--button-font-weight);
-  align-self: var(--button-align-self);
-  pointer-events: none;
-}
-
-.signupLink .a {
-  border: 1px solid var(--button-border-white);
-  border-radius: 10px;
-  color: var(--button-color-white);
-  height: 45px;
-  text-decoration: none;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.signupLink .a:hover {
-  background: var(--button-hover-dark-gray);
+.buttonDisable {
+  composes: buttonDisable from '../indexForm.module.css';
 }
 
 .formLoaderContainer {
-  border-radius: var(--button-radius);
-  background: var(--button-background-white);
-  color: var(--button-color-almost-black);
-  height: var(--button-height);
-  width: var(--button-width);
-  font-weight: var(--button-font-weight);
-  align-self: var(--button-align-self);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  composes: formLoaderContainer from '../indexForm.module.css';
 }
 
 .formLoader {
-  width: 25px;
-  aspect-ratio: 1;
-  display: grid;
-  border-radius: 50%;
-  background: linear-gradient(
-        0deg,
-        rgb(0 0 0/50%) 30%,
-        #0000 0 70%,
-        rgb(0 0 0/100%) 0
-      )
-      50%/8% 100%,
-    linear-gradient(90deg, rgb(0 0 0/25%) 30%, #0000 0 70%, rgb(0 0 0/75%) 0)
-      50%/100% 8%;
-  background-repeat: no-repeat;
-  animation: l23 1s infinite steps(12);
+  composes: formLoader from '../indexForm.module.css';
 }
 
-.formLoader::before,
-.formLoader::after {
-  content: '';
-  grid-area: 1/1;
-  border-radius: 50%;
-  background: inherit;
-  opacity: 0.915;
-  transform: rotate(30deg);
-}
-
-.formLoader::after {
-  opacity: 0.83;
-  transform: rotate(60deg);
-}
-
-@keyframes l23 {
-  100% {
-    transform: rotate(1turn);
-  }
+.a {
+  composes: a from '../indexForm.module.css';
 }
