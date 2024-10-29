@@ -161,7 +161,11 @@ function SignUp() {
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></input>
           </div>
-          {formLoading ? null : (
+          {formLoading ? (
+            <div className={styles.formLoaderContainer}>
+              <div className={styles.formLoader}></div>
+            </div>
+          ) : (
             <button
               className={loginActive ? styles.button : styles.buttonDisable}
               type="submit"
