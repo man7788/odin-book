@@ -3,7 +3,6 @@
 }
 
 .formContainer {
-  border: 1px solid orange;
   height: 620px;
 }
 
@@ -19,7 +18,6 @@
 }
 
 .heading:nth-child(2) {
-  height: fit-content;
   font-size: 1rem;
 }
 
@@ -29,6 +27,14 @@
 
 .input {
   composes: input from '../indexForm.module.css';
+}
+
+.inputError {
+  composes: inputError from '../indexForm.module.css';
+}
+
+.error {
+  composes: error from '../indexForm.module.css';
 }
 
 .button {
