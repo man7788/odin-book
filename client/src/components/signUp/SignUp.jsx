@@ -7,16 +7,59 @@ import loginFetch from '../../fetch/loginFetch';
 function SignUp() {
   const [navHome, setNavHome] = useState(false);
   const [serverError, setServerError] = useState(null);
-  const [formError, setFromError] = useState(null);
+  const [formError, setFromError] = useState([]);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [firstNameError, setFirstNameError] = useState(null);
+  const [lastNameError, setLastNameError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(null);
 
   const [formLoading, setFormLoading] = useState(false);
   const [loginActive, setLoginActive] = useState(false);
+
+  useEffect(() => {
+    for (const error of formError) {
+      if (/first name/i.test(error.msg)) {
+        setFirstNameError(error.msg);
+      } else if (/last name/i.test(error.msg)) {
+        setLastNameError(error.msg);
+      } else if (/email/i.test(error.msg)) {
+        setEmailError(error.msg);
+      } else if (/\bmatch/i.test(error.msg)) {
+        setConfirmPasswordError(error.msg);
+      } else if (/confirm password/i.test(error.msg)) {
+        setConfirmPasswordError(error.msg);
+      } else if (/\bpassword\b/i.test(error.msg)) {
+        setPasswordError(error.msg);
+      }
+    }
+  }, [formError]);
+
+  useEffect(() => {
+    setFirstNameError(null);
+  }, [firstName]);
+
+  useEffect(() => {
+    setLastNameError(null);
+  }, [lastName]);
+
+  useEffect(() => {
+    setEmailError(null);
+  }, [email]);
+
+  useEffect(() => {
+    setPasswordError(null);
+  }, [password]);
+
+  useEffect(() => {
+    setConfirmPasswordError(null);
+  }, [confirmPassword]);
 
   useEffect(() => {
     if (
@@ -108,7 +151,7 @@ function SignUp() {
         >
           <div className={styles.inputContainer}>
             <input
-              className={styles.input}
+              className={firstNameError ? styles.inputError : styles.input}
               type="text"
               name="first_name"
               id="first_name"
@@ -116,10 +159,11 @@ function SignUp() {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             ></input>
+            <div className={styles.error}>{firstNameError}</div>
           </div>
           <div className={styles.inputContainer}>
             <input
-              className={styles.input}
+              className={lastNameError ? styles.inputError : styles.input}
               type="text"
               name="last_name"
               id="last_name"
@@ -127,10 +171,11 @@ function SignUp() {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             ></input>
+            <div className={styles.error}>{lastNameError}</div>
           </div>
           <div className={styles.inputContainer}>
             <input
-              className={styles.input}
+              className={emailError ? styles.inputError : styles.input}
               type="text"
               name="email"
               id="email"
@@ -138,10 +183,11 @@ function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></input>
+            <div className={styles.error}>{emailError}</div>
           </div>
           <div className={styles.inputContainer}>
             <input
-              className={styles.input}
+              className={passwordError ? styles.inputError : styles.input}
               type="password"
               name="password"
               id="password"
@@ -149,10 +195,13 @@ function SignUp() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></input>
+            <div className={styles.error}>{passwordError}</div>
           </div>
           <div className={styles.inputContainer}>
             <input
-              className={styles.input}
+              className={
+                confirmPasswordError ? styles.inputError : styles.input
+              }
               type="password"
               name="confirm_password"
               id="confirm_password"
@@ -160,6 +209,7 @@ function SignUp() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></input>
+            <div className={styles.error}>{confirmPasswordError}</div>
           </div>
           {formLoading ? (
             <div className={styles.formLoaderContainer}>
@@ -178,8 +228,6 @@ function SignUp() {
             Log In
           </Link>
         </form>
-        {formError &&
-          formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
       </div>
       {navHome && <Navigate to="/" replace={true} />}
     </div>
