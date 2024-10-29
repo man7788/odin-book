@@ -52,7 +52,7 @@ exports.sign_up = [
     .escape(),
   body('confirm_password')
     .trim()
-    .isLength({ min: 8 })
+    .isLength({ min: 1 })
     .withMessage('Confirm password must not be empty')
     .isLength({ max: 200 })
     .withMessage('Confirm password exceeded maximum length')
