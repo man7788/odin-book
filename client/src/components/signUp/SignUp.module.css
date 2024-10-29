@@ -1,0 +1,40 @@
+.SignUp {
+  composes: pageLayout from '../indexForm.module.css';
+}
+
+.formContainer {
+  border: 1px solid orange;
+  height: 620px;
+}
+
+.form {
+  composes: formLayout from '../indexForm.module.css';
+  height: 480px;
+}
+
+.heading {
+  composes: heading from '../indexForm.module.css';
+  height: 50px;
+  font-size: 1.2rem;
+}
+
+.heading:nth-child(2) {
+  height: fit-content;
+  font-size: 1rem;
+}
+
+.inputContainer {
+  composes: inputContainer from '../indexForm.module.css';
+}
+
+.input {
+  composes: input from '../indexForm.module.css';
+}
+
+.button {
+  composes: button from '../indexForm.module.css';
+}
+
+.a {
+  composes: a from '../indexForm.module.css';
+}
