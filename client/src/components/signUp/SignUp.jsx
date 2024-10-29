@@ -77,11 +77,22 @@ function SignUp() {
 
   return (
     <div className={styles.SignUp}>
-      Sign Up
       <div className={styles.formContainer}>
-        <form action="" method="post" onSubmit={onSubmitForm}>
+        <div className={styles.heading}>
+          <h1>Odin Book</h1>
+        </div>
+        <div className={styles.heading}>
+          <h2>Sign Up</h2>
+        </div>
+        <form
+          className={styles.form}
+          action=""
+          method="post"
+          onSubmit={onSubmitForm}
+        >
           <div className={styles.inputContainer}>
             <input
+              className={styles.input}
               type="text"
               name="first_name"
               id="first_name"
@@ -92,6 +103,7 @@ function SignUp() {
           </div>
           <div className={styles.inputContainer}>
             <input
+              className={styles.input}
               type="text"
               name="last_name"
               id="last_name"
@@ -102,6 +114,7 @@ function SignUp() {
           </div>
           <div className={styles.inputContainer}>
             <input
+              className={styles.input}
               type="text"
               name="email"
               id="email"
@@ -112,6 +125,7 @@ function SignUp() {
           </div>
           <div className={styles.inputContainer}>
             <input
+              className={styles.input}
               type="password"
               name="password"
               id="password"
@@ -122,6 +136,7 @@ function SignUp() {
           </div>
           <div className={styles.inputContainer}>
             <input
+              className={styles.input}
               type="password"
               name="confirm_password"
               id="confirm_password"
@@ -130,16 +145,16 @@ function SignUp() {
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></input>
           </div>
-          <div className={styles.loginBtn}>
-            <button className={styles.button} type="submit">
-              Sign Up
-            </button>
-          </div>
+          <button className={styles.button} type="submit">
+            Sign Up
+          </button>
+          <Link className={styles.a} to="/login">
+            Log In
+          </Link>
         </form>
         {formError &&
           formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
       </div>
-      <Link to="/login">Log In</Link>
       {navHome && <Navigate to="/" replace={true} />}
     </div>
   );
