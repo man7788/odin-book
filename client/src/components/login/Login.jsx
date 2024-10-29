@@ -132,11 +132,6 @@ function Login() {
           <Link className={styles.a} exact="true" to="/signup">
             Sign Up
           </Link>
-          {/* <div className={styles.signupLink}>
-            <Link className={styles.a} exact="true" to="/signup">
-              Sign Up
-            </Link>
-          </div> */}
         </form>
       </div>
       {navHome && <Navigate to="/" replace={true} />}
