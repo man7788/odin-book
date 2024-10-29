@@ -35,6 +35,10 @@
   composes: button from '../indexForm.module.css';
 }
 
+.buttonDisable {
+  composes: buttonDisable from '../indexForm.module.css';
+}
+
 .a {
   composes: a from '../indexForm.module.css';
 }
