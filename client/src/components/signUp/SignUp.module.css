@@ -39,6 +39,14 @@
   composes: buttonDisable from '../indexForm.module.css';
 }
 
+.formLoaderContainer {
+  composes: formLoaderContainer from '../indexForm.module.css';
+}
+
+.formLoader {
+  composes: formLoader from '../indexForm.module.css';
+}
+
 .a {
   composes: a from '../indexForm.module.css';
 }
