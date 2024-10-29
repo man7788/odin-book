@@ -117,25 +117,26 @@ function Login() {
             ></input>
             <div className={styles.error}>{passwordError}</div>
           </div>
-          <div className={styles.loginButton}>
-            {formLoading ? (
-              <div className={styles.formLoaderContainer}>
-                <div className={styles.formLoader}></div>
-              </div>
-            ) : (
-              <button
-                className={loginActive ? styles.button : styles.disableButton}
-                type="submit"
-              >
-                Log In
-              </button>
-            )}
-          </div>
-          <div className={styles.signupLink}>
+          {formLoading ? (
+            <div className={styles.formLoaderContainer}>
+              <div className={styles.formLoader}></div>
+            </div>
+          ) : (
+            <button
+              className={loginActive ? styles.button : styles.buttonDisable}
+              type="submit"
+            >
+              Log In
+            </button>
+          )}
+          <Link className={styles.a} exact="true" to="/signup">
+            Sign Up
+          </Link>
+          {/* <div className={styles.signupLink}>
             <Link className={styles.a} exact="true" to="/signup">
               Sign Up
             </Link>
-          </div>
+          </div> */}
         </form>
       </div>
       {navHome && <Navigate to="/" replace={true} />}
