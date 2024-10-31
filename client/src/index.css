@@ -1,8 +1,14 @@
 @import url(./components/variables.css);
 
-:root {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+:root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -20,20 +26,4 @@
 body {
   min-width: 320px;
   min-height: 100vh;
-  margin: 0;
-}
-
-h1,
-h2 {
-  margin: 0;
-}
-
-button {
-  background: none;
-  /* color: inherit; */
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
 }
