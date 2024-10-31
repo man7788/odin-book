@@ -38,7 +38,7 @@ function User(props) {
     return <div className={styles.App}>Server Error</div>;
   }
   return (
-    <div className={styles.User} style={{ border: '2px solid orange' }}>
+    <div className={styles.User}>
       {full_name}
       <br></br>
       {followingResult?.currentUser ? null : followingResult?.pending ? (
