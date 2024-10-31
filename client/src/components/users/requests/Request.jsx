@@ -38,7 +38,7 @@ function Request(props) {
   }
 
   return (
-    <div className={styles.Request} style={{ border: '2px solid orange' }}>
+    <div className={styles.Request}>
       {profileResult.profile.full_name}
       <br></br>
       <button onClick={onSubmitAccept}>Accept</button>
