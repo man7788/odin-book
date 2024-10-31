@@ -1,4 +1,7 @@
 :root {
+  /* Border */
+  --app-border: #484848;
+
   /* Loader */
   --loader-border-white: #ffffffde;
   --loader-border-top-blue: #3498db;
