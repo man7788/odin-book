@@ -1,0 +1,7 @@
+.PostList {
+  background: var(--input-background-dark-gray);
+  border: 1px solid var(--app-border);
+  border-radius: 10px;
+  width: 600px;
+  padding: 20px;
+}
