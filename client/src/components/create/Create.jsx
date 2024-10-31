@@ -41,7 +41,7 @@ function Create() {
   }
 
   return (
-    <div className={styles.Comment} style={{ border: '2px solid cyan' }}>
+    <div className={styles.Create}>
       <div className={styles.formContainer}>
         <form action="" method="post" onSubmit={onSubmitForm}>
           <div className={styles.inputContainer}>
