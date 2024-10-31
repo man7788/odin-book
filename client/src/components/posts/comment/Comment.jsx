@@ -5,7 +5,7 @@ function Comment(props) {
   const { author, text_content } = props;
 
   return (
-    <div className={styles.Comment} style={{ border: '2px solid cyan' }}>
+    <div className={styles.Comment}>
       {author}
       <br></br>
       {text_content}
