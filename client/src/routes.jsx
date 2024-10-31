@@ -3,8 +3,8 @@ import Login from './components/login/Login';
 import SignUp from './components/signup/Signup';
 import Home from './components/home/home';
 import Profile from './components/profile/Profile';
-import UserList from './components/users/UserList';
-import RequestList from './components/users/requests/RequestList';
+import UsersPage from './components/users/UsersPage';
+import RequestsPage from './components/users/requests/RequestsPage';
 import ErrorPage from './ErrorPage';
 
 const routes = [
@@ -15,8 +15,8 @@ const routes = [
     children: [
       { index: true, element: <Home /> },
       { path: ':profileId', element: <Profile /> },
-      { path: 'users', element: <UserList /> },
-      { path: 'users/requests', element: <RequestList /> },
+      { path: 'users', element: <UsersPage /> },
+      { path: 'users/requests', element: <RequestsPage /> },
     ],
   },
   {
