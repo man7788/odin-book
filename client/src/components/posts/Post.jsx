@@ -1,4 +1,4 @@
-import styles from './PostList.module.css';
+import styles from './Post.module.css';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CommentList from './comment/CommentList';
@@ -8,7 +8,7 @@ function Post(props) {
   const { profile, author, text_content, likes, comments, _id } = props;
 
   return (
-    <div className={styles.PostList} style={{ border: '2px solid orange' }}>
+    <div className={styles.Post}>
       <Link to={`/${profile}`}>{author}</Link>
       <br></br>
       {text_content}
