@@ -1,5 +1,10 @@
+.Comment {
+  margin: 10px 0 10px 0;
+}
+
 .Comment > a {
   color: var(--button-color-white);
   text-decoration: none;
   font-weight: 600;
+  margin: 10px 0 10px 0;
 }
