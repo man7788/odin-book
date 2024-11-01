@@ -6,6 +6,7 @@ import commentFetch from '../../../fetch/commentFetch';
 
 function CommentList({ postId, comments }) {
   const [comment, setComment] = useState('');
+  const [showComments, setShowComments] = useState(false);
   const [formError, setFormError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(null);
@@ -44,12 +45,22 @@ function CommentList({ postId, comments }) {
 
   return (
     <div className={styles.CommentList}>
-      {'Comments: '}
-      <br></br>
-      {comments
-        ? comments.map((comment) => <Comment key={comment._id} {...comment} />)
-        : null}
+      {!showComments ? (
+        comments.length > 0 ? (
+          <button onClick={() => setShowComments(true)}>
+            {comments.length === 1
+              ? `View ${comments.length} comment`
+              : `View ${comments.length} comments`}
+          </button>
+        ) : null
+      ) : (
+        <button onClick={() => setShowComments(false)}>
+          {comments.length === 1 ? `Hide comment` : `Hide comments`}
+        </button>
+      )}
 
+      {showComments &&
+        comments.map((comment) => <Comment key={comment._id} {...comment} />)}
       <div className={styles.formContainer}>
         <form action="" method="post" onSubmit={onSubmitForm}>
           <div className={styles.inputContainer}>
