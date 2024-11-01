@@ -1,18 +1,32 @@
 import styles from './CommentList.module.css';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Comment from './Comment';
 import commentFetch from '../../../fetch/commentFetch';
 
 function CommentList({ postId, comments }) {
   const [comment, setComment] = useState('');
   const [showComments, setShowComments] = useState(false);
+  const [showReply, setShowReply] = useState(false);
   const [formError, setFormError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(null);
 
+  useEffect(() => {
+    if (comment.length > 0) {
+      setShowReply(true);
+    } else {
+      setShowReply(false);
+    }
+  }, [comment]);
+
   const onSubmitForm = async (e) => {
     e.preventDefault();
+
+    if (comment.length === 0) {
+      return;
+    }
+
     setLoading(true);
 
     const commentPayload = { text_content: comment };
@@ -61,6 +75,7 @@ function CommentList({ postId, comments }) {
 
       {showComments &&
         comments.map((comment) => <Comment key={comment._id} {...comment} />)}
+
       <div className={styles.formContainer}>
         <form action="" method="post" onSubmit={onSubmitForm}>
           <div className={styles.inputContainer}>
@@ -73,12 +88,11 @@ function CommentList({ postId, comments }) {
               onChange={(e) => setComment(e.target.value)}
             ></input>
           </div>
-
-          <div className={styles.loginBtn}>
-            <button className={styles.button} type="submit">
+          {showReply && (
+            <button className={styles.loginButton} type="submit">
               Post
             </button>
-          </div>
+          )}
         </form>
         {formError &&
           formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
