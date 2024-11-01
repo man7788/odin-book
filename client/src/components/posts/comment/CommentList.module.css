@@ -1,0 +1,30 @@
+.CommentList {
+  color: var(--input-placeholder-light-gray);
+  font-size: 0.9rem;
+}
+
+.CommentList form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CommentList input {
+  border: none;
+  background-color: var(--input-background-dark-gray);
+  color: var(--input-placeholder-light-gray);
+  width: 500px;
+}
+
+.CommentList input:focus {
+  outline: none;
+}
+
+.CommentList input::placeholder {
+  color: var(--input-placeholder-light-gray);
+  font-size: 0.9rem;
+}
+
+.loginButton {
+  font-weight: 600;
+}
