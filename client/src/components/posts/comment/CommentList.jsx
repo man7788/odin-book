@@ -9,7 +9,6 @@ function CommentList({ postId, comments }) {
   const [showComments, setShowComments] = useState(false);
   const [showReply, setShowReply] = useState(false);
   const [formError, setFormError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(null);
 
   useEffect(() => {
@@ -27,35 +26,23 @@ function CommentList({ postId, comments }) {
       return;
     }
 
-    setLoading(true);
-
     const commentPayload = { text_content: comment };
 
     const { result, error } = await commentFetch(postId, commentPayload);
 
     if (error?.errors) {
       setFormError(error.errors);
+      return;
     }
 
-    if (error?.code) {
+    if (error) {
       setServerError(true);
     }
 
-    if (result?.createdComment) {
-      console.log(result);
+    if (result) {
       setComment('');
     }
-
-    setLoading(false);
   };
-
-  if (loading) {
-    return <div className={styles.App}>Loading...</div>;
-  }
-
-  if (serverError) {
-    return <div className={styles.App}>Server Error</div>;
-  }
 
   return (
     <div className={styles.CommentList}>
@@ -76,27 +63,31 @@ function CommentList({ postId, comments }) {
       {showComments &&
         comments.map((comment) => <Comment key={comment._id} {...comment} />)}
 
-      <div className={styles.formContainer}>
-        <form action="" method="post" onSubmit={onSubmitForm}>
-          <div className={styles.inputContainer}>
-            <input
-              type="text"
-              name="comment"
-              id="comment"
-              placeholder="Add a comment..."
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            ></input>
-          </div>
-          {showReply && (
-            <button className={styles.loginButton} type="submit">
-              Post
-            </button>
-          )}
-        </form>
-        {formError &&
-          formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
-      </div>
+      {!serverError ? (
+        <div className={styles.formContainer}>
+          <form action="" method="post" onSubmit={onSubmitForm}>
+            <div className={styles.inputContainer}>
+              <input
+                type="text"
+                name="comment"
+                id="comment"
+                placeholder="Add a comment..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></input>
+            </div>
+            {showReply && (
+              <button className={styles.loginButton} type="submit">
+                Post
+              </button>
+            )}
+          </form>
+          {formError &&
+            formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
+        </div>
+      ) : (
+        <div className={styles.formContainer}>Server Error</div>
+      )}
     </div>
   );
 }
