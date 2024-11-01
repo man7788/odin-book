@@ -34,9 +34,7 @@ function Like({ postId, likes }) {
 
   return (
     <div className={styles.Like}>
-      <button onClick={onLike}>Like</button>
-      <br></br>
-      {likes ? likes?.length : 0} Likes
+      <button onClick={onLike}>{likes ? likes?.length : 0} Like</button>
     </div>
   );
 }
