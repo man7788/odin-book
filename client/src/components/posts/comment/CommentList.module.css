@@ -9,11 +9,12 @@
   align-items: center;
 }
 
-.CommentList input {
+.CommentList input[type='text'] {
   border: none;
   background-color: var(--input-background-dark-gray);
   color: var(--input-placeholder-light-gray);
   width: 500px;
+  font-size: 0.9rem;
 }
 
 .CommentList input:focus {
