@@ -28,7 +28,7 @@ function App() {
   return (
     <div className={styles.App}>
       <Sidebar fullName={authResult?.full_name} />
-      {!authError && <Outlet />}
+      {!authError && <Outlet context={{ profile: authResult.profile }} />}
       {navLogin && <Navigate to="/login" replace={true} />}
     </div>
   );
