@@ -3,14 +3,13 @@
   min-height: 100vh;
   display: grid;
   grid-template-rows: 80px repeat(3, min-content) 1fr repeat(2, min-content) 30px;
-  border-right: 1px solid var(--app-border);
   padding: 0 10px 0 10px;
 }
 
 .linkStyle {
   border-radius: 10px;
   text-decoration: none;
-  color: var(--button-color-white);
+  color: var(--button-disable-dark-gray);
   font-size: 1.4rem;
   cursor: pointer;
   padding: 0.5rem 1rem 0.5rem 1rem;
@@ -25,7 +24,14 @@
   composes: linkStyle;
 }
 
+.logo {
+  color: var(--sidebar-white);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
 .fullName {
+  color: var(--sidebar-white);
   grid-row: 6/7;
 }
 
@@ -33,16 +39,20 @@
   grid-row: 7/8;
 }
 
-.home:hover,
-.users:hover,
-.requests:hover,
-.logout:hover {
-  background: var(--button-hover-dark-gray);
-}
-
 .homeActive,
 .usersActive,
 .requestsActive {
   composes: linkStyle;
-  background: var(--button-hover-dark-gray);
+  color: var(--sidebar-white);
+  font-weight: 600;
+}
+
+.home:hover,
+.users:hover,
+.requests:hover,
+.logout:hover,
+.homeActive:hover,
+.usersActive:hover,
+.requestsActive:hover {
+  background: var(--sidebar-hover-light-gray);
 }
