@@ -30,4 +30,8 @@
   --post-color-white: #ffffffde;
 
   --like-color-light-gray: #ffffffa0;
+
+  --comment-color-light-gray: #ffffffa0;
+  --comment-input-background-dark-gray: #242424;
+  --comment-input-placeholder-light-gray: #ffffffa0;
 }
