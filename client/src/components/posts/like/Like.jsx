@@ -55,15 +55,8 @@ function Like({ postId, likes }) {
 
   return (
     <div className={styles.Like}>
-      {!liked ? (
-        localLikes === 0 || localLikes === 1 ? (
-          <button onClick={onLike}>{localLikes} Like</button>
-        ) : (
-          <button onClick={onLike}>{localLikes} Likes</button>
-        )
-      ) : (
-        <button onClick={onLike}>{localLikes} Unlike</button>
-      )}
+      {localLikes} <span> </span>
+      <button onClick={onLike}>{!liked ? 'Like' : 'Unlike'}</button>
     </div>
   );
 }
