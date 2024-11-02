@@ -14,8 +14,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #ffffffde;
-  background-color: #121212;
+  color: var(--index-color);
+  background-color: var(--index-background-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
