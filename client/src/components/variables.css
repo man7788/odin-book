@@ -1,4 +1,7 @@
 :root {
+  --index-color: #ffffffde;
+  --index-background-color: #121212;
+
   /* Border */
   --app-border: #484848;
 
