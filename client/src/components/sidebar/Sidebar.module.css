@@ -2,15 +2,12 @@
   max-width: 300px;
   min-height: 100vh;
   display: grid;
-  grid-template-rows:
-    100px 1fr 1fr repeat(3, min-content) 1fr 1fr repeat(2, min-content)
-    30px;
+  grid-template-rows: 80px repeat(3, min-content) 1fr repeat(2, min-content) 30px;
   border-right: 1px solid var(--app-border);
   padding: 0 10px 0 10px;
 }
 
-.Sidebar a,
-.fullName {
+.linkStyle {
   border-radius: 10px;
   text-decoration: none;
   color: var(--button-color-white);
@@ -19,23 +16,26 @@
   padding: 0.5rem 1rem 0.5rem 1rem;
 }
 
-.Sidebar a:nth-child(2) {
-  grid-row: 4/5;
-}
-.Sidebar a:nth-child(3) {
-  grid-row: 5/6;
-}
-.Sidebar a:nth-child(4) {
-  grid-row: 6/7;
-}
-.Sidebar a:nth-child(6) {
-  grid-row: 10/11;
+.logo,
+.home,
+.users,
+.requests,
+.fullName,
+.logout {
+  composes: linkStyle;
 }
 
 .fullName {
-  grid-row: 9/10;
+  grid-row: 6/7;
 }
 
-.Sidebar a:hover:nth-child(n + 2):nth-child(-n + 6) {
+.logout {
+  grid-row: 7/8;
+}
+
+.home:hover,
+.users:hover,
+.requests:hover,
+.logout:hover {
   background: var(--button-hover-dark-gray);
 }
