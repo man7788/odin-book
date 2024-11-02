@@ -47,16 +47,16 @@ function CommentList({ postId, comments }) {
   return (
     <div className={styles.CommentList}>
       {!showComments ? (
-        comments.length > 0 ? (
+        comments.length > 0 && (
           <button onClick={() => setShowComments(true)}>
-            {comments.length === 1
-              ? `View ${comments.length} comment`
-              : `View ${comments.length} comments`}
+            {`View ${comments.length} ${
+              comments.length === 1 ? 'comment' : 'comments'
+            }`}
           </button>
-        ) : null
+        )
       ) : (
         <button onClick={() => setShowComments(false)}>
-          {comments.length === 1 ? `Hide comment` : `Hide comments`}
+          {`Hide ${comments.length === 1 ? 'comment' : 'comments'}`}
         </button>
       )}
 
