@@ -1,21 +1,17 @@
 :root {
   --index-color: #ffffffde;
   --index-background-color: #121212;
-
-  /* Border */
   --app-border: #484848;
 
-  /* Loader */
+  /* Login, SignUp */
   --loader-border-white: #ffffffde;
   --loader-border-top-blue: #3498db;
 
-  /* Input */
   --input-background-dark-gray: #242424;
   --input-placeholder-light-gray: #ffffffa0;
   --input-focus-shadow-white: #ffffffde;
   --input-focus-shadow-red: #fc0000;
 
-  /* Button */
   --button-background-white: #ffffffde;
   --button-border-white: #ffffffde;
   --button-color-almost-black: #121212;
@@ -28,4 +24,8 @@
   --sidebar-white: #ffffffde;
   --sidebar-disable-dark-gray: #ffffff85;
   --sidebar-hover-light-gray: #202020;
+
+  /* Post */
+  --post-background-dark-gray: #242424;
+  --post-color-white: #ffffffde;
 }
