@@ -1,8 +1,8 @@
 import styles from './SignUp.module.css';
 import { useState, useEffect } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import signUpFetch from '../../fetch/signUpFetch';
-import loginFetch from '../../fetch/loginFetch';
+import signUpFetch from '../../../fetch/signUpFetch';
+import loginFetch from '../../../fetch/loginFetch';
 
 function SignUp() {
   const [navHome, setNavHome] = useState(false);
