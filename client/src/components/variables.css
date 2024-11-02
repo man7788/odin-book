@@ -20,4 +20,9 @@
   --button-hover-light-gray: #ffffffd0;
   --button-hover-dark-gray: #202020;
   --button-disable-dark-gray: #ffffff85;
+
+  /* Sidebar */
+  --sidebar-white: #ffffffde;
+  --sidebar-disable-dark-gray: #ffffff85;
+  --sidebar-hover-light-gray: #202020;
 }
