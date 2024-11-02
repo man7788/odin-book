@@ -39,3 +39,10 @@
 .logout:hover {
   background: var(--button-hover-dark-gray);
 }
+
+.homeActive,
+.usersActive,
+.requestsActive {
+  composes: linkStyle;
+  background: var(--button-hover-dark-gray);
+}
