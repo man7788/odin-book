@@ -123,7 +123,6 @@ function SignUp() {
     }
 
     if (result) {
-      console.log(result);
       autoLogin();
     }
 
