@@ -7,11 +7,11 @@ function PostList({ profileId = 'recent' }) {
   const { postsResult, postsLoading, postsError } = usePosts(profileId);
 
   if (postsLoading) {
-    return <div className={styles.App}>Loading...</div>;
+    return <div className={styles.PostList}>Loading...</div>;
   }
 
   if (postsError) {
-    return <div className={styles.App}>Server Error</div>;
+    return <div className={styles.PostList}>Server Error</div>;
   }
 
   return (
