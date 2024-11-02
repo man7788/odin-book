@@ -13,12 +13,20 @@ function Sidebar({ fullName }) {
 
   return (
     <div className={styles.Sidebar}>
-      <Link to="/">Odin Book</Link>
-      <Link to="/">Home</Link>
-      <Link to="users">Users</Link>
-      <Link to="users/requests">Requests</Link>
+      <Link className={styles.logo} to="/">
+        Odin Book
+      </Link>
+      <Link className={styles.home} to="/">
+        Home
+      </Link>
+      <Link className={styles.users} to="users">
+        Users
+      </Link>
+      <Link className={styles.requests} to="users/requests">
+        Requests
+      </Link>
       <div className={styles.fullName}>{fullName}</div>
-      <Link onClick={onLogout} to="/login">
+      <Link className={styles.logout} onClick={onLogout} to="/login">
         Log Out
       </Link>
       {navLogin && <Navigate to="/login" replace={true} />}
