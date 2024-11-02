@@ -1,12 +1,12 @@
 .Post {
   border-radius: 10px;
-  background: var(--input-background-dark-gray);
+  background: var(--post-background-dark-gray);
   margin-bottom: 20px;
   padding: 20px;
 }
 
 .Post > a {
-  color: var(--button-color-white);
+  color: var(--post-color-white);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 600;
