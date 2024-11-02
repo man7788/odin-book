@@ -1,5 +1,5 @@
 .CommentList {
-  color: var(--input-placeholder-light-gray);
+  color: var(--comment-color-light-gray);
   font-size: 0.9rem;
 }
 
@@ -11,8 +11,8 @@
 
 .CommentList input[type='text'] {
   border: none;
-  background-color: var(--input-background-dark-gray);
-  color: var(--input-placeholder-light-gray);
+  background-color: var(--comment-input-background-dark-gray);
+  color: var(--comment-input-placeholder-light-gray);
   width: 500px;
   font-size: 0.9rem;
 }
@@ -22,7 +22,7 @@
 }
 
 .CommentList input::placeholder {
-  color: var(--input-placeholder-light-gray);
+  color: var(--comment-input-placeholder-light-gray);
   font-size: 0.9rem;
 }
 
