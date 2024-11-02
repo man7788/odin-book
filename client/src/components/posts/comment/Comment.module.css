@@ -3,7 +3,7 @@
 }
 
 .Comment > a {
-  color: var(--button-color-white);
+  color: var(--comment-name-white);
   text-decoration: none;
   font-weight: 600;
   margin: 10px 0 10px 0;
