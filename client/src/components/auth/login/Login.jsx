@@ -78,7 +78,7 @@ function Login() {
   };
 
   if (serverError) {
-    return <div className={styles.App}>Server Error</div>;
+    return <div className={styles.Login}>Server Error</div>;
   }
 
   return (
