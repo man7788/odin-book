@@ -3,24 +3,29 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 
-function Sidebar({ fullName }) {
+function Sidebar({ fullName, render }) {
   const location = useLocation();
-  const [activeLink, setActiveLink] = useState(false);
+  const [activeLink, setActiveLink] = useState(null);
   const [navLogin, setNavLogin] = useState(false);
 
   useEffect(() => {
     if (location.pathname === '/') {
       setActiveLink('home');
+      return;
     }
 
     if (location.pathname === '/users') {
       setActiveLink('users');
+      return;
     }
 
     if (location.pathname === '/users/requests') {
       setActiveLink('requests');
+      return;
     }
-  }, [location]);
+
+    setActiveLink(null);
+  }, [location, render]);
 
   const onLogout = () => {
     localStorage.clear();
@@ -63,6 +68,7 @@ function Sidebar({ fullName }) {
 
 Sidebar.propTypes = {
   fullName: PropTypes.string,
+  render: PropTypes.bool,
 };
 
 export default Sidebar;
