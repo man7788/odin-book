@@ -1,5 +1,6 @@
 import styles from './User.module.css';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useFollowing from '../../hooks/useFollowing';
 import requestFetch from '../../fetch/requestFetch';
@@ -39,7 +40,7 @@ function User(props) {
   }
   return (
     <div className={styles.User}>
-      {full_name}
+      <Link to={`/${_id}`}>{full_name}</Link>
       <br></br>
       {followingResult?.currentUser ? null : followingResult?.pending ? (
         'Pending'
