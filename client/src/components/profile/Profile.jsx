@@ -48,19 +48,25 @@ function Profile() {
 
   return (
     <div className={styles.Profile}>
-      {profileResult?.profile.full_name}
-      <br></br>
-      {profileResult?.profile.about}
-      <br></br>
-      {followingResult?.currentUser ? null : followingResult?.pending ? (
-        'Pending'
-      ) : followingResult?.following ? (
-        'Following'
-      ) : (
-        <button onClick={onSubmitRequest}>Follow</button>
-      )}
-
-      <PostList profileId={profileId} />
+      <div className={styles.info}>
+        <h1 className={styles.fullName}>{profileResult?.profile.full_name}</h1>
+        <div>{profileResult?.profile.about}</div>
+        <div>
+          {followingResult?.currentUser ? null : followingResult?.pending ? (
+            <button className={styles.pending}>Pending</button>
+          ) : followingResult?.following ? (
+            <button className={styles.following}>Following</button>
+          ) : (
+            <button className={styles.follow} onClick={onSubmitRequest}>
+              Follow
+            </button>
+          )}
+        </div>
+      </div>
+      <div className={styles.postList}>
+        <h2>Posts</h2>
+        <PostList profileId={profileId} />
+      </div>
     </div>
   );
 }
