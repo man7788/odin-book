@@ -1,6 +1,6 @@
 import styles from './Profile.module.css';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useOutletContext, useParams } from 'react-router-dom';
 import useProfile from '../../hooks/useProfile';
 import useFollowing from '../../hooks/useFollowing';
 import requestFetch from '../../fetch/requestFetch';
@@ -8,12 +8,17 @@ import PostList from '../posts/PostList';
 
 function Profile() {
   const { profileId } = useParams();
+  const { setRender } = useOutletContext();
   const { profileResult, profileLoading, profileError } = useProfile(profileId);
   const { followingResult, followingLoading, followingError } =
     useFollowing(profileId);
 
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(null);
+
+  useEffect(() => {
+    setRender(true);
+  }, []);
 
   const onSubmitRequest = async () => {
     setLoading(true);
