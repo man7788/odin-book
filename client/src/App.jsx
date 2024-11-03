@@ -7,6 +7,7 @@ import Sidebar from './components/sidebar/Sidebar';
 function App() {
   const { authResult, authLoading, authError } = useAuth();
   const [navLogin, setNavLogin] = useState(false);
+  const [render, setRender] = useState(false);
   const [serverError, setServerError] = useState(false);
 
   useEffect(() => {
@@ -27,8 +28,10 @@ function App() {
 
   return (
     <div className={styles.App}>
-      <Sidebar fullName={authResult?.full_name} />
-      {!authError && <Outlet context={{ profile: authResult.profile }} />}
+      <Sidebar fullName={authResult?.full_name} render={render} />
+      {!authError && (
+        <Outlet context={{ profile: authResult.profile, setRender }} />
+      )}
       {navLogin && <Navigate to="/login" replace={true} />}
     </div>
   );
