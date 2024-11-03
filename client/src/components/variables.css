@@ -35,4 +35,14 @@
   --comment-input-background-dark-gray: #242424;
   --comment-input-placeholder-light-gray: #ffffffa0;
   --comment-name-white: #ffffffde;
+
+  /* Profile */
+  --profile-follow-white: #ffffffde;
+  --profile-follow-color-almost-black: #121212;
+  --profile-follow-hover-light-gray: #ffffffd0;
+
+  --profile-following-background-dark-gray: #242424;
+
+  --profile-pending-background-gray: #ffffff85;
+  --profile-pending-color-light-gray: #121212;
 }
