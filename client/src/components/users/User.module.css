@@ -13,7 +13,7 @@
 }
 
 .User > a {
-  color: var(--post-color-white);
+  color: var(--users-color-white);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 600;
@@ -32,12 +32,12 @@
 
 .follow {
   composes: followStatus;
-  background: var(--profile-follow-white);
-  color: var(--profile-follow-color-almost-black);
+  background: var(--user-follow-white);
+  color: var(--user-follow-color-almost-black);
 }
 
 .follow:hover {
-  background: var(--profile-follow-hover-light-gray);
+  background: var(--user-follow-hover-light-gray);
 }
 
 .pending {
