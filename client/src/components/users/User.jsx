@@ -41,13 +41,14 @@ function User(props) {
   return (
     <div className={styles.User}>
       <Link to={`/${_id}`}>{full_name}</Link>
-      <br></br>
       {followingResult?.currentUser ? null : followingResult?.pending ? (
-        'Pending'
+        <button className={styles.pending}>Pending</button>
       ) : followingResult?.following ? (
-        'Following'
+        <button className={styles.following}>Following</button>
       ) : (
-        <button onClick={onSubmitRequest}>Follow</button>
+        <button className={styles.follow} onClick={onSubmitRequest}>
+          Follow
+        </button>
       )}
     </div>
   );
