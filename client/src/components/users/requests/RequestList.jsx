@@ -3,7 +3,8 @@ import useRequests from '../../../hooks/useRequests';
 import Request from './Request';
 
 function RequestList() {
-  const { requestsResult, requestsLoading, requestsError } = useRequests();
+  const { requestsResult, requestsLoading, requestsError, setRefresh } =
+    useRequests();
 
   if (requestsLoading) {
     return <div className={styles.loading}>Loading...</div>;
@@ -18,7 +19,11 @@ function RequestList() {
       {requestsResult?.requests.length > 0 ? (
         <div className={styles.RequestList}>
           {requestsResult?.requests.map((request) => (
-            <Request key={request._id} {...request} />
+            <Request
+              key={request._id}
+              request={request}
+              setRefresh={setRefresh}
+            />
           ))}
         </div>
       ) : (
