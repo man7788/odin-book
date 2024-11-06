@@ -29,9 +29,7 @@ function User(props) {
       setPending(true);
     }
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    setLoading(false);
   };
 
   if (followingLoading || loading) {
