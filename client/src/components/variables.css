@@ -52,4 +52,11 @@
   --user-follow-white: #ffffffde;
   --user-follow-color-almost-black: #121212;
   --user-follow-hover-light-gray: #ffffffd0;
+
+  /* Request */
+  --request-color-white: #ffffffde;
+
+  --request-follow-white: #ffffffde;
+  --request-follow-color-almost-black: #121212;
+  --request-follow-hover-light-gray: #ffffffd0;
 }
