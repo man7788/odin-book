@@ -11,7 +11,7 @@ function User(props) {
     useFollowing(_id);
 
   const [loading, setLoading] = useState(false);
-  const [serverError, setServerError] = useState(null);
+  const [error, setError] = useState(null);
 
   const onSubmitRequest = async () => {
     setLoading(true);
@@ -21,7 +21,7 @@ function User(props) {
     const { result, error } = await requestFetch(requestPayload);
 
     if (error?.code) {
-      setServerError(true);
+      setError(true);
     }
 
     if (result) {
@@ -32,11 +32,11 @@ function User(props) {
   };
 
   if (followingLoading || loading) {
-    return <div className={styles.App}>Loading...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
-  if (followingError || serverError) {
-    return <div className={styles.App}>Server Error</div>;
+  if (followingError || error) {
+    return <div className={styles.error}>Server Error</div>;
   }
   return (
     <div className={styles.User}>
