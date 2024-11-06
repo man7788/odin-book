@@ -10,7 +10,7 @@ function Request(props) {
   const { profileResult, profileLoading, profileError } = useProfile(from);
 
   const [loading, setLoading] = useState(false);
-  const [serverError, setServerError] = useState(null);
+  const [error, setError] = useState(null);
 
   const onSubmitAccept = async () => {
     setLoading(true);
@@ -20,7 +20,7 @@ function Request(props) {
     const { result, error } = await acceptFetch(acceptPayload);
 
     if (error?.code) {
-      setServerError(true);
+      setError(true);
     }
 
     if (result) {
@@ -31,11 +31,11 @@ function Request(props) {
   };
 
   if (profileLoading || loading) {
-    return <div className={styles.App}>Loading...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
-  if (profileError || serverError) {
-    return <div className={styles.App}>Server Error</div>;
+  if (profileError || error) {
+    return <div className={styles.error}>Server Error</div>;
   }
 
   return (
