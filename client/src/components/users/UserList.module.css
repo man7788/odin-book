@@ -1,14 +1,27 @@
-.UserList {
-  border-radius: 10px;
-  border: 2px solid var(--app-border);
+.layout {
   width: 600px;
-  display: flex;
-  flex-direction: column;
   margin-top: 40px;
 }
 
+.UserList {
+  composes: layout;
+  border-radius: 10px;
+  border: 2px solid var(--app-border);
+  display: flex;
+  flex-direction: column;
+}
+
 .emptyList {
-  width: 600px;
+  composes: layout;
   font-size: 1.5rem;
-  margin-top: 40px;
+}
+
+.loading {
+  composes: layout;
+  font-size: 1.5rem;
+}
+
+.error {
+  composes: layout;
+  font-size: 1.5rem;
 }
