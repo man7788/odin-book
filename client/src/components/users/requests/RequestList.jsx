@@ -15,7 +15,7 @@ function RequestList() {
 
   return (
     <>
-      {requestsResult?.requests ? (
+      {requestsResult?.requests.length > 0 ? (
         <div className={styles.RequestList}>
           {requestsResult?.requests.map((request) => (
             <Request key={request._id} {...request} />
