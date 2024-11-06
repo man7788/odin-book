@@ -4,6 +4,7 @@ const useRequests = () => {
   const [requestsResult, setRequestsResult] = useState(null);
   const [requestsLoading, setRequestsLoading] = useState(true);
   const [requestsError, setRequestsError] = useState(null);
+  const [refresh, setRefresh] = useState(null);
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -37,9 +38,9 @@ const useRequests = () => {
       }
     };
     fetchRequests();
-  }, []);
+  }, [refresh]);
 
-  return { requestsResult, requestsLoading, requestsError };
+  return { requestsResult, requestsLoading, requestsError, setRefresh };
 };
 
 export default useRequests;
