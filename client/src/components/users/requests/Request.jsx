@@ -1,5 +1,6 @@
 import styles from './Request.module.css';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useProfile from '../../../hooks/useProfile';
 import acceptFetch from '../../../fetch/acceptFetch';
@@ -39,9 +40,13 @@ function Request(props) {
 
   return (
     <div className={styles.Request}>
-      {profileResult.profile.full_name}
-      <br></br>
-      <button onClick={onSubmitAccept}>Accept</button>
+      <Link to={`/${profileResult.profile._id}`}>
+        {' '}
+        {profileResult.profile.full_name}
+      </Link>
+      <button className={styles.accept} onClick={onSubmitAccept}>
+        Accept
+      </button>
     </div>
   );
 }
