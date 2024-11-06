@@ -14,13 +14,17 @@ function RequestList() {
   }
 
   return (
-    <div className={styles.RequestList}>
-      {requestsResult?.requests.length > 0
-        ? requestsResult?.requests.map((request) => (
+    <>
+      {requestsResult?.requests ? (
+        <div className={styles.RequestList}>
+          {requestsResult?.requests.map((request) => (
             <Request key={request._id} {...request} />
-          ))
-        : 'No new requests'}
-    </div>
+          ))}
+        </div>
+      ) : (
+        <div className={styles.emptyList}>No new requests</div>
+      )}
+    </>
   );
 }
 
