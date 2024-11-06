@@ -13,22 +13,25 @@ function User(props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const [pending, setPending] = useState(false);
+
   const onSubmitRequest = async () => {
     setLoading(true);
-
     const requestPayload = { following_id: _id };
 
     const { result, error } = await requestFetch(requestPayload);
 
-    if (error?.code) {
+    if (error) {
       setError(true);
     }
 
     if (result) {
-      console.log(result);
+      setPending(true);
     }
 
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   };
 
   if (followingLoading || loading) {
@@ -36,8 +39,18 @@ function User(props) {
   }
 
   if (followingError || error) {
-    return <div className={styles.error}>Server Error</div>;
+    return <div className={styles.error}>Server error</div>;
   }
+
+  if (pending) {
+    return (
+      <div className={styles.User}>
+        <Link to={`/${_id}`}>{full_name}</Link>
+        <button className={styles.pending}>Pending</button>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.User}>
       <Link to={`/${_id}`}>{full_name}</Link>
