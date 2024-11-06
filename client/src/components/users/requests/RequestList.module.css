@@ -1,3 +1,8 @@
+.layout {
+  width: 600px;
+  margin-top: 40px;
+}
+
 .RequestList {
   border-radius: 10px;
   border: 2px solid var(--app-border);
@@ -8,7 +13,16 @@
 }
 
 .emptyList {
-  width: 600px;
+  composes: layout;
   font-size: 1.5rem;
-  margin-top: 40px;
+}
+
+.loading {
+  composes: layout;
+  font-size: 1.5rem;
+}
+
+.error {
+  composes: layout;
+  font-size: 1.5rem;
 }
