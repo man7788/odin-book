@@ -6,11 +6,11 @@ function RequestList() {
   const { requestsResult, requestsLoading, requestsError } = useRequests();
 
   if (requestsLoading) {
-    return <div className={styles.App}>Loading...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
   if (requestsError) {
-    return <div className={styles.App}>Server Error</div>;
+    return <div className={styles.error}>Server Error</div>;
   }
 
   return (
