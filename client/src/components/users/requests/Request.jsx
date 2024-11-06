@@ -41,7 +41,6 @@ function Request(props) {
   return (
     <div className={styles.Request}>
       <Link to={`/${profileResult.profile._id}`}>
-        {' '}
         {profileResult.profile.full_name}
       </Link>
       <button className={styles.accept} onClick={onSubmitAccept}>
