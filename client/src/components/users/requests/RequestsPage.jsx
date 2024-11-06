@@ -4,7 +4,6 @@ import RequestList from './RequestList';
 function RequestsPage() {
   return (
     <div className={styles.RequestsPage}>
-      <h1>Requests</h1>
       <RequestList />
     </div>
   );
