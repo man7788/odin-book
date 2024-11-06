@@ -14,11 +14,17 @@ function UserList() {
   }
 
   return (
-    <div className={styles.UserList}>
-      {usersResult?.profiles.map((profile) => (
-        <User key={profile._id} {...profile} />
-      ))}
-    </div>
+    <>
+      {usersResult?.profiles ? (
+        <div className={styles.UserList}>
+          {usersResult?.profiles.map((profile) => (
+            <User key={profile._id} {...profile} />
+          ))}
+        </div>
+      ) : (
+        <div className={styles.emptyList}>No users</div>
+      )}
+    </>
   );
 }
 
