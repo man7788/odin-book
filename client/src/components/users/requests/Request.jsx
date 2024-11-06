@@ -5,8 +5,8 @@ import { useState } from 'react';
 import useProfile from '../../../hooks/useProfile';
 import acceptFetch from '../../../fetch/acceptFetch';
 
-function Request(props) {
-  const { from, _id } = props;
+function Request({ request, setRefresh }) {
+  const { from, _id } = request;
   const { profileResult, profileLoading, profileError } = useProfile(from);
 
   const [loading, setLoading] = useState(false);
@@ -19,12 +19,12 @@ function Request(props) {
 
     const { result, error } = await acceptFetch(acceptPayload);
 
-    if (error?.code) {
+    if (error) {
       setError(true);
     }
 
     if (result) {
-      console.log(result);
+      setRefresh(true);
     }
 
     setLoading(false);
@@ -51,8 +51,8 @@ function Request(props) {
 }
 
 Request.propTypes = {
-  from: PropTypes.string,
-  _id: PropTypes.string,
+  request: PropTypes.object,
+  setRefresh: PropTypes.func,
 };
 
 export default Request;
