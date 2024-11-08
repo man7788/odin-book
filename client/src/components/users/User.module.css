@@ -12,7 +12,7 @@
   border-bottom: none;
 }
 
-.User > a {
+.fullName {
   color: var(--users-color-white);
   text-decoration: none;
   font-size: 1.2rem;
@@ -53,8 +53,6 @@
 
 .loading,
 .error {
-  composes: User;
-  display: flex;
-  justify-content: center;
-  font-size: 1.2rem;
+  composes: followStatus;
+  padding: 0;
 }
