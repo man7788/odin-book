@@ -16,7 +16,7 @@ const routes = [
       { index: true, element: <Home /> },
       { path: ':profileId', element: <Profile /> },
       { path: 'users', element: <UsersPage /> },
-      { path: 'users/requests', element: <RequestsPage /> },
+      { path: 'requests', element: <RequestsPage /> },
     ],
   },
   {
