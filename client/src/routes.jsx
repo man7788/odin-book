@@ -3,7 +3,7 @@ import Login from './components/auth/login/Login';
 import SignUp from './components/auth/signUp/SignUp';
 import Home from './components/home/home';
 import Profile from './components/profile/Profile';
-import UsersPage from './components/users/UsersPage';
+import UsersPage from './components/lists/users/UsersPage';
 import RequestsPage from './components/lists/requests/RequestsPage';
 import ErrorPage from './ErrorPage';
 
