@@ -38,7 +38,9 @@ function User(props) {
         <Link className={styles.fullName} to={`/${_id}`}>
           {full_name}
         </Link>
-        <div className={styles.loading}>Loading...</div>
+        <div className={styles.loading}>
+          <div className={styles.loader}></div>
+        </div>
       </div>
     );
   }
