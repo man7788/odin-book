@@ -8,7 +8,7 @@ import PostList from '../posts/PostList';
 
 function Profile() {
   const { profileId } = useParams();
-  const { setRender } = useOutletContext();
+  const { setRenderApp } = useOutletContext();
   const { profileResult, profileLoading, profileError } = useProfile(profileId);
   const { followingResult, followingLoading, followingError } =
     useFollowing(profileId);
@@ -18,7 +18,7 @@ function Profile() {
 
   useEffect(() => {
     // Re-render App to disable sidebar highlight
-    setRender(true);
+    setRenderApp(true);
   }, []);
 
   const onSubmitRequest = async () => {
