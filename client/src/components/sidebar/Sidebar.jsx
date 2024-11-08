@@ -19,7 +19,7 @@ function Sidebar({ fullName, render }) {
       return;
     }
 
-    if (location.pathname === '/users/requests') {
+    if (location.pathname === '/requests') {
       setActiveLink('requests');
       return;
     }
@@ -53,7 +53,7 @@ function Sidebar({ fullName, render }) {
         className={
           activeLink === 'requests' ? styles.requestsActive : styles.requests
         }
-        to="users/requests"
+        to="requests"
       >
         Requests
       </Link>
