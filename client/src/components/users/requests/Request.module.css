@@ -12,7 +12,7 @@
   border-bottom: none;
 }
 
-.Request > a {
+.fullName {
   color: var(--request-color-white);
   text-decoration: none;
   font-size: 1.2rem;
@@ -42,8 +42,6 @@
 
 .loading,
 .error {
-  composes: Request;
-  display: flex;
-  justify-content: center;
-  font-size: 1.2rem;
+  composes: requestStatus;
+  padding: 0;
 }
