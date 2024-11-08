@@ -56,3 +56,7 @@
   composes: followStatus;
   padding: 0;
 }
+
+.loader {
+  composes: listLoader from '../listStyle.module.css';
+}
