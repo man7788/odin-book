@@ -36,7 +36,9 @@ function Request({ request, setRefresh }) {
         <Link className={styles.fullName} to={`/${profileResult?.profile._id}`}>
           {profileResult?.profile.full_name}
         </Link>
-        <div className={styles.loading}>Loading...</div>
+        <div className={styles.loading}>
+          <div className={styles.loader}></div>
+        </div>
       </div>
     );
   }
