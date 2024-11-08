@@ -17,6 +17,7 @@ function Profile() {
   const [serverError, setServerError] = useState(null);
 
   useEffect(() => {
+    // Re-render App to disable sidebar highlight
     setRender(true);
   }, []);
 
@@ -27,8 +28,9 @@ function Profile() {
 
     const { result, error } = await requestFetch(requestPayload);
 
-    if (error?.code) {
+    if (error) {
       setServerError(true);
+      return;
     }
 
     if (result) {
@@ -38,12 +40,30 @@ function Profile() {
     setLoading(false);
   };
 
-  if (profileLoading || followingLoading || loading) {
+  if (profileLoading || followingLoading) {
     return <div className={styles.App}>Loading...</div>;
   }
 
-  if (profileError || followingError || serverError) {
+  if (profileError || followingError) {
     return <div className={styles.App}>Server Error</div>;
+  }
+
+  if (serverError) {
+    return (
+      <div className={styles.Profile}>
+        <div className={styles.info}>
+          <h1 className={styles.fullName}>
+            {profileResult?.profile.full_name}
+          </h1>
+          <div>{profileResult?.profile.about}</div>
+          <div className={styles.error}>Server error</div>
+        </div>
+        <div className={styles.postList}>
+          <h2>Posts</h2>
+          <PostList profileId={profileId} />
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -51,17 +71,19 @@ function Profile() {
       <div className={styles.info}>
         <h1 className={styles.fullName}>{profileResult?.profile.full_name}</h1>
         <div>{profileResult?.profile.about}</div>
-        <div>
-          {followingResult?.currentUser ? null : followingResult?.pending ? (
-            <button className={styles.pending}>Pending</button>
-          ) : followingResult?.following ? (
-            <button className={styles.following}>Following</button>
-          ) : (
-            <button className={styles.follow} onClick={onSubmitRequest}>
-              Follow
-            </button>
-          )}
-        </div>
+        {loading ? (
+          <div className={styles.loading}>
+            <div className={styles.loader}></div>
+          </div>
+        ) : followingResult?.currentUser ? null : followingResult?.pending ? (
+          <button className={styles.pending}>Pending</button>
+        ) : followingResult?.following ? (
+          <button className={styles.following}>Following</button>
+        ) : (
+          <button className={styles.follow} onClick={onSubmitRequest}>
+            Follow
+          </button>
+        )}
       </div>
       <div className={styles.postList}>
         <h2>Posts</h2>
