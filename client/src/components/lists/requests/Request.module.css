@@ -1,37 +1,13 @@
 .Request {
-  border-bottom: 2px solid var(--app-border);
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 40px 20px 40px 20px;
-}
-
-.Request:last-child {
-  border-bottom: none;
+  composes: listItem from '../listStyle.module.css';
 }
 
 .fullName {
-  color: var(--request-color-white);
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.requestStatus {
-  border-radius: 10px;
-  width: 100px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  padding: 0 15px 0 15px;
+  composes: listName from '../listStyle.module.css';
 }
 
 .accept {
-  composes: requestStatus;
+  composes: listButton from '../listStyle.module.css';
   background: var(--request-follow-white);
   color: var(--request-follow-color-almost-black);
 }
@@ -42,6 +18,10 @@
 
 .loading,
 .error {
-  composes: requestStatus;
+  composes: listButton from '../listStyle.module.css';
   padding: 0;
+}
+
+.loader {
+  composes: listLoader from '../listStyle.module.css';
 }
