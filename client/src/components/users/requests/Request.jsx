@@ -31,17 +31,31 @@ function Request({ request, setRefresh }) {
   };
 
   if (profileLoading || loading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return (
+      <div className={styles.Request}>
+        <Link className={styles.fullName} to={`/${profileResult?.profile._id}`}>
+          {profileResult?.profile.full_name}
+        </Link>
+        <div className={styles.loading}>Loading...</div>
+      </div>
+    );
   }
 
   if (profileError || error) {
-    return <div className={styles.error}>Server Error</div>;
+    return (
+      <div className={styles.Request}>
+        <Link className={styles.fullName} to={`/${profileResult?.profile._id}`}>
+          {profileResult?.profile.full_name}
+        </Link>
+        <div className={styles.error}>Server Error</div>
+      </div>
+    );
   }
 
   return (
     <div className={styles.Request}>
-      <Link to={`/${profileResult.profile._id}`}>
-        {profileResult.profile.full_name}
+      <Link className={styles.fullName} to={`/${profileResult?.profile._id}`}>
+        {profileResult?.profile.full_name}
       </Link>
       <button className={styles.accept} onClick={onSubmitAccept}>
         Accept
