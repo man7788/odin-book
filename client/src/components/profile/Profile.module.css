@@ -26,7 +26,7 @@
 .followStatus {
   border-radius: 10px;
   background: var(--profile-following-dark-gray);
-  width: fit-content;
+  width: 100px;
   font-weight: 600;
   padding: 5px 15px 5px 15px;
   margin-top: 10px;
@@ -44,8 +44,8 @@
 
 .pending {
   composes: followStatus;
-  background: var(--profile-pending-background-gray);
-  color: var(--profile-pending-color-light-gray);
+  border: 2px solid var(--profile-pending-border-white);
+  color: var(--profile-pending-color-white);
   cursor: default;
 }
 
