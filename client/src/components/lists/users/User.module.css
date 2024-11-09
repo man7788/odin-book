@@ -27,10 +27,15 @@
   cursor: default;
 }
 
+.loadingButton {
+  composes: listButton from '../listStyle.module.css';
+}
+
 .loading,
 .error {
-  composes: listButton from '../listStyle.module.css';
-  padding: 0;
+  composes: listItem from '../listStyle.module.css';
+  justify-content: center !important;
+  font-weight: 600;
 }
 
 .loader {
