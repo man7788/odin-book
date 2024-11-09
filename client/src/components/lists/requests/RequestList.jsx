@@ -7,7 +7,11 @@ function RequestList() {
     useRequests();
 
   if (requestsLoading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return (
+      <div className={styles.loading}>
+        <div className={styles.loader}></div>
+      </div>
+    );
   }
 
   if (requestsError) {
