@@ -24,4 +24,5 @@
 
 .loader {
   composes: listLoader from '../listStyle.module.css';
+  width: 25px;
 }
