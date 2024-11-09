@@ -161,26 +161,64 @@ exports.posts_recent = asyncHandler(async (req, res) => {
       },
     },
     { $sort: { createdAt: -1 } },
-    {
-      $lookup: {
-        from: 'likes',
-        localField: '_id',
-        foreignField: 'post',
-        as: 'likes',
-      },
-    },
-    {
-      $lookup: {
-        from: 'comments',
-        localField: '_id',
-        foreignField: 'post',
-        as: 'comments',
-      },
-    },
-  ]);
+  ]).project('_id');
 
   res.json({ posts });
 });
+
+// Display a single post on GET
+exports.post_single = [
+  param('id')
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage('Post id must not be empty')
+    .custom((value) => {
+      const validId = mongoose.isValidObjectId(value);
+      if (!validId) {
+        throw new Error('Invalid post ID');
+      }
+      return validId;
+    })
+    .escape(),
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    }
+
+    const post_id = mongoose.Types.ObjectId.createFromHexString(req.params.id);
+
+    // Return a single post with likes and comments
+    const post = await Post.aggregate([
+      {
+        $match: {
+          _id: post_id,
+        },
+      },
+      {
+        $lookup: {
+          from: 'likes',
+          localField: '_id',
+          foreignField: 'post',
+          as: 'likes',
+        },
+      },
+      {
+        $lookup: {
+          from: 'comments',
+          localField: '_id',
+          foreignField: 'post',
+          as: 'comments',
+        },
+      },
+    ]);
+
+    return res.json({ post });
+  }),
+];
 
 // Display all posts of a user on GET
 exports.posts_user = [
