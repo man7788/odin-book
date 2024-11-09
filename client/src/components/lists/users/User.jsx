@@ -32,25 +32,17 @@ function User(props) {
     setLoading(false);
   };
 
-  if (followingLoading || loading) {
+  if (followingLoading) {
     return (
-      <div className={styles.User}>
-        <Link className={styles.fullName} to={`/${_id}`}>
-          {full_name}
-        </Link>
-        <div className={styles.loading}>
-          <div className={styles.loader}></div>
-        </div>
+      <div className={styles.loading}>
+        <div className={styles.loader}></div>
       </div>
     );
   }
 
   if (followingError || error) {
     return (
-      <div className={styles.User}>
-        <Link className={styles.fullName} to={`/${_id}`}>
-          {full_name}
-        </Link>
+      <div className={styles.error}>
         <div className={styles.error}>Server error</div>
       </div>
     );
@@ -72,7 +64,11 @@ function User(props) {
       <Link className={styles.fullName} to={`/${_id}`}>
         {full_name}
       </Link>
-      {followingResult?.currentUser ? null : followingResult?.pending ? (
+      {loading ? (
+        <div className={styles.loadingButton}>
+          <div className={styles.loader}></div>
+        </div>
+      ) : followingResult?.currentUser ? null : followingResult?.pending ? (
         <button className={styles.pending}>Pending</button>
       ) : followingResult?.following ? (
         <button className={styles.following}>Following</button>
