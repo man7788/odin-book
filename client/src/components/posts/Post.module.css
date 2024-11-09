@@ -39,3 +39,11 @@
     transform: rotate(1turn);
   }
 }
+
+.error {
+  composes: Post;
+  display: flex;
+  justify-content: center;
+  min-height: 150px;
+  font-weight: 600;
+}
