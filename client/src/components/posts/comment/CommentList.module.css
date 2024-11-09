@@ -35,6 +35,11 @@
   font-size: 0.9rem;
 }
 
+.formError {
+  margin-top: -20px;
+  padding-bottom: 20px;
+}
+
 .loginButton {
   font-weight: 600;
 }
