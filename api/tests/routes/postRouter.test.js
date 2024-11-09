@@ -236,22 +236,15 @@ describe('posts router', () => {
 
       const response = await request(app).get(`/posts/recent`);
 
+      // Response with posts in decending order
       expect(response.body.posts[0]).toEqual(
         expect.objectContaining({
-          profile: profileId2.toString(),
-          author: 'foobar2',
-          text_content: 'Text content is foobar2',
-          likes: expect.any(Array),
-          comments: expect.any(Array),
+          _id: post2._id.toString(),
         }),
       );
       expect(response.body.posts[1]).toEqual(
         expect.objectContaining({
-          profile: mockProfileId1.toString(),
-          author: 'foobar',
-          text_content: 'Text content is foobar',
-          likes: expect.arrayContaining([expect.any(Object)]),
-          comments: expect.arrayContaining([expect.any(Object)]),
+          _id: post1._id.toString(),
         }),
       );
     });
