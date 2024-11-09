@@ -36,6 +36,13 @@ router.get(
   postController.posts_recent,
 );
 
+// GET request for a single posts
+router.get(
+  '/:id',
+  passport.authenticate('jwt', { session: false, failWithError: true }),
+  postController.post_single,
+);
+
 // GET request for all posts of a user
 router.get(
   '/users/:id',
