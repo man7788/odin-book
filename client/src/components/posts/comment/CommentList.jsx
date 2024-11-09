@@ -35,6 +35,7 @@ function CommentList({ postId, comments }) {
 
     if (error?.errors) {
       setFormError(error.errors);
+      setLoading(false);
       return;
     }
 
@@ -44,7 +45,6 @@ function CommentList({ postId, comments }) {
 
     if (result) {
       setComment('');
-      setLoading(false);
     }
 
     setLoading(false);
@@ -89,7 +89,11 @@ function CommentList({ postId, comments }) {
             )}
           </form>
           {formError &&
-            formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
+            formError.map((error) => (
+              <div className={styles.formError} key={error.msg}>
+                {error.msg}
+              </div>
+            ))}
         </div>
       ) : (
         <div className={styles.inputContainer}>
