@@ -8,8 +8,10 @@ function CommentList({ postId, comments }) {
   const [comment, setComment] = useState('');
   const [showComments, setShowComments] = useState(false);
   const [showReply, setShowReply] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [formError, setFormError] = useState(null);
-  const [serverError, setServerError] = useState(null);
 
   useEffect(() => {
     if (comment.length > 0) {
@@ -26,8 +28,9 @@ function CommentList({ postId, comments }) {
       return;
     }
 
-    const commentPayload = { text_content: comment };
+    setLoading(true);
 
+    const commentPayload = { text_content: comment };
     const { result, error } = await commentFetch(postId, commentPayload);
 
     if (error?.errors) {
@@ -36,12 +39,15 @@ function CommentList({ postId, comments }) {
     }
 
     if (error) {
-      setServerError(true);
+      setError(true);
     }
 
     if (result) {
       setComment('');
+      setLoading(false);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -63,7 +69,7 @@ function CommentList({ postId, comments }) {
       {showComments &&
         comments.map((comment) => <Comment key={comment._id} {...comment} />)}
 
-      {!serverError ? (
+      {!loading ? (
         <div className={styles.formContainer}>
           <form action="" method="post" onSubmit={onSubmitForm}>
             <div className={styles.inputContainer}>
@@ -86,7 +92,9 @@ function CommentList({ postId, comments }) {
             formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
         </div>
       ) : (
-        <div className={styles.formContainer}>Server Error</div>
+        <div className={styles.inputContainer}>
+          <div className={styles.loader}></div>
+        </div>
       )}
     </div>
   );
