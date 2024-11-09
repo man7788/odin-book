@@ -1,29 +1,46 @@
 import styles from './Post.module.css';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import CommentList from './comment/CommentList';
 import Like from './like/Like';
+import useSinglePost from '../../hooks/useSinglePost';
 
 function Post(props) {
-  const { profile, author, text_content, likes, comments, _id } = props;
+  const { _id } = props;
+  const { postResult, postLoading, postError } = useSinglePost(_id);
+  const [post, setPost] = useState(null);
+
+  useEffect(() => {
+    if (postResult) {
+      setPost(postResult.post[0]);
+    }
+  });
+
+  if (postLoading) {
+    return <div className={styles.Post}>Loading</div>;
+  }
+
+  if (postError) {
+    return <div className={styles.Post}>Server error</div>;
+  }
 
   return (
-    <div className={styles.Post}>
-      <Link to={`/${profile}`}>{author}</Link>
-      <br></br>
-      {text_content}
-      <Like postId={_id} likes={likes} />
-      <CommentList postId={_id} comments={comments} />
-    </div>
+    <>
+      {post && (
+        <div className={styles.Post}>
+          <Link to={`/${post.profile}`}>{post.author}</Link>
+          <br></br>
+          {post.text_content}
+          <Like postId={_id} likes={post.likes} />
+          <CommentList postId={_id} comments={post.comments} />
+        </div>
+      )}
+    </>
   );
 }
 
 Post.propTypes = {
-  profile: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  text_content: PropTypes.string.isRequired,
-  likes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  comments: PropTypes.arrayOf(PropTypes.object).isRequired,
   _id: PropTypes.string.isRequired,
 };
 
