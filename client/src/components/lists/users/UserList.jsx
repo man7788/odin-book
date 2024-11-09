@@ -6,7 +6,11 @@ function UserList() {
   const { usersResult, usersLoading, usersError } = useUsers();
 
   if (usersLoading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return (
+      <div className={styles.loading}>
+        <div className={styles.loader}></div>
+      </div>
+    );
   }
 
   if (usersError) {
