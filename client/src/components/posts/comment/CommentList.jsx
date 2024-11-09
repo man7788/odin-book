@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Comment from './Comment';
 import commentFetch from '../../../fetch/commentFetch';
 
-function CommentList({ postId, comments }) {
+function CommentList({ postId, comments, setRenderPost }) {
   const [comment, setComment] = useState('');
   const [showComments, setShowComments] = useState(false);
   const [showReply, setShowReply] = useState(false);
@@ -46,6 +46,7 @@ function CommentList({ postId, comments }) {
 
     if (result) {
       setComment('');
+      setRenderPost(true);
     }
 
     setLoading(false);
@@ -134,6 +135,7 @@ function CommentList({ postId, comments }) {
 CommentList.propTypes = {
   postId: PropTypes.string.isRequired,
   comments: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setRenderPost: PropTypes.func.isRequired,
 };
 
 export default CommentList;
