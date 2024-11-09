@@ -29,7 +29,9 @@ function Post(props) {
     <>
       {post && (
         <div className={styles.Post}>
-          <Link to={`/${post.profile}`}>{post.author}</Link>
+          <Link className={styles.fullName} to={`/${post.profile}`}>
+            {post.author}
+          </Link>
           <br></br>
           {post.text_content}
           <Like postId={_id} likes={post.likes} />
