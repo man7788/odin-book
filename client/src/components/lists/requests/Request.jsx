@@ -25,33 +25,22 @@ function Request({ request, setRefresh }) {
 
     if (result) {
       setRefresh(true);
+      return;
     }
 
     setLoading(false);
   };
 
-  if (profileLoading || loading) {
+  if (profileLoading) {
     return (
-      <div className={styles.Request}>
-        <Link className={styles.fullName} to={`/${profileResult?.profile._id}`}>
-          {profileResult?.profile.full_name}
-        </Link>
-        <div className={styles.loading}>
-          <div className={styles.loader}></div>
-        </div>
+      <div className={styles.loading}>
+        <div className={styles.loader}></div>
       </div>
     );
   }
 
   if (profileError || error) {
-    return (
-      <div className={styles.Request}>
-        <Link className={styles.fullName} to={`/${profileResult?.profile._id}`}>
-          {profileResult?.profile.full_name}
-        </Link>
-        <div className={styles.error}>Server Error</div>
-      </div>
-    );
+    return <div className={styles.error}>Server Error</div>;
   }
 
   return (
@@ -59,9 +48,15 @@ function Request({ request, setRefresh }) {
       <Link className={styles.fullName} to={`/${profileResult?.profile._id}`}>
         {profileResult?.profile.full_name}
       </Link>
-      <button className={styles.accept} onClick={onSubmitAccept}>
-        Accept
-      </button>
+      {loading ? (
+        <div className={styles.loadingButton}>
+          <div className={styles.loader}></div>
+        </div>
+      ) : (
+        <button className={styles.accept} onClick={onSubmitAccept}>
+          Accept
+        </button>
+      )}
     </div>
   );
 }
