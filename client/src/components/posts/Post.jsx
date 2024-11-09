@@ -8,14 +8,15 @@ import useSinglePost from '../../hooks/useSinglePost';
 
 function Post(props) {
   const { _id } = props;
-  const { postResult, postLoading, postError } = useSinglePost(_id);
+  const { postResult, postLoading, postError, setRenderPost } =
+    useSinglePost(_id);
   const [post, setPost] = useState(null);
 
   useEffect(() => {
     if (postResult) {
       setPost(postResult.post[0]);
     }
-  });
+  }, [postResult]);
 
   if (postLoading) {
     return (
@@ -41,7 +42,11 @@ function Post(props) {
           <br></br>
           {post.text_content}
           <Like postId={_id} likes={post.likes} />
-          <CommentList postId={_id} comments={post.comments} />
+          <CommentList
+            postId={_id}
+            comments={post.comments}
+            setRenderPost={setRenderPost}
+          />
         </div>
       )}
     </>
