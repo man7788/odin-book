@@ -1,5 +1,18 @@
-.PostList {
-  border-radius: 10px;
+.layout {
   width: 600px;
   margin-top: 20px;
+}
+
+.PostList {
+  composes: layout;
+}
+
+.loading {
+  composes: layout;
+  font-size: 1.5rem;
+}
+
+.error {
+  composes: layout;
+  font-size: 1.5rem;
 }
