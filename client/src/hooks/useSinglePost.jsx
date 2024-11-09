@@ -4,6 +4,7 @@ const useSinglePost = (profileId) => {
   const [postResult, setPostResult] = useState(null);
   const [postLoading, setPostLoading] = useState(true);
   const [postError, setPostError] = useState(null);
+  const [renderPost, setRenderPost] = useState(false);
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -37,9 +38,9 @@ const useSinglePost = (profileId) => {
       }
     };
     fetchPosts();
-  }, [profileId]);
+  }, [profileId, renderPost]);
 
-  return { postResult, postLoading, postError };
+  return { postResult, postLoading, postError, setRenderPost };
 };
 
 export default useSinglePost;
