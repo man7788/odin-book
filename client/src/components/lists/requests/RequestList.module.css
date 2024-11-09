@@ -19,7 +19,13 @@
 
 .loading {
   composes: layout;
-  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.loader {
+  composes: listLoader from '../listStyle.module.css';
+  width: 50px;
 }
 
 .error {
