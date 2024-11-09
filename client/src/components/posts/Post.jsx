@@ -18,11 +18,17 @@ function Post(props) {
   });
 
   if (postLoading) {
-    return <div className={styles.Post}>Loading</div>;
+    return (
+      <div className={styles.loading}>
+        <div className={styles.loaderContainer}>
+          <div className={styles.loader}></div>
+        </div>
+      </div>
+    );
   }
 
   if (postError) {
-    return <div className={styles.Post}>Server error</div>;
+    return <div className={styles.error}>Server error</div>;
   }
 
   return (
