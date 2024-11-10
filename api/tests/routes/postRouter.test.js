@@ -249,4 +249,45 @@ describe('posts router', () => {
       );
     });
   });
+
+  describe('GET /:id', () => {
+    test('should response a single post', async () => {
+      const post = new Post({
+        profile: mockProfileId1,
+        author: 'foobar',
+        text_content: 'Text content is foobar',
+        _id: postId1,
+      });
+
+      // Sequentially save documents to create greater time stamp intervals
+      await post.save();
+
+      const comment = new Comment({
+        post: postId1,
+        profile: mockProfileId1,
+        author: 'foobar',
+        text_content: 'Comment from foobar',
+      });
+
+      await comment.save();
+
+      const like = new Like({
+        post: postId1,
+        profile: mockProfileId1,
+        author: 'foobar',
+      });
+
+      await like.save();
+
+      const response = await request(app).get(`/posts/${post._id}`);
+
+      expect(response.body.post[0]).toMatchObject({
+        profile: mockProfileId1.toString(),
+        author: 'foobar',
+        text_content: 'Text content is foobar',
+        likes: expect.any(Array),
+        comments: expect.any(Array),
+      });
+    });
+  });
 });
