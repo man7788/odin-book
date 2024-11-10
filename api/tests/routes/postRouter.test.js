@@ -251,6 +251,15 @@ describe('posts router', () => {
   });
 
   describe('GET /:id', () => {
+    test('should response with invalid post id error', async () => {
+      const response = await request(app).get('/posts/123456');
+
+      const errorObj = JSON.parse(response.error.text);
+
+      expect(response.status).toEqual(400);
+      expect(errorObj.errors[0].msg).toMatch('Invalid post ID');
+    });
+
     test('should response a single post', async () => {
       const post = new Post({
         profile: mockProfileId1,
