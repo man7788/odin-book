@@ -13,6 +13,7 @@ const Post = require('../../models/postModel');
 const Like = require('../../models/likeModel');
 const Comment = require('../../models/commentModel');
 const Follower = require('../../models/followerModel');
+const Profile = require('../../models/profileModel');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -268,7 +269,6 @@ describe('posts router', () => {
         _id: postId1,
       });
 
-      // Sequentially save documents to create greater time stamp intervals
       await post.save();
 
       const comment = new Comment({
@@ -317,6 +317,69 @@ describe('posts router', () => {
 
       expect(JSON.parse(response.error.text)).toMatchObject({
         error: 'User not found',
+      });
+    });
+
+    test('should response with user posts', async () => {
+      const profile = new Profile({
+        first_name: 'foo',
+        last_name: 'bar',
+        _id: mockProfileId1,
+      });
+      await profile.save();
+
+      const post1 = new Post({
+        profile: mockProfileId1,
+        author: 'foobar',
+        text_content: 'Text content is foobar',
+        _id: postId1,
+      });
+
+      const post2 = new Post({
+        profile: mockProfileId1,
+        author: 'foobar',
+        text_content: 'Text content is foobar',
+        _id: postId2,
+      });
+
+      // Sequentially save documents to create greater time stamp intervals
+      await post1.save();
+      await post2.save();
+
+      const comment = new Comment({
+        post: postId1,
+        profile: mockProfileId1,
+        author: 'foobar',
+        text_content: 'Comment from foobar',
+      });
+
+      await comment.save();
+
+      const like = new Like({
+        post: postId1,
+        profile: mockProfileId1,
+        author: 'foobar',
+      });
+
+      await like.save();
+
+      const response = await request(app).get(`/posts/users/${mockProfileId1}`);
+
+      expect(response.body.posts[0]).toMatchObject({
+        profile: mockProfileId1.toString(),
+        author: 'foobar',
+        text_content: 'Text content is foobar',
+        likes: expect.any(Array),
+        comments: expect.any(Array),
+        _id: postId2.toString(),
+      });
+      expect(response.body.posts[1]).toMatchObject({
+        profile: mockProfileId1.toString(),
+        author: 'foobar',
+        text_content: 'Text content is foobar',
+        likes: expect.any(Array),
+        comments: expect.any(Array),
+        _id: postId1.toString(),
       });
     });
   });
