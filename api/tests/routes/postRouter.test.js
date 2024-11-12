@@ -309,5 +309,15 @@ describe('posts router', () => {
       expect(response.status).toEqual(400);
       expect(errorObj.errors[0].msg).toMatch('Invalid user ID');
     });
+
+    test('should response with user not found error', async () => {
+      const response = await request(app).get(`/posts/users/${mockProfileId1}`);
+
+      expect(response.status).toEqual(400);
+
+      expect(JSON.parse(response.error.text)).toMatchObject({
+        error: 'User not found',
+      });
+    });
   });
 });
