@@ -1,8 +1,9 @@
 import styles from './Create.module.css';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import createFetch from '../../fetch/createFetch';
 
-function Create() {
+function Create({ setShowCreate }) {
   const [post, setPost] = useState('');
   const [formError, setFormError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -32,6 +33,10 @@ function Create() {
     setLoading(false);
   };
 
+  const onShowCreate = () => {
+    setShowCreate(false);
+  };
+
   if (loading) {
     return <div className={styles.App}>Loading...</div>;
   }
@@ -42,6 +47,7 @@ function Create() {
 
   return (
     <div className={styles.Create}>
+      <div onClick={onShowCreate} className={styles.filter}></div>
       <div className={styles.formContainer}>
         <form action="" method="post" onSubmit={onSubmitForm}>
           <div className={styles.inputContainer}>
@@ -67,5 +73,9 @@ function Create() {
     </div>
   );
 }
+
+Create.propTypes = {
+  setShowCreate: PropTypes.func,
+};
 
 export default Create;
