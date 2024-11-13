@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 
-function Sidebar({ fullName, renderApp }) {
+function Sidebar({ fullName, renderApp, setShowCreate }) {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState(null);
   const [navLogin, setNavLogin] = useState(false);
@@ -26,6 +26,10 @@ function Sidebar({ fullName, renderApp }) {
 
     setActiveLink(null);
   }, [location, renderApp]);
+
+  const onShowCreate = () => {
+    setShowCreate(true);
+  };
 
   const onLogout = () => {
     localStorage.clear();
@@ -57,6 +61,9 @@ function Sidebar({ fullName, renderApp }) {
       >
         Requests
       </Link>
+      <button onClick={onShowCreate} className={styles.create}>
+        Create
+      </button>
       <div className={styles.fullName}>{fullName}</div>
       <Link className={styles.logout} onClick={onLogout} to="/login">
         Log Out
@@ -69,6 +76,7 @@ function Sidebar({ fullName, renderApp }) {
 Sidebar.propTypes = {
   fullName: PropTypes.string,
   renderApp: PropTypes.bool,
+  setShowCreate: PropTypes.func,
 };
 
 export default Sidebar;
