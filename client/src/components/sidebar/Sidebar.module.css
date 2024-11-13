@@ -2,7 +2,7 @@
   max-width: 300px;
   min-height: 100vh;
   display: grid;
-  grid-template-rows: 80px repeat(3, min-content) 1fr repeat(2, min-content) 30px;
+  grid-template-rows: 80px repeat(4, min-content) 1fr repeat(2, min-content) 30px;
   padding: 0 10px 0 10px;
 }
 
@@ -11,6 +11,8 @@
   text-decoration: none;
   color: var(--button-disable-dark-gray);
   font-size: 1.4rem;
+  display: flex;
+  align-items: center;
   cursor: pointer;
   padding: 0.5rem 1rem 0.5rem 1rem;
 }
@@ -19,6 +21,7 @@
 .home,
 .users,
 .requests,
+.create,
 .fullName,
 .logout {
   composes: linkStyle;
@@ -30,21 +33,17 @@
   font-weight: 600;
 }
 
-.fullName {
-  color: var(--sidebar-white);
-  grid-row: 6/7;
+.create {
+  text-align: left;
 }
 
-.logout {
+.fullName {
+  color: var(--sidebar-white);
   grid-row: 7/8;
 }
 
-.homeActive,
-.usersActive,
-.requestsActive {
-  composes: linkStyle;
-  color: var(--sidebar-white);
-  font-weight: 600;
+.logout {
+  grid-row: 8/9;
 }
 
 .home:hover,
@@ -53,6 +52,15 @@
 .logout:hover,
 .homeActive:hover,
 .usersActive:hover,
-.requestsActive:hover {
+.requestsActive:hover,
+.create:hover {
   background: var(--sidebar-hover-light-gray);
+}
+
+.homeActive,
+.usersActive,
+.requestsActive {
+  composes: linkStyle;
+  color: var(--sidebar-white);
+  font-weight: 600;
 }
