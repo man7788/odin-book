@@ -1,8 +1,27 @@
 .Create {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
+.filter {
+  background: #0000008a;
+  position: absolute;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+}
+
+.formContainer {
   background: var(--input-background-dark-gray);
   border: 1px solid var(--app-border);
   border-radius: 10px;
+  position: absolute;
+  top: 15vh;
+  left: 25vw;
   width: 600px;
+  height: 400px;
   padding: 20px;
   margin: 20px 0 20px 0;
+  z-index: 5;
 }
