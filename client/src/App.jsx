@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import Sidebar from './components/sidebar/Sidebar';
+import Create from './components/create/Create';
 
 function App() {
   const { authResult, authLoading, authError } = useAuth();
   const [navLogin, setNavLogin] = useState(false);
   const [renderApp, setRenderApp] = useState(false);
   const [serverError, setServerError] = useState(false);
+
+  const [showCreate, setShowCreate] = useState(false);
 
   useEffect(() => {
     if (authError?.code === 401) {
@@ -28,7 +31,12 @@ function App() {
 
   return (
     <div className={styles.App}>
-      <Sidebar fullName={authResult?.full_name} render={renderApp} />
+      <Sidebar
+        fullName={authResult?.full_name}
+        render={renderApp}
+        setShowCreate={setShowCreate}
+      />
+      {showCreate && <Create setShowCreate={setShowCreate} />}
       {!authError && (
         <Outlet context={{ profile: authResult.profile, setRenderApp }} />
       )}
