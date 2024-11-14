@@ -60,4 +60,9 @@
   --request-follow-white: #ffffffde;
   --request-follow-color-almost-black: #121212;
   --request-follow-hover-light-gray: #ffffffd0;
+
+  /* Create */
+  --create-form-background: #121212;
+  --create-filter-background: #000000a8;
+  --create-input-background: #000000a8;
 }
