@@ -50,22 +50,25 @@ function Create({ setShowCreate }) {
       <div onClick={onShowCreate} className={styles.filter}></div>
       <div className={styles.formContainer}>
         <form action="" method="post" onSubmit={onSubmitForm}>
+          <div className={styles.headerContainer}>
+            <button className={styles.cancelButton}>Cancel</button>
+            <h2 className={styles.header}>New Post</h2>
+          </div>
+
           <div className={styles.inputContainer}>
-            <input
+            <textarea
               type="text"
               name="post"
               id="post"
-              placeholder="Create new post..."
+              placeholder="What's new?"
               value={post}
               onChange={(e) => setPost(e.target.value)}
-            ></input>
+              autoFocus
+            ></textarea>
           </div>
-
-          <div className={styles.loginBtn}>
-            <button className={styles.button} type="submit">
-              Post
-            </button>
-          </div>
+          <button className={styles.postButton} type="submit">
+            Post
+          </button>
         </form>
         {formError &&
           formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
