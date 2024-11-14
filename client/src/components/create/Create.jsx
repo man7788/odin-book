@@ -37,6 +37,7 @@ function Create({ setShowCreate }) {
 
     if (error) {
       setError(true);
+      return;
     }
 
     if (result) {
@@ -50,10 +51,6 @@ function Create({ setShowCreate }) {
     setShowCreate(false);
   };
 
-  if (error) {
-    return <div className={styles.App}>Server Error</div>;
-  }
-
   return (
     <div className={styles.Create}>
       <div onClick={onHideCreate} className={styles.filter}></div>
@@ -65,7 +62,6 @@ function Create({ setShowCreate }) {
             </button>
             <h2 className={styles.header}>New Post</h2>
           </div>
-
           <div className={styles.inputContainer}>
             <textarea
               type="text"
@@ -84,17 +80,19 @@ function Create({ setShowCreate }) {
                   {error.msg}
                 </div>
               ))}
-            {!loading ? (
+            {error ? (
+              <div className={styles.error}>Server error</div>
+            ) : loading ? (
+              <div className={styles.loading}>
+                <div className={styles.loader}></div>
+              </div>
+            ) : (
               <button
                 className={post ? styles.postButtonActive : styles.postButton}
                 type="submit"
               >
                 Post
               </button>
-            ) : (
-              <div className={styles.loading}>
-                <div className={styles.loader}></div>
-              </div>
             )}
           </div>
         </form>
