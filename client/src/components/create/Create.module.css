@@ -97,3 +97,18 @@
 .postButtonActive:hover {
   background: var(--create-buttton-hover-light-gray);
 }
+
+.footerContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 15fr 1fr;
+  align-items: center;
+}
+
+.footerContainer button {
+  grid-column: 3/4;
+}
+
+.formError {
+  grid-column: 2/3;
+}
