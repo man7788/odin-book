@@ -64,5 +64,12 @@
   /* Create */
   --create-form-background: #121212;
   --create-filter-background: #000000a8;
-  --create-input-background: #000000a8;
+  --create-input-background: #121212;
+
+  --create-button-background-white: #ffffffde;
+  --create-button-almost-black: #121212;
+  --create-buttton-hover-light-gray: #ffffffd0;
+
+  --create-button-disable-background-dark-gray: #ffffff85;
+  --create-button-disable-almost-black: #121212;
 }
