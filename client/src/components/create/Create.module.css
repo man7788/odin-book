@@ -106,7 +106,8 @@
 }
 
 .footerContainer button,
-.loading {
+.loading,
+.error {
   grid-column: 3/4;
 }
 
@@ -143,4 +144,13 @@
   to {
     transform: rotate(1turn);
   }
+}
+
+.error {
+  width: fit-content;
+  font-weight: 600;
+  text-wrap: nowrap;
+  padding-right: 1.5rem;
+  cursor: default;
+  pointer-events: none;
 }
