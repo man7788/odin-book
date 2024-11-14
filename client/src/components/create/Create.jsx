@@ -9,7 +9,7 @@ function Create({ setShowCreate }) {
 
   const [formError, setFormError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [serverError, setServerError] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (content.length > 0) {
@@ -36,7 +36,7 @@ function Create({ setShowCreate }) {
     }
 
     if (error) {
-      setServerError(true);
+      setError(true);
     }
 
     if (result) {
@@ -50,11 +50,7 @@ function Create({ setShowCreate }) {
     setShowCreate(false);
   };
 
-  if (loading) {
-    return <div className={styles.App}>Loading...</div>;
-  }
-
-  if (serverError) {
+  if (error) {
     return <div className={styles.App}>Server Error</div>;
   }
 
@@ -88,12 +84,18 @@ function Create({ setShowCreate }) {
                   {error.msg}
                 </div>
               ))}
-            <button
-              className={post ? styles.postButtonActive : styles.postButton}
-              type="submit"
-            >
-              Post
-            </button>
+            {!loading ? (
+              <button
+                className={post ? styles.postButtonActive : styles.postButton}
+                type="submit"
+              >
+                Post
+              </button>
+            ) : (
+              <div className={styles.loading}>
+                <div className={styles.loader}></div>
+              </div>
+            )}
           </div>
         </form>
       </div>
