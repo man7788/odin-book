@@ -1,33 +1,43 @@
 import styles from './Create.module.css';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import createFetch from '../../fetch/createFetch';
 
 function Create({ setShowCreate }) {
-  const [post, setPost] = useState('');
+  const [content, setContent] = useState('');
+  const [post, setPost] = useState(false);
+
   const [formError, setFormError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(null);
+
+  useEffect(() => {
+    if (content.length > 0) {
+      setPost(true);
+    } else {
+      setPost(false);
+    }
+  }, [content]);
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const createPayload = { text_content: post };
+    const createPayload = { text_content: content };
 
     const { result, error } = await createFetch(createPayload);
 
     if (error?.errors) {
       setFormError(error.errors);
+      return;
     }
 
-    if (error?.code) {
+    if (error) {
       setServerError(true);
     }
 
     if (result) {
-      console.log(result);
-      setPost('');
+      setContent('');
     }
 
     setLoading(false);
@@ -60,15 +70,18 @@ function Create({ setShowCreate }) {
           <div className={styles.inputContainer}>
             <textarea
               type="text"
-              name="post"
-              id="post"
+              name="content"
+              id="content"
               placeholder="What's new?"
-              value={post}
-              onChange={(e) => setPost(e.target.value)}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
               autoFocus
             ></textarea>
           </div>
-          <button className={styles.postButton} type="submit">
+          <button
+            className={post ? styles.postButtonActive : styles.postButton}
+            type="submit"
+          >
             Post
           </button>
         </form>
