@@ -29,6 +29,7 @@
   display: grid;
   grid-template-rows: 0.8fr 5fr 1.5fr;
   justify-items: center;
+  z-index: 10;
 }
 
 .headerContainer {
@@ -70,10 +71,11 @@
 
 .postButton {
   border-radius: 10px;
-  border: 1px solid var(--app-border);
-  height: 40px;
-  width: 80px;
-  color: var(--app-border);
+  background: var(--create-button-disable-background-dark-gray);
+  height: 35px;
+  width: 75px;
+  color: var(--create-button-disable-almost-black);
+  font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,4 +84,16 @@
   margin-right: 2rem;
   cursor: default;
   pointer-events: none;
+}
+
+.postButtonActive {
+  composes: postButton;
+  background: var(--create-button-background-white);
+  color: var(--create-button-almost-black);
+  cursor: pointer;
+  pointer-events: inherit;
+}
+
+.postButtonActive:hover {
+  background: var(--create-buttton-hover-light-gray);
 }
