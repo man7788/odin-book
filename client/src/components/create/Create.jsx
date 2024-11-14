@@ -33,7 +33,7 @@ function Create({ setShowCreate }) {
     setLoading(false);
   };
 
-  const onShowCreate = () => {
+  const onHideCreate = () => {
     setShowCreate(false);
   };
 
@@ -47,11 +47,13 @@ function Create({ setShowCreate }) {
 
   return (
     <div className={styles.Create}>
-      <div onClick={onShowCreate} className={styles.filter}></div>
+      <div onClick={onHideCreate} className={styles.filter}></div>
       <div className={styles.formContainer}>
         <form action="" method="post" onSubmit={onSubmitForm}>
           <div className={styles.headerContainer}>
-            <button className={styles.cancelButton}>Cancel</button>
+            <button className={styles.cancelButton} onClick={onHideCreate}>
+              Cancel
+            </button>
             <h2 className={styles.header}>New Post</h2>
           </div>
 
