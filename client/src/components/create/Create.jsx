@@ -17,6 +17,8 @@ function Create({ setShowCreate }) {
     } else {
       setPost(false);
     }
+
+    setFormError(null);
   }, [content]);
 
   const onSubmitForm = async (e) => {
@@ -29,6 +31,7 @@ function Create({ setShowCreate }) {
 
     if (error?.errors) {
       setFormError(error.errors);
+      setLoading(false);
       return;
     }
 
@@ -78,15 +81,21 @@ function Create({ setShowCreate }) {
               autoFocus
             ></textarea>
           </div>
-          <button
-            className={post ? styles.postButtonActive : styles.postButton}
-            type="submit"
-          >
-            Post
-          </button>
+          <div className={styles.footerContainer}>
+            {formError &&
+              formError.map((error) => (
+                <div key={error.msg} className={styles.formError}>
+                  {error.msg}
+                </div>
+              ))}
+            <button
+              className={post ? styles.postButtonActive : styles.postButton}
+              type="submit"
+            >
+              Post
+            </button>
+          </div>
         </form>
-        {formError &&
-          formError.map((error) => <div key={error.msg}>{error.msg}</div>)}
       </div>
     </div>
   );
