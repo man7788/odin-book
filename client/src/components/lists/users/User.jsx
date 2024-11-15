@@ -48,17 +48,6 @@ function User(props) {
     );
   }
 
-  if (pending) {
-    return (
-      <div className={styles.User}>
-        <Link className={styles.fullName} to={`/${_id}`}>
-          {full_name}
-        </Link>
-        <button className={styles.pending}>Pending</button>
-      </div>
-    );
-  }
-
   return (
     <div className={styles.User}>
       <Link className={styles.fullName} to={`/${_id}`}>
@@ -68,7 +57,8 @@ function User(props) {
         <div className={styles.loadingButton}>
           <div className={styles.loader}></div>
         </div>
-      ) : followingResult?.currentUser ? null : followingResult?.pending ? (
+      ) : followingResult?.currentUser ? null : followingResult?.pending ||
+        pending ? (
         <button className={styles.pending}>Pending</button>
       ) : followingResult?.following ? (
         <button className={styles.following}>Following</button>
