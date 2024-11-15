@@ -6,6 +6,13 @@
   align-items: center;
 }
 
+.serverError {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
 .formLayout {
   display: flex;
   flex-direction: column;
@@ -48,7 +55,7 @@
   box-shadow: 0 0 0 1px var(--input-focus-shadow-red);
 }
 
-.error {
+.formError {
   color: var(--input-focus-shadow-red);
   height: 25px;
 }
