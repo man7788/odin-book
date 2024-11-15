@@ -154,3 +154,19 @@
   cursor: default;
   pointer-events: none;
 }
+
+.successContainer {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 0.8fr 5fr 1.5fr;
+  justify-items: center;
+  z-index: 10;
+}
+
+.success {
+  font-size: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
