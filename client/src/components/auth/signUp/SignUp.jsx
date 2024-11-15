@@ -130,7 +130,7 @@ function SignUp() {
   };
 
   if (serverError) {
-    return <div className={styles.SignUp}>Server Error</div>;
+    return <div className={styles.serverError}>Server Error</div>;
   }
 
   return (
@@ -158,7 +158,7 @@ function SignUp() {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             ></input>
-            <div className={styles.error}>{firstNameError}</div>
+            <div className={styles.formError}>{firstNameError}</div>
           </div>
           <div className={styles.inputContainer}>
             <input
@@ -170,7 +170,7 @@ function SignUp() {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             ></input>
-            <div className={styles.error}>{lastNameError}</div>
+            <div className={styles.formError}>{lastNameError}</div>
           </div>
           <div className={styles.inputContainer}>
             <input
@@ -182,7 +182,7 @@ function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></input>
-            <div className={styles.error}>{emailError}</div>
+            <div className={styles.formError}>{emailError}</div>
           </div>
           <div className={styles.inputContainer}>
             <input
@@ -194,7 +194,7 @@ function SignUp() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></input>
-            <div className={styles.error}>{passwordError}</div>
+            <div className={styles.formError}>{passwordError}</div>
           </div>
           <div className={styles.inputContainer}>
             <input
@@ -208,7 +208,7 @@ function SignUp() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></input>
-            <div className={styles.error}>{confirmPasswordError}</div>
+            <div className={styles.formError}>{confirmPasswordError}</div>
           </div>
           {formLoading ? (
             <div className={styles.formLoaderContainer}>
