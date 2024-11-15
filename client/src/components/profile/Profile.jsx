@@ -60,42 +60,6 @@ function Profile() {
     );
   }
 
-  if (error) {
-    return (
-      <div className={styles.Profile}>
-        <div className={styles.info}>
-          <h1 className={styles.fullName}>
-            {profileResult?.profile.full_name}
-          </h1>
-          <div>{profileResult?.profile.about}</div>
-          <div className={styles.error}>Server error</div>
-        </div>
-        <div className={styles.postList}>
-          <h2>Posts</h2>
-          <PostList profileId={profileId} />
-        </div>
-      </div>
-    );
-  }
-
-  // if (pending) {
-  //   return (
-  //     <div className={styles.Profile}>
-  //       <div className={styles.info}>
-  //         <h1 className={styles.fullName}>
-  //           {profileResult?.profile.full_name}
-  //         </h1>
-  //         <div>{profileResult?.profile.about}</div>
-  //         <button className={styles.pending}>Pending</button>
-  //       </div>
-  //       <div className={styles.postList}>
-  //         <h2>Posts</h2>
-  //         <PostList profileId={profileId} />
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className={styles.Profile}>
       <div className={styles.info}>
