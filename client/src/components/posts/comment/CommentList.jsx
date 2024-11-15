@@ -41,7 +41,6 @@ function CommentList({ postId, comments, setRenderPost }) {
 
     if (error) {
       setError(true);
-      setLoading(false);
     }
 
     if (result) {
@@ -51,32 +50,6 @@ function CommentList({ postId, comments, setRenderPost }) {
 
     setLoading(false);
   };
-
-  if (error) {
-    return (
-      <div className={styles.CommentList}>
-        {!showComments ? (
-          comments.length > 0 && (
-            <button onClick={() => setShowComments(true)}>
-              {`View ${comments.length} ${
-                comments.length === 1 ? 'comment' : 'comments'
-              }`}
-            </button>
-          )
-        ) : (
-          <button onClick={() => setShowComments(false)}>
-            {`Hide ${comments.length === 1 ? 'comment' : 'comments'}`}
-          </button>
-        )}
-
-        {showComments &&
-          comments.map((comment) => <Comment key={comment._id} {...comment} />)}
-        <div className={styles.inputContainer}>
-          <div className={styles.error}>Server error</div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.CommentList}>
@@ -97,7 +70,15 @@ function CommentList({ postId, comments, setRenderPost }) {
       {showComments &&
         comments.map((comment) => <Comment key={comment._id} {...comment} />)}
 
-      {!loading ? (
+      {error ? (
+        <div className={styles.inputContainer}>
+          <div className={styles.error}>Server error</div>
+        </div>
+      ) : loading ? (
+        <div className={styles.inputContainer}>
+          <div className={styles.loader}></div>
+        </div>
+      ) : (
         <div className={styles.formContainer}>
           <form action="" method="post" onSubmit={onSubmitForm}>
             <div className={styles.inputContainer}>
@@ -122,10 +103,6 @@ function CommentList({ postId, comments, setRenderPost }) {
                 {error.msg}
               </div>
             ))}
-        </div>
-      ) : (
-        <div className={styles.inputContainer}>
-          <div className={styles.loader}></div>
         </div>
       )}
     </div>
