@@ -11,6 +11,8 @@ function Create({ setShowCreate }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const [success, setSuccess] = useState(false);
+
   useEffect(() => {
     if (content.length > 0) {
       setPost(true);
@@ -45,11 +47,33 @@ function Create({ setShowCreate }) {
     }
 
     setLoading(false);
+    setSuccess(true);
   };
 
   const onHideCreate = () => {
     setShowCreate(false);
   };
+
+  if (success) {
+    return (
+      <div className={styles.Create}>
+        <div onClick={onHideCreate} className={styles.filter}></div>
+        <div className={styles.formContainer}>
+          <div className={styles.successContainer}>
+            <div className={styles.headerContainer}>
+              <button className={styles.cancelButton} onClick={onHideCreate}>
+                Close
+              </button>
+              <h2 className={styles.header}>New Post</h2>
+            </div>
+            <div className={styles.inputContainer}>
+              <div className={styles.success}>Your post has been created.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.Create}>
