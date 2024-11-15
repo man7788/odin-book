@@ -94,6 +94,11 @@
   justify-content: center;
 }
 
+.followLoader {
+  composes: loader;
+  width: 25px;
+}
+
 .error {
   composes: followStatus;
   padding: 0;
