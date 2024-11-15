@@ -22,11 +22,15 @@ function App() {
   }, [authError]);
 
   if (authLoading) {
-    return <div className={styles.App}>Loading...</div>;
+    return (
+      <div className={styles.loading}>
+        <div className={styles.loader}></div>
+      </div>
+    );
   }
 
   if (serverError) {
-    return <div className={styles.App}>Server Error</div>;
+    return <div className={styles.error}>Server Error</div>;
   }
 
   return (
