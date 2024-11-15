@@ -33,19 +33,24 @@ function App() {
     return <div className={styles.error}>Server Error</div>;
   }
 
+  if (navLogin) {
+    return <> {navLogin && <Navigate to="/login" replace={true} />}</>;
+  }
+
   return (
-    <div className={styles.App}>
-      <Sidebar
-        fullName={authResult?.full_name}
-        render={renderApp}
-        setShowCreate={setShowCreate}
-      />
-      {showCreate && <Create setShowCreate={setShowCreate} />}
-      {!authError && (
-        <Outlet context={{ profile: authResult.profile, setRenderApp }} />
+    <>
+      {authResult && (
+        <div className={styles.App}>
+          <Sidebar
+            fullName={authResult?.full_name}
+            render={renderApp}
+            setShowCreate={setShowCreate}
+          />
+          {showCreate && <Create setShowCreate={setShowCreate} />}
+          <Outlet context={{ profile: authResult.profile, setRenderApp }} />
+        </div>
       )}
-      {navLogin && <Navigate to="/login" replace={true} />}
-    </div>
+    </>
   );
 }
 
