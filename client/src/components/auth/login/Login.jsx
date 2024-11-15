@@ -78,7 +78,7 @@ function Login() {
   };
 
   if (serverError) {
-    return <div className={styles.Login}>Server Error</div>;
+    return <div className={styles.serverError}>Server Error</div>;
   }
 
   return (
@@ -103,7 +103,7 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></input>
-            <div className={styles.error}>{emailError}</div>
+            <div className={styles.formError}>{emailError}</div>
           </div>
           <div className={styles.inputContainer}>
             <input
@@ -115,7 +115,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></input>
-            <div className={styles.error}>{passwordError}</div>
+            <div className={styles.formError}>{passwordError}</div>
           </div>
           {formLoading ? (
             <div className={styles.formLoaderContainer}>
