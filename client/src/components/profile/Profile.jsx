@@ -14,7 +14,7 @@ function Profile() {
     useFollowing(profileId);
 
   const [loading, setLoading] = useState(false);
-  const [serverError, setServerError] = useState(null);
+  const [error, setError] = useState(null);
 
   const [pending, setPending] = useState(false);
 
@@ -31,7 +31,7 @@ function Profile() {
     const { result, error } = await requestFetch(requestPayload);
 
     if (error) {
-      setServerError(true);
+      setError(true);
       return;
     }
 
@@ -60,7 +60,7 @@ function Profile() {
     );
   }
 
-  if (serverError) {
+  if (error) {
     return (
       <div className={styles.Profile}>
         <div className={styles.info}>
@@ -78,34 +78,37 @@ function Profile() {
     );
   }
 
-  if (pending) {
-    return (
-      <div className={styles.Profile}>
-        <div className={styles.info}>
-          <h1 className={styles.fullName}>
-            {profileResult?.profile.full_name}
-          </h1>
-          <div>{profileResult?.profile.about}</div>
-          <button className={styles.pending}>Pending</button>
-        </div>
-        <div className={styles.postList}>
-          <h2>Posts</h2>
-          <PostList profileId={profileId} />
-        </div>
-      </div>
-    );
-  }
+  // if (pending) {
+  //   return (
+  //     <div className={styles.Profile}>
+  //       <div className={styles.info}>
+  //         <h1 className={styles.fullName}>
+  //           {profileResult?.profile.full_name}
+  //         </h1>
+  //         <div>{profileResult?.profile.about}</div>
+  //         <button className={styles.pending}>Pending</button>
+  //       </div>
+  //       <div className={styles.postList}>
+  //         <h2>Posts</h2>
+  //         <PostList profileId={profileId} />
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className={styles.Profile}>
       <div className={styles.info}>
         <h1 className={styles.fullName}>{profileResult?.profile.full_name}</h1>
         <div>{profileResult?.profile.about}</div>
-        {loading ? (
+        {error ? (
+          <div className={styles.error}>Server error</div>
+        ) : loading ? (
           <div className={styles.loading}>
-            <div className={styles.loader}></div>
+            <div className={styles.followLoader}></div>
           </div>
-        ) : followingResult?.currentUser ? null : followingResult?.pending ? (
+        ) : followingResult?.currentUser ? null : followingResult?.pending ||
+          pending ? (
           <button className={styles.pending}>Pending</button>
         ) : followingResult?.following ? (
           <button className={styles.following}>Following</button>
