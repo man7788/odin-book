@@ -1,17 +1,24 @@
 import styles from './App.module.css';
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import Sidebar from './components/sidebar/Sidebar';
 import Create from './components/create/Create';
 
-function App() {
+function App({ errorRedirect = false }) {
   const { authResult, authLoading, authError } = useAuth();
   const [navLogin, setNavLogin] = useState(false);
   const [renderApp, setRenderApp] = useState(false);
   const [serverError, setServerError] = useState(false);
 
   const [showCreate, setShowCreate] = useState(false);
+
+  useEffect(() => {
+    if (errorRedirect) {
+      setServerError(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (authError?.code === 401) {
@@ -29,10 +36,6 @@ function App() {
     );
   }
 
-  if (serverError) {
-    return <div className={styles.error}>Server Error</div>;
-  }
-
   if (navLogin) {
     return <> {navLogin && <Navigate to="/login" replace={true} />}</>;
   }
@@ -47,11 +50,21 @@ function App() {
             setShowCreate={setShowCreate}
           />
           {showCreate && <Create setShowCreate={setShowCreate} />}
-          <Outlet context={{ profile: authResult.profile, setRenderApp }} />
+          {serverError ? (
+            <div className={styles.errorContainer}>
+              <div className={styles.error}>Server Error</div>
+            </div>
+          ) : (
+            <Outlet context={{ profile: authResult.profile, setRenderApp }} />
+          )}
         </div>
       )}
     </>
   );
 }
+
+App.propTypes = {
+  errorRedirect: PropTypes.bool,
+};
 
 export default App;
