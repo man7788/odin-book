@@ -43,11 +43,21 @@ function Profile() {
   };
 
   if (profileLoading || followingLoading) {
-    return <div className={styles.App}>Loading...</div>;
+    return (
+      <div className={styles.Profile}>
+        <div className={styles.pageLoading}>
+          <div className={styles.pageloader}></div>
+        </div>
+      </div>
+    );
   }
 
   if (profileError || followingError) {
-    return <div className={styles.App}>Server Error</div>;
+    return (
+      <div className={styles.Profile}>
+        <div className={styles.pageError}>Server Error</div>
+      </div>
+    );
   }
 
   if (serverError) {
