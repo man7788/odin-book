@@ -2,6 +2,10 @@
   composes: pageLayout from '../indexForm.module.css';
 }
 
+.serverError {
+  composes: serverError from '../indexForm.module.css';
+}
+
 .formContainer {
   height: 620px;
 }
@@ -33,8 +37,8 @@
   composes: inputError from '../indexForm.module.css';
 }
 
-.error {
-  composes: error from '../indexForm.module.css';
+.formError {
+  composes: formError from '../indexForm.module.css';
 }
 
 .button {
