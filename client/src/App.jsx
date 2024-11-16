@@ -55,7 +55,9 @@ function App({ errorRedirect = false }) {
               <div className={styles.error}>Server Error</div>
             </div>
           ) : (
-            <Outlet context={{ profile: authResult.profile, setRenderApp }} />
+            <div className={styles.content}>
+              <Outlet context={{ profile: authResult.profile, setRenderApp }} />
+            </div>
           )}
         </div>
       )}
