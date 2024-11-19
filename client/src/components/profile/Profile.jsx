@@ -5,6 +5,7 @@ import useProfile from '../../hooks/useProfile';
 import useFollowing from '../../hooks/useFollowing';
 import requestFetch from '../../fetch/requestFetch';
 import PostList from '../posts/PostList';
+import Avatar from '../avatar/avatar';
 
 function Profile() {
   const { profileId } = useParams();
@@ -63,8 +64,11 @@ function Profile() {
   return (
     <div className={styles.Profile}>
       <div className={styles.info}>
+        <div className={styles.avatar}>
+          <Avatar email={profileResult?.profile.email} />
+        </div>
         <h1 className={styles.fullName}>{profileResult?.profile.full_name}</h1>
-        <div>{profileResult?.profile.about}</div>
+        <div className={styles.about}>{profileResult?.profile.about}</div>
         {error ? (
           <div className={styles.error}>Server error</div>
         ) : loading ? (
