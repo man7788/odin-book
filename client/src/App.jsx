@@ -5,6 +5,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import Sidebar from './components/sidebar/Sidebar';
 import Create from './components/create/Create';
+import Avatar from './components/avatar/avatar';
 
 function App({ errorRedirect = false }) {
   const { authResult, authLoading, authError } = useAuth();
@@ -48,7 +49,9 @@ function App({ errorRedirect = false }) {
             fullName={authResult?.full_name}
             render={renderApp}
             setShowCreate={setShowCreate}
-          />
+          >
+            <Avatar email={authResult?.email} />
+          </Sidebar>
           {showCreate && <Create setShowCreate={setShowCreate} />}
           {serverError ? (
             <div className={styles.errorContainer}>
