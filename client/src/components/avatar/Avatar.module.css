@@ -1,9 +1,8 @@
 .Avatar {
-  margin-right: 10px;
   display: flex;
   align-items: center;
 }
+
 .Avatar img {
   border-radius: 50%;
-  width: 35px;
 }
