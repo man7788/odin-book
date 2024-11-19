@@ -39,15 +39,32 @@
 .info {
   height: 100px;
   width: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 1fr 1fr;
   margin: 10px 0 10px 0;
+}
+
+.avatar {
+  grid-row: 1/4;
+  align-self: center;
+  /* justify-self: center; */
+}
+
+.info img {
+  width: 80px;
 }
 
 .fullName {
   font-size: 1.5rem;
   font-weight: 600;
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+
+.about {
+  grid-column: 2/3;
+  grid-row: 2/3;
 }
 
 .followStatus {
@@ -95,6 +112,14 @@
 .error {
   composes: followStatus;
   padding: 0;
+}
+
+.follow,
+.pending,
+.following,
+.loading,
+.error {
+  grid-column: 2/3;
 }
 
 .postList {
