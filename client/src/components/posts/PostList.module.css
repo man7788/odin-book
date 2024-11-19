@@ -7,6 +7,12 @@
   composes: layout;
 }
 
+.emptyList {
+  composes: layout;
+  font-size: 1.5rem;
+  margin-top: 40px;
+}
+
 .loading {
   composes: layout;
   display: flex;
