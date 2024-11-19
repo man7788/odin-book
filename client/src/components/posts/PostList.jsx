@@ -20,9 +20,11 @@ function PostList({ profileId = 'recent' }) {
 
   return (
     <div className={styles.PostList}>
-      {postsResult?.posts.length > 0
-        ? postsResult?.posts.map((post) => <Post key={post._id} {...post} />)
-        : 'No posts yet'}
+      {postsResult?.posts.length > 0 ? (
+        postsResult?.posts.map((post) => <Post key={post._id} {...post} />)
+      ) : (
+        <div className={styles.emptyList}>No posts yet</div>
+      )}
     </div>
   );
 }
