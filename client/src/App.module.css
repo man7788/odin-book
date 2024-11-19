@@ -15,6 +15,7 @@
   align-items: center;
   overflow: scroll;
   overflow-x: hidden;
+  scrollbar-gutter: stable both-edges;
 }
 
 @media (min-width: 1400px) {
