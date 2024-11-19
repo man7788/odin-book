@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
 
 const Profile = require('../models/profileModel');
+const User = require('../models/userModel');
 
 // Display all user profiles on GET
 exports.profile_list = asyncHandler(async (req, res) => {
@@ -37,13 +38,20 @@ exports.profile = [
       });
     }
 
-    const profile = await Profile.findById(req.params.id);
+    const profileQuery = await Profile.findById(req.params.id);
+    const user = await User.findOne({ profile: req.params.id });
 
-    if (!profile) {
+    if (!profileQuery) {
       return res.status(400).json({
         error: 'User not found',
       });
     }
+
+    const profile = {
+      email: user.email,
+      full_name: profileQuery.full_name,
+      about: profileQuery.about,
+    };
 
     return res.json({ profile });
   }),
