@@ -9,6 +9,7 @@ const Profile = require('../models/profileModel');
 // Display index on GET
 exports.index = asyncHandler(async (req, res) => {
   res.json({
+    email: req.user.email,
     full_name: req.user.profile.full_name,
     profile: req.user.profile._id,
   });
@@ -36,14 +37,14 @@ exports.sign_up = [
     .trim()
     .isLength({ min: 1 })
     .withMessage('First name must not be empty')
-    .isLength({ max: 50 })
+    .isLength({ max: 25 })
     .withMessage('First name exceeded maximum length')
     .escape(),
   body('last_name')
     .trim()
     .isLength({ min: 1 })
     .withMessage('Last name must not be empty')
-    .isLength({ max: 50 })
+    .isLength({ max: 25 })
     .withMessage('Last name exceeded maximum length')
     .escape(),
   body('password')
