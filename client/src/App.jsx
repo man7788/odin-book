@@ -50,7 +50,7 @@ function App({ errorRedirect = false }) {
             render={renderApp}
             setShowCreate={setShowCreate}
           >
-            <Avatar email={authResult?.email} />
+            <Avatar profileId={authResult?.profile} type={'sidebar'} />
           </Sidebar>
           {showCreate && <Create setShowCreate={setShowCreate} />}
           {serverError ? (
