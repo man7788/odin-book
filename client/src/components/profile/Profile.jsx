@@ -65,7 +65,7 @@ function Profile() {
     <div className={styles.Profile}>
       <div className={styles.info}>
         <div className={styles.avatar}>
-          <Avatar email={profileResult?.profile.email} />
+          <Avatar profileId={profileId} type={'profile'} />
         </div>
         <h1 className={styles.fullName}>{profileResult?.profile.full_name}</h1>
         <div className={styles.about}>{profileResult?.profile.about}</div>
