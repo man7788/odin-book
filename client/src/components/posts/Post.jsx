@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import CommentList from './comment/CommentList';
 import Like from './like/Like';
 import useSinglePost from '../../hooks/useSinglePost';
+import Avatar from '../avatar/avatar';
 
 function Post(props) {
   const { _id } = props;
@@ -36,10 +37,12 @@ function Post(props) {
     <>
       {post && (
         <div className={styles.Post}>
-          <Link className={styles.fullName} to={`/${post.profile}`}>
-            {post.author}
-          </Link>
-          <br></br>
+          <div className={styles.profile}>
+            <Avatar profileId={post?.profile} type={'sidebar'} />
+            <Link className={styles.fullName} to={`/${post.profile}`}>
+              {post.author}
+            </Link>
+          </div>
           {post.text_content}
           <Like postId={_id} likes={post.likes} />
           <CommentList
