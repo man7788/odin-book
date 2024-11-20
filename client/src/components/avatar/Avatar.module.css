@@ -3,6 +3,25 @@
   align-items: center;
 }
 
-.Avatar img {
+.sidebarImage {
   border-radius: 50%;
+  width: 35px;
+  margin-right: 10px;
+}
+
+.sidebarPlaceholder {
+  composes: sidebarImage;
+  border: 1px solid var(--app-border);
+  height: 35px;
+}
+
+.profileImage {
+  border-radius: 50%;
+  width: 80px;
+}
+
+.profilePlaceholder {
+  composes: profileImage;
+  border: 1px solid var(--app-border);
+  height: 80px;
 }
