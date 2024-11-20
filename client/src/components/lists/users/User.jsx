@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useFollowing from '../../../hooks/useFollowing';
 import requestFetch from '../../../fetch/requestFetch';
+import Avatar from '../../avatar/avatar';
 
 function User(props) {
   const { full_name, _id } = props;
@@ -50,6 +51,7 @@ function User(props) {
 
   return (
     <div className={styles.User}>
+      <Avatar profileId={_id} type={'list'} />
       <Link className={styles.fullName} to={`/${_id}`}>
         {full_name}
       </Link>
