@@ -32,7 +32,7 @@
 }
 
 .listPlaceholder {
-  composes: profileImage;
+  composes: listImage;
   border: 1px solid var(--app-border);
   height: 50px;
 }
