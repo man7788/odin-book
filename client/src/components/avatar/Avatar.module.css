@@ -25,3 +25,14 @@
   border: 1px solid var(--app-border);
   height: 80px;
 }
+
+.listImage {
+  border-radius: 50%;
+  width: 50px;
+}
+
+.listPlaceholder {
+  composes: profileImage;
+  border: 1px solid var(--app-border);
+  height: 50px;
+}
