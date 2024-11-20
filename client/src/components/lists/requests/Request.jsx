@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useProfile from '../../../hooks/useProfile';
 import acceptFetch from '../../../fetch/acceptFetch';
+import Avatar from '../../avatar/avatar';
 
 function Request({ request, setRefresh }) {
   const { from, _id } = request;
@@ -45,6 +46,7 @@ function Request({ request, setRefresh }) {
 
   return (
     <div className={styles.Request}>
+      <Avatar profileId={request.from} type={'list'} />
       <Link className={styles.fullName} to={`/${profileResult?.profile._id}`}>
         {profileResult?.profile.full_name}
       </Link>
