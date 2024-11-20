@@ -48,11 +48,6 @@
 .avatar {
   grid-row: 1/4;
   align-self: center;
-  /* justify-self: center; */
-}
-
-.info img {
-  width: 80px;
 }
 
 .fullName {
