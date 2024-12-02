@@ -6,6 +6,7 @@ import Profile from './components/profile/Profile';
 import UsersPage from './components/lists/users/UsersPage';
 import RequestsPage from './components/lists/requests/RequestsPage';
 import ErrorPage from './ErrorPage';
+import GitHubCallback from './components/auth/login/GithubCallback';
 
 const routes = [
   {
@@ -28,6 +29,15 @@ const routes = [
     path: 'signup',
     element: <SignUp />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: 'auth/github/callback',
+    element: <GitHubCallback />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: 'error',
+    element: <ErrorPage />,
   },
 ];
 
