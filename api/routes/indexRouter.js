@@ -21,4 +21,7 @@ router.post('/signup', indexController.sign_up);
 // POST request for user log-in
 router.post('/login', indexController.log_in);
 
+// POST request for Github log-in callback
+router.post('/auth/github/callback', indexController.github_login);
+
 module.exports = router;
