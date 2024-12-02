@@ -6,7 +6,8 @@ const useAuth = () => {
   const [authError, setAuthError] = useState(null);
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token'));
+    let token = localStorage.getItem('token');
+
     const fetchAuth = async () => {
       try {
         const response = await fetch(`http://localhost:3000/`, {
@@ -32,6 +33,11 @@ const useAuth = () => {
         setAuthLoading(false);
       }
     };
+
+    if (token && token !== 'undefined') {
+      token = JSON.parse(localStorage.getItem('token'));
+    }
+
     fetchAuth();
   }, []);
 
