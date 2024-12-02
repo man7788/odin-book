@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const ProfileSchema = new Schema(
   {
     first_name: { type: String, required: true, minLength: 1, maxLength: 25 },
-    last_name: { type: String, required: true, minLength: 1, maxLength: 25 },
+    last_name: { type: String, required: false, minLength: 1, maxLength: 25 },
     about: { type: String, minLength: 1, maxLength: 200 },
   },
   { toJSON: { virtuals: true } },
@@ -17,6 +17,8 @@ ProfileSchema.virtual('full_name').get(function () {
   let fullname = '';
   if (this.first_name && this.last_name) {
     fullname = `${this.first_name} ${this.last_name}`;
+  } else if (this.first_name) {
+    fullname = `${this.first_name}`;
   }
 
   return fullname;
