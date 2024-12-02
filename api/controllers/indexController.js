@@ -164,3 +164,104 @@ exports.log_in = [
     );
   }),
 ];
+
+// Handle Github log-in callback on POST
+exports.github_login = asyncHandler(async (req, res, next) => {
+  const { code } = req.body;
+
+  // Exchange code for access token
+  const tokenResponse = await fetch(
+    'https://github.com/login/oauth/access_token',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        client_id: process.env.GITHUB_CLIENT_ID,
+        client_secret: process.env.GITHUB_CLIENT_SECRET,
+        code,
+      }),
+    },
+  );
+
+  const tokenData = await tokenResponse.json();
+  const accessToken = tokenData.access_token;
+
+  if (accessToken) {
+    // Use this access token to fetch user details or other tasks.
+    // Maybe generate a JWT and send it to the frontend for session management.
+    const emailResponse = await fetch('https://api.github.com/user/emails', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const emails = await emailResponse.json();
+
+    let primaryEmail;
+
+    // Prevent React strict mode throwing error when receiving error response
+    if (Array.isArray(emails)) {
+      const userEmail = emails.filter((email) => {
+        let targetEmail;
+        if (email.primary === true) {
+          targetEmail = email.email;
+        }
+        return targetEmail;
+      });
+      primaryEmail = userEmail[0].email;
+
+      let user = await User.findOne({ email: primaryEmail });
+
+      if (!user) {
+        const userResponse = await fetch('https://api.github.com/user', {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        const userData = await userResponse.json();
+
+        const newProfile = new Profile({
+          first_name: userData.login,
+        });
+
+        const newUser = new User({
+          email: primaryEmail,
+          password: null,
+          profile: newProfile._id,
+        });
+
+        await newUser.save();
+        await newProfile.save();
+
+        user = newUser;
+      }
+
+      jwt.sign(
+        { sub: user._id },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRATION_TIME },
+        async (err, token) => {
+          if (err) {
+            return next(err);
+          }
+
+          return res.json({
+            token,
+          });
+        },
+      );
+    }
+  } else {
+    res.status(401).json(tokenData);
+  }
+});
