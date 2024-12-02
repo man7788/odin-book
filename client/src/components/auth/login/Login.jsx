@@ -17,9 +17,9 @@ function Login() {
   const [loginActive, setLoginActive] = useState(false);
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token'));
+    let token = localStorage.getItem('token');
 
-    if (token) {
+    if (token && token !== 'undefined') {
       setNavHome(true);
     }
   }, []);
@@ -75,6 +75,15 @@ function Login() {
       localStorage.setItem('token', JSON.stringify(result.token));
       setNavHome(true);
     }
+  };
+
+  const onGithubLogin = async (e) => {
+    e.preventDefault();
+    const clientID = import.meta.env.VITE_GITHUB_CLIENT_ID;
+    const redirectURI = 'http://localhost:5173/auth/github/callback';
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=user:email`;
+
+    setFormLoading(true);
   };
 
   if (serverError) {
@@ -133,6 +142,7 @@ function Login() {
             Sign Up
           </Link>
         </form>
+        <button onClick={onGithubLogin}>GitHub</button>
       </div>
       {navHome && <Navigate to="/" replace={true} />}
     </div>
