@@ -141,8 +141,11 @@ function Login() {
           <Link className={styles.a} exact="true" to="/signup">
             Sign Up
           </Link>
+          <div className={styles.break}></div>
+          <button className={styles.button} onClick={onGithubLogin}>
+            GitHub
+          </button>
         </form>
-        <button onClick={onGithubLogin}>GitHub</button>
       </div>
       {navHome && <Navigate to="/" replace={true} />}
     </div>
