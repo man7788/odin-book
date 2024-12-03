@@ -9,7 +9,6 @@ const Profile = require('../models/profileModel');
 // Display index on GET
 exports.index = asyncHandler(async (req, res) => {
   res.json({
-    email: req.user.email,
     full_name: req.user.profile.full_name,
     profile: req.user.profile._id,
     avatar: req.user.profile.avatar,
