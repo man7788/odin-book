@@ -12,6 +12,7 @@ exports.index = asyncHandler(async (req, res) => {
     email: req.user.email,
     full_name: req.user.profile.full_name,
     profile: req.user.profile._id,
+    avatar: req.user.profile.avatar,
   });
 });
 
@@ -79,6 +80,7 @@ exports.sign_up = [
         const profile = new Profile({
           first_name: req.body.first_name,
           last_name: req.body.last_name,
+          avatar: req.body.email,
         });
 
         const user = new User({
@@ -232,6 +234,7 @@ exports.github_login = asyncHandler(async (req, res, next) => {
 
         const newProfile = new Profile({
           first_name: userData.login,
+          avatar: userData.avatar_url,
         });
 
         const newUser = new User({
