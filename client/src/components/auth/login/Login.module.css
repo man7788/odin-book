@@ -56,3 +56,7 @@
 .a {
   composes: a from '../indexForm.module.css';
 }
+
+.break {
+  composes: break from '../indexForm.module.css';
+}
