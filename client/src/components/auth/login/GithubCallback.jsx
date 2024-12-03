@@ -1,3 +1,4 @@
+import styles from './GitHubCallback.module.css';
 import { Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import githubFetch from '../../../fetch/githubFetch';
@@ -28,7 +29,9 @@ function GitHubCallback() {
 
   return (
     <>
-      <div>Processing GitHub login...</div>
+      <div className={styles.GitHubCallback}>
+        <h1>Processing GitHub login...</h1>
+      </div>
       {navHome && <Navigate to="/" replace={true} />}
       {navError && <Navigate to="/error" replace={true} />}
     </>
