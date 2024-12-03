@@ -40,7 +40,13 @@ jest.mock('../../utils/passport/jwt', () => {});
 jest.mock('passport', () => ({
   use: jest.fn(),
   authenticate: jest.fn(() => (req, res, next) => {
-    req.user = { profile: { full_name: 'foobar', _id: mockProfileId1 } };
+    req.user = {
+      profile: {
+        full_name: 'foobar',
+        _id: mockProfileId1,
+        avatar: 'foo@bar.com',
+      },
+    };
     next();
   }),
 }));
@@ -51,12 +57,11 @@ describe('index router', () => {
       const response = await request(app).get('/');
 
       expect(response.status).toEqual(200);
-      expect(response.body).toEqual(
-        expect.objectContaining({
-          full_name: expect.any(String),
-          profile: expect.any(String),
-        }),
-      );
+      expect(response.body).toEqual({
+        full_name: expect.any(String),
+        profile: expect.any(String),
+        avatar: expect.any(String),
+      });
       expect(mongoose.isValidObjectId(response.body.profile)).toBeTruthy();
     });
   });
