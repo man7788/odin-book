@@ -77,7 +77,7 @@ describe('follower router', () => {
         .send(payload);
 
       expect(response.status).toEqual(400);
-      expect(JSON.parse(response.error.text)).toMatchObject({
+      expect(JSON.parse(response.error.text)).toEqual({
         error: 'User not found',
       });
     });
@@ -106,7 +106,7 @@ describe('follower router', () => {
         .send(payload);
 
       expect(response.status).toEqual(400);
-      expect(JSON.parse(response.error.text)).toMatchObject({
+      expect(JSON.parse(response.error.text)).toEqual({
         error: 'Already following',
       });
     });
@@ -135,7 +135,7 @@ describe('follower router', () => {
         .send(payload);
 
       expect(response.status).toEqual(400);
-      expect(JSON.parse(response.error.text)).toMatchObject({
+      expect(JSON.parse(response.error.text)).toEqual({
         error: 'Request pending',
       });
     });
@@ -158,12 +158,10 @@ describe('follower router', () => {
         .send(payload);
 
       expect(response.status).toEqual(200);
-      expect(response.body).toMatchObject({
+      expect(response.body).toEqual({
         createdRequest: expect.any(String),
       });
-      expect(
-        mongoose.isValidObjectId(response.body.createdRequest),
-      ).toBeTruthy();
+      expect(mongoose.isValidObjectId(response.body.createdRequest)).toBe(true);
     });
   });
 
@@ -251,7 +249,7 @@ describe('follower router', () => {
       );
 
       expect(response.status).toEqual(400);
-      expect(JSON.parse(response.error.text)).toMatchObject({
+      expect(JSON.parse(response.error.text)).toEqual({
         error: 'User not found',
       });
     });
@@ -385,12 +383,12 @@ describe('follower router', () => {
         .send(payload);
 
       expect(response.status).toEqual(200);
-      expect(response.body).toMatchObject({
+      expect(response.body).toEqual({
         createdFollower: expect.any(String),
       });
-      expect(
-        mongoose.isValidObjectId(response.body.createdFollower),
-      ).toBeTruthy();
+      expect(mongoose.isValidObjectId(response.body.createdFollower)).toBe(
+        true,
+      );
 
       const deletedRequest = await Request.findById(followerRequest._id);
 
