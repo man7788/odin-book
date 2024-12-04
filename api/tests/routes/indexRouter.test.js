@@ -288,5 +288,50 @@ describe('index router', () => {
       expect(response.status).toEqual(200);
       expect(response.body).toEqual({ token: '123abc$' });
     });
+
+    test('should response with jwt token if existing user', async () => {
+      jwt.sign.mockImplementationOnce(
+        (token, secretOrPublicKey, options, callback) =>
+          callback(null, '123abc$'),
+      );
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () => Promise.resolve({ access_token: 'token' }),
+        }),
+      );
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () =>
+            Promise.resolve([{ email: 'foo@bar.com', primary: true }]),
+        }),
+      );
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () =>
+            Promise.resolve({
+              login: 'foobar',
+              avatar_url: 'https://avatar.foobar.com/123',
+            }),
+        }),
+      );
+
+      const user = new User({
+        email: 'foo@bar.com',
+        password: 'foobar123',
+        profile: profileId,
+      });
+      await user.save();
+
+      const response = await request(app)
+        .post('/auth/github/callback')
+        .set('Content-Type', 'application/json')
+        .send({ code: 'foobar' });
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toEqual({ token: '123abc$' });
+    });
   });
 });
