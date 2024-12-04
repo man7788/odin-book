@@ -34,6 +34,7 @@ afterEach(async () => {
 const mockProfileId1 = new mongoose.Types.ObjectId('507f1f77bcf86cd799439011');
 const profileId = new mongoose.Types.ObjectId();
 
+global.fetch = jest.fn();
 jest.mock('bcryptjs');
 jest.mock('jsonwebtoken');
 jest.mock('../../utils/passport/jwt', () => {});
@@ -207,6 +208,24 @@ describe('index router', () => {
 
       expect(response.status).toEqual(200);
       expect(response.body).toMatchObject({ token: '123abc$' });
+    });
+  });
+
+  describe('POST /auth/github/callback', () => {
+    test('should response token error status', async () => {
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () => Promise.resolve({ error: 'error message' }),
+        }),
+      );
+
+      const response = await request(app)
+        .post('/auth/github/callback')
+        .set('Content-Type', 'application/json')
+        .send({ code: 'foobar' });
+
+      expect(response.status).toEqual(401);
+      expect(response.body.error).toMatch('error message');
     });
   });
 });
