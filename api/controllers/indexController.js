@@ -262,6 +262,8 @@ exports.github_login = asyncHandler(async (req, res, next) => {
           });
         },
       );
+    } else {
+      res.status(401).json(emails);
     }
   } else {
     res.status(401).json(tokenData);
