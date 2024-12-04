@@ -4,16 +4,6 @@ const mongoose = require('mongoose');
 
 const Profile = require('../models/profileModel');
 
-// Display all user profiles on GET
-exports.profile_list = asyncHandler(async (req, res) => {
-  const profiles = await Profile.find({
-    _id: { $ne: req.user.profile._id },
-  }).sort({
-    last_name: 1,
-  });
-  res.json({ profiles });
-});
-
 // Display a user profile on GET
 exports.profile = [
   param('id')
@@ -54,6 +44,16 @@ exports.profile = [
     return res.json({ profile });
   }),
 ];
+
+// Display all user profiles on GET
+exports.profile_list = asyncHandler(async (req, res) => {
+  const profiles = await Profile.find({
+    _id: { $ne: req.user.profile._id },
+  }).sort({
+    last_name: 1,
+  });
+  res.json({ profiles });
+});
 
 // Handle user profile update on PUT
 exports.profile_update = [
