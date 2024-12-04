@@ -66,8 +66,8 @@ describe('posts router', () => {
         .send(payload);
 
       expect(response.status).toEqual(200);
-      expect(response.body).toMatchObject({ createdPost: expect.any(String) });
-      expect(mongoose.isValidObjectId(response.body.createdPost)).toBeTruthy();
+      expect(response.body).toEqual({ createdPost: expect.any(String) });
+      expect(mongoose.isValidObjectId(response.body.createdPost)).toBe(true);
     });
   });
 
@@ -89,7 +89,7 @@ describe('posts router', () => {
         .set('Content-Type', 'application/json');
 
       expect(response.status).toEqual(400);
-      expect(JSON.parse(response.error.text)).toMatchObject({
+      expect(JSON.parse(response.error.text)).toEqual({
         error: 'Post not found',
       });
     });
@@ -116,7 +116,7 @@ describe('posts router', () => {
         .set('Content-Type', 'application/json');
 
       expect(response.status).toEqual(200);
-      expect(response.body).toMatchObject({ removedLike: like._id.toString() });
+      expect(response.body).toEqual({ removedLike: like._id.toString() });
     });
 
     test('should response with created like', async () => {
@@ -134,8 +134,8 @@ describe('posts router', () => {
         .set('Content-Type', 'application/json');
 
       expect(response.status).toEqual(200);
-      expect(response.body).toMatchObject({ createdLike: expect.any(String) });
-      expect(mongoose.isValidObjectId(response.body.createdLike)).toBeTruthy();
+      expect(response.body).toEqual({ createdLike: expect.any(String) });
+      expect(mongoose.isValidObjectId(response.body.createdLike)).toBe(true);
     });
   });
 
@@ -160,7 +160,7 @@ describe('posts router', () => {
         .send(payload);
 
       expect(response.status).toEqual(400);
-      expect(JSON.parse(response.error.text)).toMatchObject({
+      expect(JSON.parse(response.error.text)).toEqual({
         error: 'Post not found',
       });
     });
@@ -183,12 +183,10 @@ describe('posts router', () => {
         .send(payload);
 
       expect(response.status).toEqual(200);
-      expect(response.body).toMatchObject({
+      expect(response.body).toEqual({
         createdComment: expect.any(String),
       });
-      expect(
-        mongoose.isValidObjectId(response.body.createdComment),
-      ).toBeTruthy();
+      expect(mongoose.isValidObjectId(response.body.createdComment)).toBe(true);
     });
   });
 
@@ -315,7 +313,7 @@ describe('posts router', () => {
 
       expect(response.status).toEqual(400);
 
-      expect(JSON.parse(response.error.text)).toMatchObject({
+      expect(JSON.parse(response.error.text)).toEqual({
         error: 'User not found',
       });
     });
