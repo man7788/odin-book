@@ -71,7 +71,7 @@ describe('users router', () => {
         .set('Content-Type', 'application/json');
 
       expect(response.status).toEqual(400);
-      expect(JSON.parse(response.error.text)).toMatchObject({
+      expect(JSON.parse(response.error.text)).toEqual({
         error: 'User not found',
       });
     });
@@ -81,6 +81,7 @@ describe('users router', () => {
         first_name: 'foo',
         last_name: 'bar',
         about: 'My name is foobar',
+        avatar: 'https://avatar.foobar.com/123',
       });
       await profile.save();
 
@@ -89,15 +90,11 @@ describe('users router', () => {
         .set('Content-Type', 'application/json');
 
       expect(response.status).toEqual(200);
-      expect(response.body.profile).toEqual(
-        expect.objectContaining({
-          first_name: 'foo',
-          last_name: 'bar',
-          full_name: 'foo bar',
-          about: 'My name is foobar',
-          _id: profile._id.toString(),
-        }),
-      );
+      expect(response.body.profile).toEqual({
+        full_name: 'foo bar',
+        about: 'My name is foobar',
+        avatar: expect.any(String),
+      });
     });
   });
 
@@ -172,7 +169,7 @@ describe('users router', () => {
         .send(payload);
 
       expect(response.status).toEqual(400);
-      expect(JSON.parse(response.error.text)).toMatchObject({
+      expect(JSON.parse(response.error.text)).toEqual({
         error: 'User not found',
       });
     });
@@ -195,7 +192,7 @@ describe('users router', () => {
         .send(payload);
 
       expect(response.status).toEqual(400);
-      expect(JSON.parse(response.error.text)).toMatchObject({
+      expect(JSON.parse(response.error.text)).toEqual({
         error: 'Not allow to update a foreign profile',
       });
     });
@@ -218,7 +215,7 @@ describe('users router', () => {
         .send(payload);
 
       expect(response.status).toEqual(200);
-      expect(response.body).toMatchObject({
+      expect(response.body).toEqual({
         updatedProfile: profileId1.toString(),
       });
     });
