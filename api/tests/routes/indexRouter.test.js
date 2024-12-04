@@ -64,7 +64,7 @@ describe('index router', () => {
         profile: expect.any(String),
         avatar: expect.any(String),
       });
-      expect(mongoose.isValidObjectId(response.body.profile)).toBeTruthy();
+      expect(mongoose.isValidObjectId(response.body.profile)).toBe(true);
     });
   });
 
@@ -132,7 +132,7 @@ describe('index router', () => {
 
       expect(response.status).toEqual(200);
       expect(response.body).toMatchObject({ createdUser: expect.any(String) });
-      expect(mongoose.isValidObjectId(response.body.createdUser)).toBeTruthy();
+      expect(mongoose.isValidObjectId(response.body.createdUser)).toBe(true);
     });
   });
 
