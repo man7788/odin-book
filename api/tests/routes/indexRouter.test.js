@@ -227,5 +227,27 @@ describe('index router', () => {
       expect(response.status).toEqual(401);
       expect(response.body.error).toMatch('error message');
     });
+
+    test('should response email unauthorized error', async () => {
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () => Promise.resolve({ access_token: 'token' }),
+        }),
+      );
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () => Promise.resolve({ message: 'Bad credentials' }),
+        }),
+      );
+
+      const response = await request(app)
+        .post('/auth/github/callback')
+        .set('Content-Type', 'application/json')
+        .send({ code: 'foobar' });
+
+      expect(response.status).toEqual(401);
+      expect(response.body.message).toMatch('Bad credentials');
+    });
   });
 });
