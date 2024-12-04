@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '.env.test.local' });
 const mongoose = require('mongoose');
 const request = require('supertest');
 const express = require('express');
@@ -212,7 +213,7 @@ describe('index router', () => {
   });
 
   describe('POST /auth/github/callback', () => {
-    test('should response token error status', async () => {
+    test('should response with token error status', async () => {
       fetch.mockImplementationOnce(() =>
         Promise.resolve({
           json: () => Promise.resolve({ error: 'error message' }),
@@ -228,7 +229,7 @@ describe('index router', () => {
       expect(response.body.error).toMatch('error message');
     });
 
-    test('should response email unauthorized error', async () => {
+    test('should response with email unauthorized error', async () => {
       fetch.mockImplementationOnce(() =>
         Promise.resolve({
           json: () => Promise.resolve({ access_token: 'token' }),
@@ -248,6 +249,44 @@ describe('index router', () => {
 
       expect(response.status).toEqual(401);
       expect(response.body.message).toMatch('Bad credentials');
+    });
+
+    test('should response with jwt token if no user is found', async () => {
+      jwt.sign.mockImplementationOnce(
+        (token, secretOrPublicKey, options, callback) =>
+          callback(null, '123abc$'),
+      );
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () => Promise.resolve({ access_token: 'token' }),
+        }),
+      );
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () =>
+            Promise.resolve([{ email: 'foo@bar.com', primary: true }]),
+        }),
+      );
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () =>
+            Promise.resolve({
+              login: 'foobar',
+              avatar_url: 'https://avatar.foobar.com/123',
+            }),
+        }),
+      );
+
+      const response = await request(app)
+        .post('/auth/github/callback')
+        .set('Content-Type', 'application/json')
+        .send({ code: 'foobar' });
+
+      expect(response.status).toEqual(200);
+      expect(response.body).toEqual({ token: '123abc$' });
     });
   });
 });
