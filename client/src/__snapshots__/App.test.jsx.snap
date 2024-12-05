@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App > render from useAuth result > should render loading 1`] = `
+<div>
+  <div
+    class="_loading_6dc87e"
+  >
+    <div
+      class="_loader_6dc87e"
+    />
+  </div>
+</div>
+`;
