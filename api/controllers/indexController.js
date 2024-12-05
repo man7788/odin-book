@@ -230,22 +230,28 @@ exports.github_login = asyncHandler(async (req, res, next) => {
         });
 
         const userData = await userResponse.json();
+        const userLogin = userData.login;
 
-        const newProfile = new Profile({
-          first_name: userData.login,
-          avatar: userData.avatar_url,
-        });
+        if (userLogin) {
+          const newProfile = new Profile({
+            first_name: userData.login,
+            avatar: userData.avatar_url,
+          });
 
-        const newUser = new User({
-          email: primaryEmail,
-          password: null,
-          profile: newProfile._id,
-        });
+          const newUser = new User({
+            email: primaryEmail,
+            password: null,
+            profile: newProfile._id,
+          });
 
-        await newUser.save();
-        await newProfile.save();
+          await newUser.save();
+          await newProfile.save();
 
-        user = newUser;
+          user = newUser;
+        } else {
+          // No user data
+          res.status(401).json(userData);
+        }
       }
 
       jwt.sign(
@@ -263,9 +269,11 @@ exports.github_login = asyncHandler(async (req, res, next) => {
         },
       );
     } else {
+      // No emails
       res.status(401).json(emails);
     }
   } else {
+    // No access token
     res.status(401).json(tokenData);
   }
 });
