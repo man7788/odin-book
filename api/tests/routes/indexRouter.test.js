@@ -251,6 +251,35 @@ describe('index router', () => {
       expect(response.body.message).toMatch('Bad credentials');
     });
 
+    test('should response with user unauthorized error', async () => {
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () => Promise.resolve({ access_token: 'token' }),
+        }),
+      );
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () =>
+            Promise.resolve([{ email: 'foo@bar.com', primary: true }]),
+        }),
+      );
+
+      fetch.mockImplementationOnce(() =>
+        Promise.resolve({
+          json: () => Promise.resolve({ message: 'Bad credentials' }),
+        }),
+      );
+
+      const response = await request(app)
+        .post('/auth/github/callback')
+        .set('Content-Type', 'application/json')
+        .send({ code: 'foobar' });
+
+      expect(response.status).toEqual(401);
+      expect(response.body.message).toMatch('Bad credentials');
+    });
+
     test('should response with jwt token if no user is found', async () => {
       jwt.sign.mockImplementationOnce(
         (token, secretOrPublicKey, options, callback) =>
