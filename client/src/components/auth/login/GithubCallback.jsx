@@ -1,11 +1,12 @@
 import styles from './GitHubCallback.module.css';
 import { Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import githubFetch from '../../../fetch/githubFetch';
 
 function GitHubCallback() {
   const [navHome, setNavHome] = useState(false);
   const [navError, setNavError] = useState(false);
+  const effectRan = useRef(false);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -24,7 +25,13 @@ function GitHubCallback() {
       }
     };
 
-    fetch();
+    if (effectRan.current === false) {
+      fetch();
+    }
+
+    return () => {
+      effectRan.current = true; // this will be set to true on the initial unmount
+    };
   }, []);
 
   return (
