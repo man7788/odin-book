@@ -1,5 +1,12 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`App > render from useAuth result > should redirect to login 1`] = `
+<div>
+   
+  Redirected to /login
+</div>
+`;
+
 exports[`App > render from useAuth result > should render loading 1`] = `
 <div>
   <div

@@ -24,5 +24,16 @@ describe('App', () => {
       const { container } = render(<App />);
       expect(container).toMatchSnapshot();
     });
+
+    test('should redirect to login', () => {
+      useAuthSpy.mockReturnValue({
+        authResult: null,
+        authLoading: false,
+        authError: { code: 401 },
+      });
+
+      const { container } = render(<App />);
+      expect(container).toMatchSnapshot();
+    });
   });
 });
