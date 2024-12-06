@@ -18,3 +18,20 @@ exports[`App > render from useAuth result > should render loading 1`] = `
   </div>
 </div>
 `;
+
+exports[`App > render from useAuth result > should render server error 1`] = `
+<div>
+  <div
+    class="_errorContainer_6dc87e"
+  >
+    <h1>
+      Oh no, this page doesn't exist!
+    </h1>
+    <a
+      href="/"
+    >
+      You can go back to the home page by clicking here, though!
+    </a>
+  </div>
+</div>
+`;
