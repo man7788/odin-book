@@ -1,7 +1,7 @@
 import styles from './App.module.css';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, Link } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import Sidebar from './components/sidebar/Sidebar';
 import Create from './components/create/Create';
@@ -12,12 +12,13 @@ function App({ errorRedirect = false }) {
   const [navLogin, setNavLogin] = useState(false);
   const [renderApp, setRenderApp] = useState(false);
   const [serverError, setServerError] = useState(false);
+  const [contentError, setContentError] = useState(false);
 
   const [showCreate, setShowCreate] = useState(false);
 
   useEffect(() => {
     if (errorRedirect) {
-      setServerError(true);
+      setContentError(true);
     }
   }, []);
 
@@ -33,6 +34,17 @@ function App({ errorRedirect = false }) {
     return (
       <div className={styles.loading}>
         <div className={styles.loader}></div>
+      </div>
+    );
+  }
+
+  if (serverError) {
+    return (
+      <div className={styles.errorContainer}>
+        <h1>Oh no, this page doesn&apos;t exist!</h1>
+        <Link to="/">
+          You can go back to the home page by clicking here, though!
+        </Link>
       </div>
     );
   }
@@ -53,9 +65,14 @@ function App({ errorRedirect = false }) {
             <Avatar profileId={authResult?.profile} type={'sidebar'} />
           </Sidebar>
           {showCreate && <Create setShowCreate={setShowCreate} />}
-          {serverError ? (
-            <div className={styles.errorContainer}>
-              <div className={styles.error}>Server Error</div>
+          {contentError ? (
+            <div className={styles.contentErrorContainer}>
+              <div className={styles.contentError}>
+                <h1>Oh no, this page doesn&apos;t exist!</h1>
+                <Link to="/">
+                  You can go back to the home page by clicking here, though!
+                </Link>
+              </div>
             </div>
           ) : (
             <div className={styles.content}>
