@@ -24,6 +24,18 @@
   }
 }
 
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.errorContainer a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .loading {
   display: flex;
   justify-content: center;
@@ -49,16 +61,30 @@
   }
 }
 
-.errorContainer {
+.contentErrorContainer {
   min-width: 100%;
   max-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  scrollbar-gutter: stable both-edges;
 }
 
-.error {
+.contentError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 600px;
-  font-size: 1.5rem;
   padding-top: 40px;
+}
+
+.contentError a {
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (min-width: 1400px) {
+  .contentErrorContainer {
+    padding-right: 280px;
+  }
 }
