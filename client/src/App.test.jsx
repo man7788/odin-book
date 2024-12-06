@@ -1,5 +1,5 @@
-import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter, Outlet } from 'react-router-dom';
 import App from './App';
 import * as useAuth from './hooks/useAuth';
 
@@ -12,6 +12,7 @@ vi.mock('react-router-dom', async (importOriginal) => {
   return {
     ...actual,
     Navigate: vi.fn(({ to }) => `Redirected to ${to}`),
+    Outlet: vi.fn(),
   };
 });
 
@@ -74,5 +75,23 @@ describe('App', () => {
 
       expect(container).toMatchSnapshot();
     });
+  });
+
+  test('should render content', async () => {
+    useAuthSpy.mockReturnValue({
+      authResult: true,
+      authLoading: false,
+      authError: null,
+    });
+
+    Outlet.mockImplementationOnce(() => <div>Content Placeholder</div>);
+
+    const { container } = render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>,
+    );
+
+    expect(container).toMatchSnapshot();
   });
 });
