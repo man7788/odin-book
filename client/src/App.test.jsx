@@ -1,6 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import { act } from 'react';
-import { waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as useAuth from './hooks/useAuth';
@@ -53,6 +51,24 @@ describe('App', () => {
       const { container } = render(
         <BrowserRouter>
           <App />
+        </BrowserRouter>,
+      );
+
+      expect(container).toMatchSnapshot();
+    });
+  });
+
+  describe('render from error redirect', () => {
+    test('should render content error', async () => {
+      useAuthSpy.mockReturnValue({
+        authResult: true,
+        authLoading: false,
+        authError: null,
+      });
+
+      const { container } = render(
+        <BrowserRouter>
+          <App errorRedirect={true} />
         </BrowserRouter>,
       );
 
