@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter, Outlet, useLocation } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
+import { BrowserRouter, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 
 afterEach(() => {
@@ -25,10 +24,9 @@ describe('Sidebar', () => {
 
     const { container } = render(
       <BrowserRouter>
-        <Sidebar
-          children={<img src={'https://avatar.foobar.com/123'}></img>}
-          fullName={'foobar'}
-        />
+        <Sidebar fullName={'foobar'} r>
+          <img src={'https://avatar.foobar.com/123'}></img>
+        </Sidebar>
       </BrowserRouter>,
     );
 
@@ -42,10 +40,9 @@ describe('Sidebar', () => {
 
     render(
       <BrowserRouter>
-        <Sidebar
-          children={<img src={'https://avatar.foobar.com/123'}></img>}
-          fullName={'foobar'}
-        />
+        <Sidebar fullName={'foobar'} r>
+          <img src={'https://avatar.foobar.com/123'}></img>
+        </Sidebar>
       </BrowserRouter>,
     );
 
@@ -63,10 +60,9 @@ describe('Sidebar', () => {
 
     render(
       <BrowserRouter>
-        <Sidebar
-          children={<img src={'https://avatar.foobar.com/123'}></img>}
-          fullName={'foobar'}
-        />
+        <Sidebar fullName={'foobar'} r>
+          <img src={'https://avatar.foobar.com/123'}></img>
+        </Sidebar>
       </BrowserRouter>,
     );
 
@@ -84,10 +80,9 @@ describe('Sidebar', () => {
 
     render(
       <BrowserRouter>
-        <Sidebar
-          children={<img src={'https://avatar.foobar.com/123'}></img>}
-          fullName={'foobar'}
-        />
+        <Sidebar fullName={'foobar'} r>
+          <img src={'https://avatar.foobar.com/123'}></img>
+        </Sidebar>
       </BrowserRouter>,
     );
 
@@ -105,10 +100,9 @@ describe('Sidebar', () => {
 
     render(
       <BrowserRouter>
-        <Sidebar
-          children={<img src={'https://avatar.foobar.com/123'}></img>}
-          fullName={'foobar'}
-        />
+        <Sidebar fullName={'foobar'} r>
+          <img src={'https://avatar.foobar.com/123'}></img>
+        </Sidebar>
       </BrowserRouter>,
     );
 
