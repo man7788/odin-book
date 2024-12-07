@@ -114,7 +114,9 @@ describe('App', () => {
         </BrowserRouter>,
       );
 
-      const createButton = await screen.findByText('Create');
+      const createButton = await screen.findByRole('button', {
+        name: /create/i,
+      });
 
       await user.click(createButton);
 
