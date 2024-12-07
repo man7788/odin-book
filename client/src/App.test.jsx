@@ -122,5 +122,39 @@ describe('App', () => {
 
       expect(createPopup).toBeInTheDocument();
     });
+
+    test('should close Create pop-up when click on blank space', async () => {
+      const user = userEvent.setup();
+
+      useAuthSpy.mockReturnValue({
+        authResult: true,
+        authLoading: false,
+        authError: null,
+      });
+
+      Outlet.mockImplementation(() => <div>Content Placeholder</div>);
+
+      render(
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>,
+      );
+
+      const createButton = await screen.findByRole('button', {
+        name: /create/i,
+      });
+
+      await user.click(createButton);
+
+      const createPopup = await screen.findByTestId('createPopup');
+
+      expect(createPopup).toBeInTheDocument();
+
+      const blank = await screen.findByTestId('blank');
+
+      await user.click(blank);
+
+      expect(createPopup).not.toBeInTheDocument();
+    });
   });
 });
