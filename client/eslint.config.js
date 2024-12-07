@@ -7,7 +7,7 @@ import vitest from '@vitest/eslint-plugin';
 
 export default [
   {
-    files: '**/__tests__/**/*.whatever.[jt]s',
+    files: ['**/*.test.{js,jsx}'],
     plugins: {
       vitest,
     },
