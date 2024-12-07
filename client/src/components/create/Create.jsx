@@ -77,7 +77,11 @@ function Create({ setShowCreate }) {
 
   return (
     <div className={styles.Create} data-testid="createPopup">
-      <div onClick={onHideCreate} className={styles.filter}></div>
+      <div
+        onClick={onHideCreate}
+        className={styles.filter}
+        data-testid="blank"
+      ></div>
       <div className={styles.formContainer}>
         <form action="" method="post" onSubmit={onSubmitForm}>
           <div className={styles.headerContainer}>
