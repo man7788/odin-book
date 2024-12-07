@@ -76,4 +76,25 @@ describe('Sidebar', () => {
 
     expect(usersButton.className).toMatch(/Active/);
   });
+
+  test('should highlight Requets button', async () => {
+    useLocation.mockImplementation(() => {
+      return { pathname: '/requests' };
+    });
+
+    render(
+      <BrowserRouter>
+        <Sidebar
+          children={<img src={'https://avatar.foobar.com/123'}></img>}
+          fullName={'foobar'}
+        />
+      </BrowserRouter>,
+    );
+
+    const requestsButton = await screen.findByRole('link', {
+      name: /requests/i,
+    });
+
+    expect(requestsButton.className).toMatch(/Active/);
+  });
 });
