@@ -41,7 +41,7 @@ exports[`App > render from error redirect > should render content error 1`] = `
         class="_fullName_26077f"
       >
         <div
-          class="_loading_69744d"
+          class="_Avatar_69744d"
         >
           <div
             class="_sidebarPlaceholder_69744d"
@@ -159,7 +159,7 @@ exports[`App > should render content 1`] = `
         class="_fullName_26077f"
       >
         <div
-          class="_loading_69744d"
+          class="_Avatar_69744d"
         >
           <div
             class="_sidebarPlaceholder_69744d"
