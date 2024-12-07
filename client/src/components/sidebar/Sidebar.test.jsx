@@ -55,4 +55,25 @@ describe('Sidebar', () => {
 
     expect(homeButton.className).toMatch(/Active/);
   });
+
+  test('should highlight Users button', async () => {
+    useLocation.mockImplementation(() => {
+      return { pathname: '/users' };
+    });
+
+    render(
+      <BrowserRouter>
+        <Sidebar
+          children={<img src={'https://avatar.foobar.com/123'}></img>}
+          fullName={'foobar'}
+        />
+      </BrowserRouter>,
+    );
+
+    const usersButton = await screen.findByRole('link', {
+      name: /users/i,
+    });
+
+    expect(usersButton.className).toMatch(/Active/);
+  });
 });
