@@ -1,0 +1,53 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Sidebar > should render Sidebar 1`] = `
+<div>
+  <div
+    class="_Sidebar_26077f"
+  >
+    <a
+      class="_logo_26077f"
+      href="/"
+    >
+      Odin Book
+    </a>
+    <a
+      class="_homeActive_26077f"
+      href="/"
+    >
+      Home
+    </a>
+    <a
+      class="_users_26077f"
+      href="/users"
+    >
+      Users
+    </a>
+    <a
+      class="_requests_26077f"
+      href="/requests"
+    >
+      Requests
+    </a>
+    <button
+      class="_create_26077f"
+    >
+      Create
+    </button>
+    <div
+      class="_fullName_26077f"
+    >
+      <img
+        src="https://avatar.foobar.com/123"
+      />
+      foobar
+    </div>
+    <a
+      class="_logout_26077f"
+      href="/login"
+    >
+      Log Out
+    </a>
+  </div>
+</div>
+`;
