@@ -5,7 +5,7 @@ import { Navigate, Outlet, Link } from 'react-router-dom';
 import useAuth from './hooks/useAuth';
 import Sidebar from './components/sidebar/Sidebar';
 import Create from './components/create/Create';
-import Avatar from './components/avatar/avatar';
+import Avatar from './components/avatar/Avatar';
 
 function App({ errorRedirect = false }) {
   const { authResult, authLoading, authError } = useAuth();
