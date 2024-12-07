@@ -97,4 +97,25 @@ describe('Sidebar', () => {
 
     expect(requestsLink.className).toMatch(/Active/);
   });
+
+  test('should not highlight any link', async () => {
+    useLocation.mockImplementation(() => {
+      return { pathname: '/foobar' };
+    });
+
+    render(
+      <BrowserRouter>
+        <Sidebar
+          children={<img src={'https://avatar.foobar.com/123'}></img>}
+          fullName={'foobar'}
+        />
+      </BrowserRouter>,
+    );
+
+    const allLinks = await screen.findAllByRole('link');
+
+    allLinks.forEach((link) => {
+      expect(link.className).not.toMatch(/Active/);
+    });
+  });
 });
