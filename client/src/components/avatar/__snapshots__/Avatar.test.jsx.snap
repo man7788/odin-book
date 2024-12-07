@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Avatar > should render loading 1`] = `
+<div>
+  <div
+    class="_Avatar_69744d"
+  >
+    <div
+      class="_foobarPlaceholder_69744d"
+    />
+  </div>
+</div>
+`;
