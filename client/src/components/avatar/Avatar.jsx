@@ -23,7 +23,7 @@ const Avatar = ({ profileId, type }) => {
 
   if (profileLoading) {
     return (
-      <div className={styles.loading}>
+      <div className={styles.Avatar}>
         <div className={styles[`${type}Placeholder`]}></div>
       </div>
     );
