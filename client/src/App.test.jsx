@@ -18,6 +18,7 @@ vi.mock('react-router-dom', async (importOriginal) => {
 });
 
 const useAuthSpy = vi.spyOn(useAuth, 'default');
+vi.spyOn(Storage.prototype, 'clear');
 
 describe('App', () => {
   describe('render from useAuth result', () => {
@@ -194,5 +195,31 @@ describe('App', () => {
 
       expect(createPopup).not.toBeInTheDocument();
     });
+  });
+
+  test('should redirect to login page when click on logout link', async () => {
+    const user = userEvent.setup();
+
+    useAuthSpy.mockReturnValue({
+      authResult: true,
+      authLoading: false,
+      authError: null,
+    });
+
+    Outlet.mockImplementation(() => <div>Content Placeholder</div>);
+    const { container } = render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>,
+    );
+
+    const logoutLink = await screen.findByRole('link', {
+      name: /log out/i,
+    });
+
+    await user.click(logoutLink);
+
+    expect(container).toMatchSnapshot();
+    expect(localStorage.clear).toHaveBeenCalled();
   });
 });

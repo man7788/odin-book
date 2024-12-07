@@ -111,6 +111,13 @@ exports[`App > render from useAuth result > should render server error 1`] = `
 </div>
 `;
 
+exports[`App > should redirect to login page when click on logout link 1`] = `
+<div>
+   
+  Redirected to /login
+</div>
+`;
+
 exports[`App > should render content 1`] = `
 <div>
   <div
