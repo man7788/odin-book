@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
 import * as useProfile from '../../hooks/useProfile';
 import Avatar from './Avatar';
 
@@ -17,11 +16,7 @@ describe('Avatar', () => {
       profileError: null,
     });
 
-    const { container } = render(
-      <BrowserRouter>
-        <Avatar type={'foobar'} />
-      </BrowserRouter>,
-    );
+    const { container } = render(<Avatar type={'foobar'} />);
 
     expect(container).toMatchSnapshot();
   });
@@ -33,11 +28,7 @@ describe('Avatar', () => {
       profileError: true,
     });
 
-    const { container } = render(
-      <BrowserRouter>
-        <Avatar type={'foobar'} />
-      </BrowserRouter>,
-    );
+    const { container } = render(<Avatar type={'foobar'} />);
 
     expect(container).toMatchSnapshot();
   });
@@ -51,11 +42,7 @@ describe('Avatar', () => {
       profileError: null,
     });
 
-    const { container } = render(
-      <BrowserRouter>
-        <Avatar type={'foobar'} />
-      </BrowserRouter>,
-    );
+    const { container } = render(<Avatar type={'foobar'} />);
 
     expect(container).toMatchSnapshot();
   });
@@ -69,11 +56,7 @@ describe('Avatar', () => {
       profileError: null,
     });
 
-    const { container } = render(
-      <BrowserRouter>
-        <Avatar type={'foobar'} />
-      </BrowserRouter>,
-    );
+    const { container } = render(<Avatar type={'foobar'} />);
 
     expect(container).toMatchSnapshot();
   });
