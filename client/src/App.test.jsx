@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter, Outlet } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 import App from './App';
 import * as useAuth from './hooks/useAuth';
 
@@ -93,5 +94,33 @@ describe('App', () => {
     );
 
     expect(container).toMatchSnapshot();
+  });
+
+  describe('Create pop-up', () => {
+    test('should render Create pop-up', async () => {
+      const user = userEvent.setup();
+
+      useAuthSpy.mockReturnValue({
+        authResult: true,
+        authLoading: false,
+        authError: null,
+      });
+
+      Outlet.mockImplementation(() => <div>Content Placeholder</div>);
+
+      render(
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>,
+      );
+
+      const createButton = await screen.findByText('Create');
+
+      await user.click(createButton);
+
+      const createPopup = await screen.findByTestId('createPopup');
+
+      expect(createPopup).toBeInTheDocument();
+    });
   });
 });
