@@ -25,4 +25,20 @@ describe('Avatar', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test('should render error', () => {
+    useProfileSpy.mockReturnValue({
+      profileResult: null,
+      profileLoading: false,
+      profileError: true,
+    });
+
+    const { container } = render(
+      <BrowserRouter>
+        <Avatar type={'foobar'} />
+      </BrowserRouter>,
+    );
+
+    expect(container).toMatchSnapshot();
+  });
 });
