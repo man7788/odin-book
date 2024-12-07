@@ -61,6 +61,7 @@ function App({ errorRedirect = false }) {
             fullName={authResult?.full_name}
             render={renderApp}
             setShowCreate={setShowCreate}
+            setNavLogin={setNavLogin}
           >
             <Avatar profileId={authResult?.profile} type={'sidebar'} />
           </Sidebar>

@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 
-function Sidebar({ children, fullName, renderApp, setShowCreate }) {
+function Sidebar({
+  children,
+  fullName,
+  renderApp,
+  setShowCreate,
+  setNavLogin,
+}) {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState(null);
-  const [navLogin, setNavLogin] = useState(false);
 
   useEffect(() => {
     if (location.pathname === '/') {
@@ -71,7 +76,7 @@ function Sidebar({ children, fullName, renderApp, setShowCreate }) {
       <Link className={styles.logout} onClick={onLogout} to="/login">
         Log Out
       </Link>
-      {navLogin && <Navigate to="/login" replace={true} />}
+      {/* {navLogin && <Navigate to="/login" replace={true} />} */}
     </div>
   );
 }
@@ -81,6 +86,7 @@ Sidebar.propTypes = {
   fullName: PropTypes.string,
   renderApp: PropTypes.bool,
   setShowCreate: PropTypes.func,
+  setNavLogin: PropTypes.func,
 };
 
 export default Sidebar;
