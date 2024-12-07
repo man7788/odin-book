@@ -34,4 +34,25 @@ describe('Sidebar', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test('should highlight Home button', async () => {
+    useLocation.mockImplementation(() => {
+      return { pathname: '/' };
+    });
+
+    render(
+      <BrowserRouter>
+        <Sidebar
+          children={<img src={'https://avatar.foobar.com/123'}></img>}
+          fullName={'foobar'}
+        />
+      </BrowserRouter>,
+    );
+
+    const homeButton = await screen.findByRole('link', {
+      name: /home/i,
+    });
+
+    expect(homeButton.className).toMatch(/Active/);
+  });
 });
