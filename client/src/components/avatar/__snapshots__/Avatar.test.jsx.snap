@@ -13,6 +13,19 @@ exports[`Avatar > should render Avatar with github url 1`] = `
 </div>
 `;
 
+exports[`Avatar > should render Avatar with gravatar url 1`] = `
+<div>
+  <div
+    class="_Avatar_69744d"
+  >
+    <img
+      class="_foobarImage_69744d"
+      src="https://www.gravatar.com/avatar/0c7e6a405862e402eb76a70f8a26fc732d07c32931e9fae9ab1582911d2e8a3b?d=mp"
+    />
+  </div>
+</div>
+`;
+
 exports[`Avatar > should render error 1`] = `
 <div>
   <div
