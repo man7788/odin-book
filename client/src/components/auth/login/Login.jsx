@@ -90,6 +90,10 @@ function Login() {
     return <div className={styles.serverError}>Server Error</div>;
   }
 
+  if (navHome) {
+    return <> {navHome && <Navigate to="/" replace={true} />}</>;
+  }
+
   return (
     <div className={styles.Login}>
       <div className={styles.formContainer}>
@@ -147,7 +151,6 @@ function Login() {
           </button>
         </form>
       </div>
-      {navHome && <Navigate to="/" replace={true} />}
     </div>
   );
 }
