@@ -158,5 +158,41 @@ describe('App', () => {
 
       expect(createPopup).not.toBeInTheDocument();
     });
+
+    test('should close Create pop-up when click on cancel button', async () => {
+      const user = userEvent.setup();
+
+      useAuthSpy.mockReturnValue({
+        authResult: true,
+        authLoading: false,
+        authError: null,
+      });
+
+      Outlet.mockImplementation(() => <div>Content Placeholder</div>);
+
+      render(
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>,
+      );
+
+      const createButton = await screen.findByRole('button', {
+        name: /create/i,
+      });
+
+      await user.click(createButton);
+
+      const createPopup = await screen.findByTestId('createPopup');
+
+      expect(createPopup).toBeInTheDocument();
+
+      const cancelButton = await screen.findByRole('button', {
+        name: /cancel/i,
+      });
+
+      await user.click(cancelButton);
+
+      expect(createPopup).not.toBeInTheDocument();
+    });
   });
 });
