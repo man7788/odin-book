@@ -1,5 +1,18 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Avatar > should render Avatar with github url 1`] = `
+<div>
+  <div
+    class="_Avatar_69744d"
+  >
+    <img
+      class="_foobarImage_69744d"
+      src="https://avatars.githubusercontent.com/foobar"
+    />
+  </div>
+</div>
+`;
+
 exports[`Avatar > should render error 1`] = `
 <div>
   <div

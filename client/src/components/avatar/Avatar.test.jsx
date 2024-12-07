@@ -41,4 +41,22 @@ describe('Avatar', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test('should render Avatar with github url', () => {
+    useProfileSpy.mockReturnValue({
+      profileResult: {
+        profile: { avatar: 'https://avatars.githubusercontent.com/foobar' },
+      },
+      profileLoading: false,
+      profileError: null,
+    });
+
+    const { container } = render(
+      <BrowserRouter>
+        <Avatar type={'foobar'} />
+      </BrowserRouter>,
+    );
+
+    expect(container).toMatchSnapshot();
+  });
 });
