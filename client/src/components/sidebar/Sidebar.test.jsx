@@ -35,7 +35,7 @@ describe('Sidebar', () => {
     expect(container).toMatchSnapshot();
   });
 
-  test('should highlight Home button', async () => {
+  test('should highlight Home link', async () => {
     useLocation.mockImplementation(() => {
       return { pathname: '/' };
     });
@@ -49,14 +49,14 @@ describe('Sidebar', () => {
       </BrowserRouter>,
     );
 
-    const homeButton = await screen.findByRole('link', {
+    const homeLink = await screen.findByRole('link', {
       name: /home/i,
     });
 
-    expect(homeButton.className).toMatch(/Active/);
+    expect(homeLink.className).toMatch(/Active/);
   });
 
-  test('should highlight Users button', async () => {
+  test('should highlight Users link', async () => {
     useLocation.mockImplementation(() => {
       return { pathname: '/users' };
     });
@@ -70,14 +70,14 @@ describe('Sidebar', () => {
       </BrowserRouter>,
     );
 
-    const usersButton = await screen.findByRole('link', {
+    const usersLink = await screen.findByRole('link', {
       name: /users/i,
     });
 
-    expect(usersButton.className).toMatch(/Active/);
+    expect(usersLink.className).toMatch(/Active/);
   });
 
-  test('should highlight Requets button', async () => {
+  test('should highlight Requets link', async () => {
     useLocation.mockImplementation(() => {
       return { pathname: '/requests' };
     });
@@ -91,10 +91,10 @@ describe('Sidebar', () => {
       </BrowserRouter>,
     );
 
-    const requestsButton = await screen.findByRole('link', {
+    const requestsLink = await screen.findByRole('link', {
       name: /requests/i,
     });
 
-    expect(requestsButton.className).toMatch(/Active/);
+    expect(requestsLink.className).toMatch(/Active/);
   });
 });
