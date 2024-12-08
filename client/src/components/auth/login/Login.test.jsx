@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 import Login from './Login';
 import * as useAuth from '../../../hooks/useAuth';
 
@@ -64,5 +65,32 @@ describe('Login', () => {
     );
 
     expect(container).toMatchSnapshot();
+  });
+
+  describe('Login form', () => {
+    test('should show user input', async () => {
+      const user = userEvent.setup();
+
+      useAuthSpy.mockReturnValue({
+        authResult: null,
+        authLoading: false,
+        authError: true,
+      });
+
+      render(
+        <BrowserRouter>
+          <Login />
+        </BrowserRouter>,
+      );
+
+      const emailInput = await screen.findByPlaceholderText('Email address');
+      const passwordInput = await screen.findByPlaceholderText('Password');
+
+      await user.type(emailInput, 'foo@bar.com');
+      await user.type(passwordInput, 'foobar');
+
+      expect(emailInput).toHaveValue('foo@bar.com');
+      expect(passwordInput).toHaveValue('foobar');
+    });
   });
 });
