@@ -1,5 +1,15 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Login > Login form > should show server error 1`] = `
+<div>
+  <div
+    class="_serverError_cd4686"
+  >
+    Server Error
+  </div>
+</div>
+`;
+
 exports[`Login > should redirect to homepage 1`] = `
 <div>
    

@@ -146,5 +146,37 @@ describe('Login', () => {
       expect(emailError).not.toHaveValue('email error');
       expect(passwordError).not.toHaveValue('password error');
     });
+
+    test('should show server error', async () => {
+      const user = userEvent.setup();
+
+      useAuthSpy.mockReturnValue({
+        authResult: null,
+        authLoading: false,
+        authError: true,
+      });
+
+      loginFetchSpy.mockReturnValue({
+        error: true,
+      });
+
+      const { container } = render(
+        <BrowserRouter>
+          <Login />
+        </BrowserRouter>,
+      );
+
+      const emailInput = await screen.findByPlaceholderText('Email address');
+      const passwordInput = await screen.findByPlaceholderText('Password');
+      const submitButton = await screen.findByRole('button', {
+        name: /log in/i,
+      });
+
+      await user.type(emailInput, 'foo@bar.com');
+      await user.type(passwordInput, 'foobar');
+      await user.click(submitButton);
+
+      expect(container).toMatchSnapshot();
+    });
   });
 });
