@@ -49,4 +49,20 @@ describe('Login', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test('should redirect to homepage', () => {
+    useAuthSpy.mockReturnValue({
+      authResult: true,
+      authLoading: false,
+      authError: false,
+    });
+
+    const { container } = render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>,
+    );
+
+    expect(container).toMatchSnapshot();
+  });
 });
