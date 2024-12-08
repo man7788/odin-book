@@ -1,9 +1,12 @@
 import styles from './Login.module.css';
 import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 import loginFetch from '../../../fetch/loginFetch';
 
 function Login() {
+  const { authResult, authLoading } = useAuth();
+
   const [navHome, setNavHome] = useState(false);
   const [serverError, setServerError] = useState(null);
   const [formError, setFromError] = useState([]);
@@ -17,12 +20,10 @@ function Login() {
   const [loginActive, setLoginActive] = useState(false);
 
   useEffect(() => {
-    let token = localStorage.getItem('token');
-
-    if (token && token !== 'undefined') {
+    if (authResult) {
       setNavHome(true);
     }
-  }, []);
+  }, [authResult]);
 
   useEffect(() => {
     for (const error of formError) {
@@ -88,6 +89,14 @@ function Login() {
 
   if (serverError) {
     return <div className={styles.serverError}>Server Error</div>;
+  }
+
+  if (authLoading) {
+    return (
+      <div className={styles.loading}>
+        <div className={styles.loader}></div>
+      </div>
+    );
   }
 
   if (navHome) {
