@@ -85,11 +85,19 @@ describe('Login', () => {
         </BrowserRouter>,
       );
 
+      const submitButton = await screen.findByRole('button', {
+        name: /log in/i,
+      });
+
+      expect(submitButton.className).toMatch(/disable/i);
+
       const emailInput = await screen.findByPlaceholderText('Email address');
       const passwordInput = await screen.findByPlaceholderText('Password');
 
       await user.type(emailInput, 'foo@bar.com');
       await user.type(passwordInput, 'foobar');
+
+      expect(submitButton.className).not.toMatch(/disable/i);
 
       expect(emailInput).toHaveValue('foo@bar.com');
       expect(passwordInput).toHaveValue('foobar');
