@@ -18,6 +18,22 @@ vi.mock('react-router-dom', async (importOriginal) => {
 });
 
 describe('Login', () => {
+  test('should render loading', () => {
+    useAuthSpy.mockReturnValue({
+      authResult: null,
+      authLoading: true,
+      authError: null,
+    });
+
+    const { container } = render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>,
+    );
+
+    expect(container).toMatchSnapshot();
+  });
+
   test('should render Login', () => {
     useAuthSpy.mockReturnValue({
       authResult: null,

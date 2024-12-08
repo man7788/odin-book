@@ -76,3 +76,15 @@ exports[`Login > should render Login 1`] = `
   </div>
 </div>
 `;
+
+exports[`Login > should render loading 1`] = `
+<div>
+  <div
+    class="_loading_cd4686"
+  >
+    <div
+      class="_loader_cd4686"
+    />
+  </div>
+</div>
+`;
