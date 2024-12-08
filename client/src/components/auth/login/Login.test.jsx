@@ -20,6 +20,8 @@ vi.mock('react-router-dom', async (importOriginal) => {
   };
 });
 
+vi.spyOn(Storage.prototype, 'setItem');
+
 describe('Login', () => {
   test('should render loading', () => {
     useAuthSpy.mockReturnValue({
@@ -175,6 +177,43 @@ describe('Login', () => {
       await user.type(emailInput, 'foo@bar.com');
       await user.type(passwordInput, 'foobar');
       await user.click(submitButton);
+
+      expect(container).toMatchSnapshot();
+    });
+
+    test('should redirect to homepage if login successful', async () => {
+      const user = userEvent.setup();
+
+      useAuthSpy.mockReturnValue({
+        authResult: null,
+        authLoading: false,
+        authError: true,
+      });
+
+      loginFetchSpy.mockReturnValue({
+        result: { token: 'jwt' },
+      });
+
+      const { container } = render(
+        <BrowserRouter>
+          <Login />
+        </BrowserRouter>,
+      );
+
+      const emailInput = await screen.findByPlaceholderText('Email address');
+      const passwordInput = await screen.findByPlaceholderText('Password');
+      const submitButton = await screen.findByRole('button', {
+        name: /log in/i,
+      });
+
+      await user.type(emailInput, 'foo@bar.com');
+      await user.type(passwordInput, 'foobar');
+      await user.click(submitButton);
+
+      expect(localStorage.setItem).toHaveBeenCalledWith(
+        'token',
+        JSON.stringify('jwt'),
+      );
 
       expect(container).toMatchSnapshot();
     });
