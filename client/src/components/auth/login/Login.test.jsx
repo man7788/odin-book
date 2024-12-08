@@ -139,6 +139,12 @@ describe('Login', () => {
 
       expect(emailError).toBeInTheDocument();
       expect(passwordError).toBeInTheDocument();
+
+      await user.type(emailInput, '{backspace}');
+      await user.type(passwordInput, '123');
+
+      expect(emailError).not.toHaveValue('email error');
+      expect(passwordError).not.toHaveValue('password error');
     });
   });
 });
