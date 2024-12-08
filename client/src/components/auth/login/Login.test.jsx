@@ -3,12 +3,14 @@ import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import Login from './Login';
 import * as useAuth from '../../../hooks/useAuth';
+import * as loginFetch from '../../../fetch/loginFetch';
 
 afterEach(() => {
   vi.clearAllMocks();
 });
 
 const useAuthSpy = vi.spyOn(useAuth, 'default');
+const loginFetchSpy = vi.spyOn(loginFetch, 'default');
 
 vi.mock('react-router-dom', async (importOriginal) => {
   const actual = await importOriginal();
@@ -91,6 +93,44 @@ describe('Login', () => {
 
       expect(emailInput).toHaveValue('foo@bar.com');
       expect(passwordInput).toHaveValue('foobar');
+    });
+
+    test('should show user input errors', async () => {
+      const user = userEvent.setup();
+
+      useAuthSpy.mockReturnValue({
+        authResult: null,
+        authLoading: false,
+        authError: true,
+      });
+
+      loginFetchSpy.mockReturnValue({
+        error: {
+          errors: [{ msg: 'email error' }, { msg: 'password error' }],
+        },
+      });
+
+      render(
+        <BrowserRouter>
+          <Login />
+        </BrowserRouter>,
+      );
+
+      const emailInput = await screen.findByPlaceholderText('Email address');
+      const passwordInput = await screen.findByPlaceholderText('Password');
+      const submitButton = await screen.findByRole('button', {
+        name: /log in/i,
+      });
+
+      await user.type(emailInput, 'foo@bar.com');
+      await user.type(passwordInput, 'foobar');
+      await user.click(submitButton);
+
+      const emailError = await screen.findByText('email error');
+      const passwordError = await screen.findByText('password error');
+
+      expect(emailError).toBeInTheDocument();
+      expect(passwordError).toBeInTheDocument();
     });
   });
 });
