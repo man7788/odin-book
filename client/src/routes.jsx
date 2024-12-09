@@ -6,7 +6,7 @@ import Profile from './components/profile/Profile';
 import UsersPage from './components/lists/users/UsersPage';
 import RequestsPage from './components/lists/requests/RequestsPage';
 import ErrorPage from './ErrorPage';
-import GitHubCallback from './components/auth/login/GithubCallback';
+import GitHubCallback from './components/auth/login/GitHubCallback';
 
 const routes = [
   {
