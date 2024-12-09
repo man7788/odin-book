@@ -95,6 +95,84 @@ exports[`Login > Login form > should show server error 1`] = `
 </div>
 `;
 
+exports[`Login > should redirect to github login page 1`] = `
+<div>
+  <div
+    class="_Login_cd4686"
+  >
+    <div
+      class="_formContainer_cd4686"
+    >
+      <div
+        class="_heading_cd4686"
+      >
+        <h1>
+          Odin Book
+        </h1>
+      </div>
+      <form
+        action=""
+        class="_form_cd4686"
+        method="post"
+      >
+        <div
+          class="_inputContainer_cd4686"
+        >
+          <input
+            class="_input_cd4686"
+            id="email"
+            name="email"
+            placeholder="Email address"
+            type="text"
+            value=""
+          />
+          <div
+            class="_formError_cd4686"
+          />
+        </div>
+        <div
+          class="_inputContainer_cd4686"
+        >
+          <input
+            class="_input_cd4686"
+            id="password"
+            name="password"
+            placeholder="Password"
+            type="password"
+            value=""
+          />
+          <div
+            class="_formError_cd4686"
+          />
+        </div>
+        <div
+          class="_formLoaderContainer_cd4686"
+        >
+          <div
+            class="_formLoader_cd4686"
+          />
+        </div>
+        <a
+          class="_a_cd4686"
+          exact="true"
+          href="/signup"
+        >
+          Sign Up
+        </a>
+        <div
+          class="_break_cd4686"
+        />
+        <button
+          class="_button_cd4686"
+        >
+          GitHub
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Login > should redirect to homepage 1`] = `
 <div>
    

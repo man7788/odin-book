@@ -22,6 +22,13 @@ vi.mock('react-router-dom', async (importOriginal) => {
 
 vi.spyOn(Storage.prototype, 'setItem');
 
+Object.defineProperty(window, 'location', {
+  value: {
+    href: null,
+  },
+  writable: true, // possibility to override
+});
+
 describe('Login', () => {
   test('should render loading', () => {
     useAuthSpy.mockReturnValue({
@@ -270,5 +277,34 @@ describe('Login', () => {
 
       expect(container).toMatchSnapshot();
     });
+  });
+
+  test('should redirect to github login page', async () => {
+    import.meta.env.VITE_GITHUB_CLIENT_ID = 'foobar';
+
+    const user = userEvent.setup();
+
+    useAuthSpy.mockReturnValue({
+      authResult: null,
+      authLoading: false,
+      authError: true,
+    });
+
+    const { container } = render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>,
+    );
+
+    const githubButton = await screen.findByRole('button', {
+      name: /github/i,
+    });
+
+    await user.click(githubButton);
+
+    expect(container).toMatchSnapshot();
+    expect(window.location.href).toMatch(
+      'https://github.com/login/oauth/authorize?client_id=foobar&redirect_uri=http://localhost:5173/auth/github/callback&scope=user:email',
+    );
   });
 });
