@@ -80,11 +80,10 @@ function Login() {
 
   const onGithubLogin = async (e) => {
     e.preventDefault();
+    setFormLoading(true);
     const clientID = import.meta.env.VITE_GITHUB_CLIENT_ID;
     const redirectURI = 'http://localhost:5173/auth/github/callback';
     window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=user:email`;
-
-    setFormLoading(true);
   };
 
   if (serverError) {
