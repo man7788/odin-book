@@ -99,7 +99,7 @@ function Login() {
   }
 
   if (navHome) {
-    return <> {navHome && <Navigate to="/" replace={true} />}</>;
+    return <Navigate to="/" replace={true} />;
   }
 
   return (
