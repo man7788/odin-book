@@ -216,6 +216,7 @@ describe('App', () => {
     const logoutLink = await screen.findByRole('link', {
       name: /log out/i,
     });
+    expect(logoutLink).toHaveAttribute('href', '/');
 
     await user.click(logoutLink);
 
