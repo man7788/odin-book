@@ -1,5 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`SignUp > SignUp form > Auto login > should redirect to homepage 1`] = `
+<div>
+  Redirected to /
+</div>
+`;
+
 exports[`SignUp > SignUp form > should show form submit loading 1`] = `
 <div>
   <div

@@ -3,12 +3,14 @@ import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import SignUp from './SignUp';
 import * as signUpFetch from '../../../fetch/signUpFetch';
+import * as loginFetch from '../../../fetch/loginFetch';
 
 afterEach(() => {
   vi.clearAllMocks();
 });
 
 const signUpFetchSpy = vi.spyOn(signUpFetch, 'default');
+const loginFetchSpy = vi.spyOn(loginFetch, 'default');
 
 vi.mock('react-router-dom', async (importOriginal) => {
   const actual = await importOriginal();
@@ -17,6 +19,8 @@ vi.mock('react-router-dom', async (importOriginal) => {
     Navigate: vi.fn(({ to }) => `Redirected to ${to}`),
   };
 });
+
+vi.spyOn(Storage.prototype, 'setItem');
 
 describe('SignUp', () => {
   describe('SignUp form', () => {
@@ -209,6 +213,55 @@ describe('SignUp', () => {
       await user.click(submitButton);
 
       expect(container).toMatchSnapshot();
+    });
+
+    describe.only('Auto login', () => {
+      test('should redirect to homepage', async () => {
+        const user = userEvent.setup();
+
+        signUpFetchSpy.mockReturnValue({
+          result: true,
+        });
+
+        loginFetchSpy.mockReturnValue({
+          result: { token: 'jwt' },
+        });
+
+        const { container } = render(
+          <BrowserRouter>
+            <SignUp />
+          </BrowserRouter>,
+        );
+
+        const firstNamelInput = await screen.findByPlaceholderText(
+          'First name',
+        );
+        const lastNameInput = await screen.findByPlaceholderText('Last name');
+        const emailInput = await screen.findByPlaceholderText('Email address');
+        const newPasswordInput = await screen.findByPlaceholderText(
+          'New password',
+        );
+        const confirimPasswordInput = await screen.findByPlaceholderText(
+          'Confirm password',
+        );
+        const submitButton = await screen.findByRole('button', {
+          name: /sign up/i,
+        });
+
+        await user.type(firstNamelInput, 'foo');
+        await user.type(lastNameInput, 'bar');
+        await user.type(emailInput, 'foo@bar.com');
+        await user.type(newPasswordInput, 'foobar');
+        await user.type(confirimPasswordInput, 'foobar');
+
+        await user.click(submitButton);
+
+        expect(localStorage.setItem).toHaveBeenCalledWith(
+          'token',
+          JSON.stringify('jwt'),
+        );
+        expect(container).toMatchSnapshot();
+      });
     });
   });
 });
