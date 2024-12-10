@@ -307,4 +307,22 @@ describe('Login', () => {
       'https://github.com/login/oauth/authorize?client_id=foobar&redirect_uri=http://localhost:5173/auth/github/callback&scope=user:email',
     );
   });
+
+  test('should have a link to signup page', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>,
+    );
+
+    const signupLink = await screen.findByRole('link', {
+      name: /sign up/i,
+    });
+
+    await user.click(signupLink);
+
+    expect(signupLink).toHaveAttribute('href', '/signup');
+  });
 });
