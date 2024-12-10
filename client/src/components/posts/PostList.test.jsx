@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import PostList from './PostList';
 import * as usePosts from '../../hooks/usePosts';
 
@@ -56,6 +56,18 @@ describe('PostList', () => {
   test('should render posts', async () => {
     usePostsSpy.mockReturnValue({
       postsResult: result,
+      postsLoading: false,
+      postsError: null,
+    });
+
+    const { container } = render(<PostList />);
+
+    expect(container).toMatchSnapshot();
+  });
+
+  test('should render no post', async () => {
+    usePostsSpy.mockReturnValue({
+      postsResult: { posts: [] },
       postsLoading: false,
       postsError: null,
     });
