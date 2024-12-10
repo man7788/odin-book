@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { act } from 'react';
 import { waitFor } from '@testing-library/react';
 import GitHubCallback from './GitHubCallback';
@@ -24,6 +24,20 @@ describe('GitHubCallback', () => {
     const { container } = render(<GitHubCallback />);
 
     expect(container).toMatchSnapshot();
+  });
+
+  test('should redirect to error page', async () => {
+    githubFetchSpy.mockReturnValue({
+      error: true,
+    });
+
+    const { container } = render(<GitHubCallback />);
+
+    await waitFor(() => expect(githubFetchSpy).toHaveBeenCalledTimes(1));
+
+    await act(async () => {
+      expect(container).toMatchSnapshot();
+    });
   });
 
   test('should redirect to homepage', async () => {

@@ -1,5 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`GitHubCallback > should redirect to error page 1`] = `
+<div>
+  Redirected to /error
+</div>
+`;
+
 exports[`GitHubCallback > should redirect to homepage 1`] = `
 <div>
   Redirected to /
