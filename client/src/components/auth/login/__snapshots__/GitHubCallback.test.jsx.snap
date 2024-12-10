@@ -1,5 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`GitHubCallback > should redirect to homepage 1`] = `
+<div>
+  Redirected to /
+</div>
+`;
+
 exports[`GitHubCallback > should render GithubCallback 1`] = `
 <div>
   <div
