@@ -59,5 +59,78 @@ describe('SignUp', () => {
       expect(newPasswordInput).toHaveValue('foobar');
       expect(confirimPasswordInput).toHaveValue('foobar');
     });
+
+    test('should show form errors', async () => {
+      const user = userEvent.setup();
+
+      signUpFetchSpy.mockReturnValueOnce({
+        error: {
+          errors: [
+            { msg: 'first name error' },
+            { msg: 'last name error' },
+            { msg: 'email error' },
+            { msg: 'password not match error' },
+            { msg: 'confirm password error' },
+            { msg: 'password error' },
+          ],
+        },
+      });
+
+      render(
+        <BrowserRouter>
+          <SignUp />
+        </BrowserRouter>,
+      );
+
+      const submitButton = await screen.findByRole('button', {
+        name: /sign up/i,
+      });
+
+      expect(submitButton.className).toMatch(/disable/i);
+
+      const firstNamelInput = await screen.findByPlaceholderText('First name');
+      const lastNameInput = await screen.findByPlaceholderText('Last name');
+      const emailInput = await screen.findByPlaceholderText('Email address');
+      const newPasswordInput = await screen.findByPlaceholderText(
+        'New password',
+      );
+      const confirimPasswordInput = await screen.findByPlaceholderText(
+        'Confirm password',
+      );
+
+      await user.type(firstNamelInput, 'foo');
+      await user.type(lastNameInput, 'bar');
+      await user.type(emailInput, 'foo@bar.com');
+      await user.type(newPasswordInput, 'foobar');
+      await user.type(confirimPasswordInput, 'foobar');
+
+      await user.click(submitButton);
+
+      const firstNameError = await screen.findByText('first name error');
+      const lastNameError = await screen.findByText('last name error');
+      const emailError = await screen.findByText('email error');
+      const passwordError = await screen.findByText('password error');
+      const confirmPasswordError = await screen.findByText(
+        'confirm password error',
+      );
+
+      expect(firstNameError).toBeInTheDocument();
+      expect(lastNameError).toBeInTheDocument();
+      expect(emailError).toBeInTheDocument();
+      expect(passwordError).toBeInTheDocument();
+      expect(confirmPasswordError).toBeInTheDocument();
+
+      await user.type(firstNamelInput, '{backspace}');
+      await user.type(lastNameInput, '{backspace}');
+      await user.type(emailInput, '{backspace}');
+      await user.type(newPasswordInput, '123');
+      await user.type(confirimPasswordInput, '123');
+
+      expect(firstNameError).not.toHaveValue('email error');
+      expect(lastNameError).not.toHaveValue('last name error');
+      expect(emailError).not.toHaveValue('email error');
+      expect(passwordError).not.toHaveValue('password error');
+      expect(confirmPasswordError).not.toHaveValue('confirm password error');
+    });
   });
 });
