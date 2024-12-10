@@ -21,3 +21,67 @@ exports[`PostList > should render loading 1`] = `
   </div>
 </div>
 `;
+
+exports[`PostList > should render posts 1`] = `
+<div>
+  <div
+    class="_PostList_6d2450"
+  >
+    <div
+      class="_loading_5a7bc9"
+    >
+      <div
+        class="_loaderContainer_5a7bc9"
+      >
+        <div
+          class="_loader_5a7bc9"
+        />
+      </div>
+    </div>
+    <div
+      class="_loading_5a7bc9"
+    >
+      <div
+        class="_loaderContainer_5a7bc9"
+      >
+        <div
+          class="_loader_5a7bc9"
+        />
+      </div>
+    </div>
+    <div
+      class="_loading_5a7bc9"
+    >
+      <div
+        class="_loaderContainer_5a7bc9"
+      >
+        <div
+          class="_loader_5a7bc9"
+        />
+      </div>
+    </div>
+    <div
+      class="_loading_5a7bc9"
+    >
+      <div
+        class="_loaderContainer_5a7bc9"
+      >
+        <div
+          class="_loader_5a7bc9"
+        />
+      </div>
+    </div>
+    <div
+      class="_loading_5a7bc9"
+    >
+      <div
+        class="_loaderContainer_5a7bc9"
+      >
+        <div
+          class="_loader_5a7bc9"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
