@@ -1,7 +1,7 @@
 import styles from './Sidebar.module.css';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Sidebar({
   children,
@@ -76,7 +76,6 @@ function Sidebar({
       <Link className={styles.logout} onClick={onLogout} to="/login">
         Log Out
       </Link>
-      {/* {navLogin && <Navigate to="/login" replace={true} />} */}
     </div>
   );
 }
