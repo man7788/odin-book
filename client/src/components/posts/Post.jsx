@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import CommentList from './comment/CommentList';
 import Like from './like/Like';
 import useSinglePost from '../../hooks/useSinglePost';
-import Avatar from '../avatar/avatar';
+import Avatar from '../avatar/Avatar';
 
 function Post(props) {
   const { _id } = props;
