@@ -2,7 +2,6 @@
 
 exports[`Login > Login form > should redirect to homepage if login successful 1`] = `
 <div>
-   
   Redirected to /
 </div>
 `;
@@ -175,7 +174,6 @@ exports[`Login > should redirect to github login page 1`] = `
 
 exports[`Login > should redirect to homepage 1`] = `
 <div>
-   
   Redirected to /
 </div>
 `;
