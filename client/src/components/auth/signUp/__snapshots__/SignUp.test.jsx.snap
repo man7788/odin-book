@@ -1,0 +1,122 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SignUp > SignUp form > should show form submit loading 1`] = `
+<div>
+  <div
+    class="_SignUp_0ae847"
+  >
+    <div
+      class="_formContainer_0ae847"
+    >
+      <div
+        class="_heading_0ae847"
+      >
+        <h1>
+          Odin Book
+        </h1>
+      </div>
+      <div
+        class="_heading_0ae847"
+      >
+        <h2>
+          Sign Up
+        </h2>
+      </div>
+      <form
+        action=""
+        class="_form_0ae847"
+        method="post"
+      >
+        <div
+          class="_inputContainer_0ae847"
+        >
+          <input
+            class="_input_0ae847"
+            id="first_name"
+            name="first_name"
+            placeholder="First name"
+            type="text"
+            value="foo"
+          />
+          <div
+            class="_formError_0ae847"
+          />
+        </div>
+        <div
+          class="_inputContainer_0ae847"
+        >
+          <input
+            class="_input_0ae847"
+            id="last_name"
+            name="last_name"
+            placeholder="Last name"
+            type="text"
+            value="bar"
+          />
+          <div
+            class="_formError_0ae847"
+          />
+        </div>
+        <div
+          class="_inputContainer_0ae847"
+        >
+          <input
+            class="_input_0ae847"
+            id="email"
+            name="email"
+            placeholder="Email address"
+            type="text"
+            value="foo@bar.com"
+          />
+          <div
+            class="_formError_0ae847"
+          />
+        </div>
+        <div
+          class="_inputContainer_0ae847"
+        >
+          <input
+            class="_input_0ae847"
+            id="password"
+            name="password"
+            placeholder="New password"
+            type="password"
+            value="foobar"
+          />
+          <div
+            class="_formError_0ae847"
+          />
+        </div>
+        <div
+          class="_inputContainer_0ae847"
+        >
+          <input
+            class="_input_0ae847"
+            id="confirm_password"
+            name="confirm_password"
+            placeholder="Confirm password"
+            type="password"
+            value="foobar"
+          />
+          <div
+            class="_formError_0ae847"
+          />
+        </div>
+        <div
+          class="_formLoaderContainer_0ae847"
+        >
+          <div
+            class="_formLoader_0ae847"
+          />
+        </div>
+        <a
+          class="_a_0ae847"
+          href="/login"
+        >
+          Log In
+        </a>
+      </form>
+    </div>
+  </div>
+</div>
+`;

@@ -60,6 +60,47 @@ describe('SignUp', () => {
       expect(confirimPasswordInput).toHaveValue('foobar');
     });
 
+    test('should show form submit loading', async () => {
+      const user = userEvent.setup();
+
+      signUpFetchSpy.mockReturnValueOnce({
+        resut: null,
+        error: null,
+      });
+
+      const { container } = render(
+        <BrowserRouter>
+          <SignUp />
+        </BrowserRouter>,
+      );
+
+      const submitButton = await screen.findByRole('button', {
+        name: /sign up/i,
+      });
+
+      expect(submitButton.className).toMatch(/disable/i);
+
+      const firstNamelInput = await screen.findByPlaceholderText('First name');
+      const lastNameInput = await screen.findByPlaceholderText('Last name');
+      const emailInput = await screen.findByPlaceholderText('Email address');
+      const newPasswordInput = await screen.findByPlaceholderText(
+        'New password',
+      );
+      const confirimPasswordInput = await screen.findByPlaceholderText(
+        'Confirm password',
+      );
+
+      await user.type(firstNamelInput, 'foo');
+      await user.type(lastNameInput, 'bar');
+      await user.type(emailInput, 'foo@bar.com');
+      await user.type(newPasswordInput, 'foobar');
+      await user.type(confirimPasswordInput, 'foobar');
+
+      await user.click(submitButton);
+
+      expect(container).toMatchSnapshot();
+    });
+
     test('should show form errors', async () => {
       const user = userEvent.setup();
 
