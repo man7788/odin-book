@@ -77,7 +77,6 @@ exports[`App > render from error redirect > should render content error 1`] = `
 
 exports[`App > render from useAuth result > should redirect to login 1`] = `
 <div>
-   
   Redirected to /login
 </div>
 `;
@@ -113,7 +112,6 @@ exports[`App > render from useAuth result > should render server error 1`] = `
 
 exports[`App > should redirect to login page when click on logout link 1`] = `
 <div>
-   
   Redirected to /login
 </div>
 `;
