@@ -20,4 +20,16 @@ describe('PostList', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test('should render error', async () => {
+    usePostsSpy.mockReturnValue({
+      postsResult: null,
+      postsLoading: false,
+      postsError: true,
+    });
+
+    const { container } = render(<PostList />);
+
+    expect(container).toMatchSnapshot();
+  });
 });
