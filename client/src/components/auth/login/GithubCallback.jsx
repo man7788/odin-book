@@ -34,14 +34,18 @@ function GitHubCallback() {
     };
   }, []);
 
+  if (navHome) {
+    return <Navigate to="/" replace={true} />;
+  }
+
+  if (navError) {
+    return <Navigate to="/error" replace={true} />;
+  }
+
   return (
-    <>
-      <div className={styles.GitHubCallback}>
-        <h1>Processing GitHub login...</h1>
-      </div>
-      {navHome && <Navigate to="/" replace={true} />}
-      {navError && <Navigate to="/error" replace={true} />}
-    </>
+    <div className={styles.GitHubCallback}>
+      <h1>Processing GitHub login...</h1>
+    </div>
   );
 }
 
