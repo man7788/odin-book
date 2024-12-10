@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+
 import userEvent from '@testing-library/user-event';
 import SignUp from './SignUp';
 import * as signUpFetch from '../../../fetch/signUpFetch';
@@ -306,5 +307,23 @@ describe('SignUp', () => {
         expect(container).toMatchSnapshot();
       });
     });
+  });
+
+  test('should have a link to login page', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <BrowserRouter>
+        <SignUp />
+      </BrowserRouter>,
+    );
+
+    const loginLink = await screen.findByRole('link', {
+      name: /log in/i,
+    });
+
+    await user.click(loginLink);
+
+    expect(loginLink).toHaveAttribute('href', '/login');
   });
 });
