@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GitHubCallback > should render GithubCallback 1`] = `
+<div>
+  <div
+    class="_GitHubCallback_562b9c"
+  >
+    <h1>
+      Processing GitHub login...
+    </h1>
+  </div>
+</div>
+`;
