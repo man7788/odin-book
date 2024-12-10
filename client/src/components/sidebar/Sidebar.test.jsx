@@ -50,6 +50,7 @@ describe('Sidebar', () => {
       name: /home/i,
     });
 
+    expect(homeLink).toHaveAttribute('href', '/');
     expect(homeLink.className).toMatch(/Active/);
   });
 
@@ -70,6 +71,7 @@ describe('Sidebar', () => {
       name: /users/i,
     });
 
+    expect(usersLink).toHaveAttribute('href', '/users');
     expect(usersLink.className).toMatch(/Active/);
   });
 
@@ -90,6 +92,7 @@ describe('Sidebar', () => {
       name: /requests/i,
     });
 
+    expect(requestsLink).toHaveAttribute('href', '/requests');
     expect(requestsLink.className).toMatch(/Active/);
   });
 
