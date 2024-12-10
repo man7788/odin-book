@@ -115,6 +115,7 @@ function SignUp() {
     if (error?.errors) {
       setFormLoading(false);
       setFromError(error.errors);
+      setFormLoading(false);
       return;
     }
 
@@ -125,8 +126,6 @@ function SignUp() {
     if (result) {
       autoLogin();
     }
-
-    setFormLoading(false);
   };
 
   if (serverError) {
