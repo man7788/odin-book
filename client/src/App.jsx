@@ -50,7 +50,7 @@ function App({ errorRedirect = false }) {
   }
 
   if (navLogin) {
-    return <> {navLogin && <Navigate to="/login" replace={true} />}</>;
+    return <Navigate to="/login" replace={true} />;
   }
 
   return (
