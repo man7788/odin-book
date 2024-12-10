@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Post > should render loading 1`] = `
+<div>
+  <div
+    class="_loading_5a7bc9"
+  >
+    <div
+      class="_loaderContainer_5a7bc9"
+    >
+      <div
+        class="_loader_5a7bc9"
+      />
+    </div>
+  </div>
+</div>
+`;
