@@ -120,3 +120,13 @@ exports[`SignUp > SignUp form > should show form submit loading 1`] = `
   </div>
 </div>
 `;
+
+exports[`SignUp > SignUp form > should show server error 1`] = `
+<div>
+  <div
+    class="_serverError_0ae847"
+  >
+    Server Error
+  </div>
+</div>
+`;
