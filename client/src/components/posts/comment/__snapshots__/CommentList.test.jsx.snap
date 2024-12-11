@@ -1,5 +1,38 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`CommentList > should hide 1 comment 1`] = `
+<div>
+  <div
+    class="_CommentList_cdc6cf"
+  >
+    <button>
+      View 1 comment
+    </button>
+    <div
+      class="_formContainer_cdc6cf"
+    >
+      <form
+        action=""
+        method="post"
+      >
+        <div
+          class="_inputContainer_cdc6cf"
+        >
+          <input
+            id="comment"
+            name="comment"
+            placeholder="Add a comment..."
+            type="text"
+            value=""
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+  ,
+</div>
+`;
+
 exports[`CommentList > should hide comments 1`] = `
 <div>
   <div

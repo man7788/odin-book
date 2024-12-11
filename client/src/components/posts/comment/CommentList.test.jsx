@@ -100,6 +100,31 @@ describe('CommentList', () => {
     expect(container).toMatchSnapshot();
   });
 
+  test('should hide 1 comment', async () => {
+    const user = userEvent.setup();
+
+    const { container } = render(
+      <BrowserRouter>
+        <CommentList
+          postId={'post_id1'}
+          comments={[comments[0]]}
+          setRenderPost={vi.fn()}
+        />
+        ,
+      </BrowserRouter>,
+    );
+
+    const viewButton = await screen.findByRole('button');
+
+    await user.click(viewButton);
+
+    const hideButton = await screen.findByRole('button');
+
+    await user.click(hideButton);
+
+    expect(container).toMatchSnapshot();
+  });
+
   test('should hide comments', async () => {
     const user = userEvent.setup();
 
