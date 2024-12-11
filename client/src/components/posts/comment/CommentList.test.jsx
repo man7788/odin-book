@@ -1,4 +1,6 @@
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 import CommentList from './CommentList';
 
 afterEach(() => {
@@ -53,6 +55,27 @@ describe('CommentList', () => {
         setRenderPost={vi.fn()}
       />,
     );
+
+    expect(container).toMatchSnapshot();
+  });
+
+  test('should show comments', async () => {
+    const user = userEvent.setup();
+
+    const { container } = render(
+      <BrowserRouter>
+        <CommentList
+          postId={'post_id1'}
+          comments={comments}
+          setRenderPost={vi.fn()}
+        />
+        ,
+      </BrowserRouter>,
+    );
+
+    const viewButton = await screen.findByRole('button');
+
+    await user.click(viewButton);
 
     expect(container).toMatchSnapshot();
   });

@@ -92,3 +92,58 @@ exports[`CommentList > should render no comment 1`] = `
   </div>
 </div>
 `;
+
+exports[`CommentList > should show comments 1`] = `
+<div>
+  <div
+    class="_CommentList_cdc6cf"
+  >
+    <button>
+      Hide comments
+    </button>
+    <div
+      class="_Comment_472ec0"
+    >
+      <a
+        href="/profile_id1"
+      >
+        foo bar
+      </a>
+      <br />
+      good post
+    </div>
+    <div
+      class="_Comment_472ec0"
+    >
+      <a
+        href="/profile_id1"
+      >
+        foo bar
+      </a>
+      <br />
+      good post
+    </div>
+    <div
+      class="_formContainer_cdc6cf"
+    >
+      <form
+        action=""
+        method="post"
+      >
+        <div
+          class="_inputContainer_cdc6cf"
+        >
+          <input
+            id="comment"
+            name="comment"
+            placeholder="Add a comment..."
+            type="text"
+            value=""
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+  ,
+</div>
+`;
