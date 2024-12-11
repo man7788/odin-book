@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`CommentList > should render Like wiht like button 1`] = `
+exports[`Like > should render Like wiht like button 1`] = `
 <div>
   <div
     class="_Like_3413e5"
@@ -12,6 +12,23 @@ exports[`CommentList > should render Like wiht like button 1`] = `
     </span>
     <button>
       Like
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Like > should render Like wiht unlike button 1`] = `
+<div>
+  <div
+    class="_Like_3413e5"
+  >
+    3
+     
+    <span>
+       
+    </span>
+    <button>
+      Unlike
     </button>
   </div>
 </div>

@@ -37,12 +37,18 @@ const likes = [
   },
 ];
 
-describe('CommentList', () => {
+describe('Like', () => {
   test('should render Like wiht like button', () => {
     useOutletContext.mockReturnValueOnce({
       profile: 'profile_id123',
     });
 
+    const { container } = render(<Like postId={'placeholder'} likes={likes} />);
+
+    expect(container).toMatchSnapshot();
+  });
+
+  test('should render Like wiht unlike button', () => {
     const { container } = render(<Like postId={'placeholder'} likes={likes} />);
 
     expect(container).toMatchSnapshot();
