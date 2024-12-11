@@ -104,5 +104,29 @@ describe('Like', () => {
 
       expect(container).toMatchSnapshot();
     });
+
+    test('should render unlike result', async () => {
+      const user = userEvent.setup();
+
+      useOutletContext.mockReturnValueOnce({
+        profile: 'profile_id1',
+      });
+
+      likeFetchSpy.mockReturnValueOnce({
+        result: { removedLike: true },
+      });
+
+      const { container } = render(
+        <Like postId={'placeholder'} likes={likes} />,
+      );
+
+      const unlike = await screen.findByRole('button', { name: /unlike/i });
+
+      expect(container).toMatchSnapshot();
+
+      await user.click(unlike);
+
+      expect(container).toMatchSnapshot();
+    });
   });
 });

@@ -44,6 +44,40 @@ exports[`Like > Like button > should render server error 1`] = `
 </div>
 `;
 
+exports[`Like > Like button > should render unlike result 1`] = `
+<div>
+  <div
+    class="_Like_3413e5"
+  >
+    3
+     
+    <span>
+       
+    </span>
+    <button>
+      Unlike
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Like > Like button > should render unlike result 2`] = `
+<div>
+  <div
+    class="_Like_3413e5"
+  >
+    2
+     
+    <span>
+       
+    </span>
+    <button>
+      Like
+    </button>
+  </div>
+</div>
+`;
+
 exports[`Like > should render Like wiht like button 1`] = `
 <div>
   <div
