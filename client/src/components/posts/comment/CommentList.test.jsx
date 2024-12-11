@@ -35,7 +35,7 @@ describe('CommentList', () => {
     expect(container).toMatchSnapshot();
   });
 
-  test('should render comment', () => {
+  test('should render 1 comment', () => {
     const { container } = render(
       <CommentList
         postId={'post_id1'}
@@ -55,6 +55,26 @@ describe('CommentList', () => {
         setRenderPost={vi.fn()}
       />,
     );
+
+    expect(container).toMatchSnapshot();
+  });
+
+  test('should show 1 comment', async () => {
+    const user = userEvent.setup();
+
+    const { container } = render(
+      <BrowserRouter>
+        <CommentList
+          postId={'post_id1'}
+          comments={[comments[0]]}
+          setRenderPost={vi.fn()}
+        />
+      </BrowserRouter>,
+    );
+
+    const viewButton = await screen.findByRole('button');
+
+    await user.click(viewButton);
 
     expect(container).toMatchSnapshot();
   });
