@@ -149,4 +149,38 @@ describe('CommentList', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  describe('comment form', () => {
+    test('should show user input', async () => {
+      const user = userEvent.setup();
+
+      render(
+        <BrowserRouter>
+          <CommentList
+            postId={'post_id1'}
+            comments={comments}
+            setRenderPost={vi.fn()}
+          />
+          ,
+        </BrowserRouter>,
+      );
+
+      const button = screen.queryByRole('button', {
+        name: /post/i,
+      });
+
+      expect(button).not.toBeInTheDocument();
+
+      const input = await screen.findByPlaceholderText('Add a comment...');
+
+      await user.type(input, 'foobar');
+
+      const submitButton = await screen.findByRole('button', {
+        name: /post/i,
+      });
+
+      expect(input).toHaveValue('foobar');
+      expect(submitButton).toBeInTheDocument();
+    });
+  });
 });
