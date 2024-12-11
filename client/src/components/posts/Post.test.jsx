@@ -20,4 +20,16 @@ describe('Post', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test('should render error', () => {
+    useSinglePostSpy.mockReturnValue({
+      postResult: null,
+      postLoading: false,
+      postError: true,
+    });
+
+    const { container } = render(<Post _id={'placeholder'} />);
+
+    expect(container).toMatchSnapshot();
+  });
 });

@@ -1,5 +1,15 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Post > should render error 1`] = `
+<div>
+  <div
+    class="_error_5a7bc9"
+  >
+    Server error
+  </div>
+</div>
+`;
+
 exports[`Post > should render loading 1`] = `
 <div>
   <div
