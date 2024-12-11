@@ -25,3 +25,31 @@ exports[`User > should render server error 1`] = `
   </div>
 </div>
 `;
+
+exports[`User > should render user follow button 1`] = `
+<div>
+  <div
+    class="_User_fdfca4"
+  >
+    <div
+      class="_Avatar_69744d"
+    >
+      <div
+        class="_listPlaceholder_69744d"
+      />
+    </div>
+    <a
+      class="_fullName_fdfca4"
+      href="/placeholder"
+    >
+      foobar
+    </a>
+    <button
+      class="_follow_fdfca4"
+    >
+      Follow
+    </button>
+  </div>
+  ,
+</div>
+`;
