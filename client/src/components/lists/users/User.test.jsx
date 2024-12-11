@@ -153,5 +153,34 @@ describe('User', () => {
 
       expect(container).toMatchSnapshot();
     });
+
+    test('should render submit result', async () => {
+      const user = userEvent.setup();
+
+      useFollowingSpy.mockReturnValue({
+        followingResult: { following: false },
+        followingLoading: false,
+        followingError: null,
+      });
+
+      requestFetchSpy.mockReturnValue({
+        error: null,
+        result: true,
+      });
+
+      const { container } = render(
+        <BrowserRouter>
+          <User _id={'placeholder'} full_name={'foobar'} />,
+        </BrowserRouter>,
+      );
+
+      const followButton = await screen.findByRole('button', {
+        name: /follow/i,
+      });
+
+      await user.click(followButton);
+
+      expect(container).toMatchSnapshot();
+    });
   });
 });
