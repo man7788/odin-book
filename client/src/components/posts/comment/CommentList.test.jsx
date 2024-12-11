@@ -32,4 +32,16 @@ describe('CommentList', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test('should render CommentList with comments', () => {
+    const { container } = render(
+      <CommentList
+        postId={'post_id1'}
+        comments={comments}
+        setRenderPost={vi.fn()}
+      />,
+    );
+
+    expect(container).toMatchSnapshot();
+  });
 });
