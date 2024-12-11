@@ -28,9 +28,8 @@ function User(props) {
 
     if (result) {
       setPending(true);
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   if (followingLoading) {
@@ -59,8 +58,7 @@ function User(props) {
         <div className={styles.loadingButton}>
           <div className={styles.loader}></div>
         </div>
-      ) : followingResult?.currentUser ? null : followingResult?.pending ||
-        pending ? (
+      ) : followingResult?.pending || pending ? (
         <button className={styles.pending}>Pending</button>
       ) : followingResult?.following ? (
         <button className={styles.following}>Following</button>
