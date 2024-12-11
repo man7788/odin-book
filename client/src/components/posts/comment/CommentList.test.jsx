@@ -291,5 +291,40 @@ describe('CommentList', () => {
 
       expect(container).toMatchSnapshot();
     });
+
+    test('should submit form', async () => {
+      const user = userEvent.setup();
+      const setRenderPost = vi.fn();
+
+      commentFetchSpy.mockReturnValue({
+        result: true,
+      });
+
+      render(
+        <BrowserRouter>
+          <CommentList
+            postId={'post_id1'}
+            comments={comments}
+            setRenderPost={setRenderPost}
+          />
+          ,
+        </BrowserRouter>,
+      );
+
+      const input = await screen.findByPlaceholderText('Add a comment...');
+
+      await user.type(input, 'foobar');
+
+      const submitButton = await screen.findByRole('button', {
+        name: /post/i,
+      });
+
+      await user.click(submitButton);
+
+      const emptyInput = await screen.findByPlaceholderText('Add a comment...');
+
+      expect(emptyInput).toHaveValue('');
+      expect(setRenderPost).toHaveBeenCalled();
+    });
   });
 });
