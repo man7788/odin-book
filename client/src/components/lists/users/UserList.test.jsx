@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import UserList from './UserList';
 import * as useUsers from '../../../hooks/useUsers';
 
@@ -50,6 +50,18 @@ describe('UserList', () => {
   test('should render user list', () => {
     useUsersSpy.mockReturnValue({
       usersResult: profiles,
+      usersLoading: false,
+      usersError: null,
+    });
+
+    const { container } = render(<UserList />);
+
+    expect(container).toMatchSnapshot();
+  });
+
+  test('should render no users', () => {
+    useUsersSpy.mockReturnValue({
+      usersResult: { profiles: [] },
       usersLoading: false,
       usersError: null,
     });

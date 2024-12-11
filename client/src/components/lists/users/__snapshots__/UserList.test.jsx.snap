@@ -12,6 +12,16 @@ exports[`UserList > should render loading 1`] = `
 </div>
 `;
 
+exports[`UserList > should render no users 1`] = `
+<div>
+  <div
+    class="_emptyList_e67a4d"
+  >
+    No users
+  </div>
+</div>
+`;
+
 exports[`UserList > should render server error 1`] = `
 <div>
   <div
