@@ -25,7 +25,7 @@ const comments = [
 ];
 
 describe('CommentList', () => {
-  test('should render CommentList with no comment', () => {
+  test('should render no comment', () => {
     const { container } = render(
       <CommentList postId={'post_id1'} comments={[]} setRenderPost={vi.fn()} />,
     );
@@ -33,7 +33,7 @@ describe('CommentList', () => {
     expect(container).toMatchSnapshot();
   });
 
-  test('should render CommentList with 1 comment', () => {
+  test('should render comment', () => {
     const { container } = render(
       <CommentList
         postId={'post_id1'}
@@ -45,7 +45,7 @@ describe('CommentList', () => {
     expect(container).toMatchSnapshot();
   });
 
-  test('should render CommentList with comments', () => {
+  test('should render comments', () => {
     const { container } = render(
       <CommentList
         postId={'post_id1'}
