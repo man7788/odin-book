@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CommentList > should render Like wiht like button 1`] = `
+<div>
+  <div
+    class="_Like_3413e5"
+  >
+    3
+     
+    <span>
+       
+    </span>
+    <button>
+      Like
+    </button>
+  </div>
+</div>
+`;
