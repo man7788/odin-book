@@ -220,5 +220,45 @@ describe('CommentList', () => {
 
       expect(container).toMatchSnapshot();
     });
+
+    test('should render form errors', async () => {
+      const user = userEvent.setup();
+
+      commentFetchSpy
+        .mockReturnValueOnce({
+          error: {
+            errors: [{ msg: 'comment error' }],
+          },
+        })
+        .mockReturnValueOnce({
+          result: null,
+          error: null,
+        });
+
+      render(
+        <BrowserRouter>
+          <CommentList
+            postId={'post_id1'}
+            comments={comments}
+            setRenderPost={vi.fn()}
+          />
+          ,
+        </BrowserRouter>,
+      );
+
+      const input = await screen.findByPlaceholderText('Add a comment...');
+
+      await user.type(input, 'foobar');
+
+      const submitButton = await screen.findByRole('button', {
+        name: /post/i,
+      });
+
+      await user.click(submitButton);
+
+      const commentError = await screen.findByText('comment error');
+
+      expect(commentError).toBeInTheDocument();
+    });
   });
 });
