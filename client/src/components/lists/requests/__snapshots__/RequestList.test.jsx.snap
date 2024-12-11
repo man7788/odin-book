@@ -1,0 +1,56 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UserList > should render loading 1`] = `
+<div>
+  <div
+    class="_loading_bbbf7e"
+  >
+    <div
+      class="_loader_bbbf7e"
+    />
+  </div>
+</div>
+`;
+
+exports[`UserList > should render no requests 1`] = `
+<div>
+  <div
+    class="_emptyList_bbbf7e"
+  >
+    No new requests
+  </div>
+</div>
+`;
+
+exports[`UserList > should render request list 1`] = `
+<div>
+  <div
+    class="_RequestList_bbbf7e"
+  >
+    <div
+      class="_loading_cce9f5"
+    >
+      <div
+        class="_loader_cce9f5"
+      />
+    </div>
+    <div
+      class="_loading_cce9f5"
+    >
+      <div
+        class="_loader_cce9f5"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UserList > should render server error 1`] = `
+<div>
+  <div
+    class="_error_bbbf7e"
+  >
+    Server Error
+  </div>
+</div>
+`;
