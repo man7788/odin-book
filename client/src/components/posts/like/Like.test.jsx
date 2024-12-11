@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { useOutletContext } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 import Like from './Like';
+import * as likeFetch from '../../../fetch/likeFetch';
 
 afterEach(() => {
   vi.clearAllMocks();
@@ -15,6 +17,8 @@ vi.mock('react-router-dom', async (importOriginal) => {
     }),
   };
 });
+
+const likeFetchSpy = vi.spyOn(likeFetch, 'default');
 
 const likes = [
   {
@@ -52,5 +56,29 @@ describe('Like', () => {
     const { container } = render(<Like postId={'placeholder'} likes={likes} />);
 
     expect(container).toMatchSnapshot();
+  });
+
+  describe('Like button', () => {
+    test('should render server error', async () => {
+      const user = userEvent.setup();
+
+      useOutletContext.mockReturnValueOnce({
+        profile: 'profile_id123',
+      });
+
+      likeFetchSpy.mockReturnValueOnce({
+        error: true,
+      });
+
+      const { container } = render(
+        <Like postId={'placeholder'} likes={likes} />,
+      );
+
+      const like = await screen.findByRole('button', { name: /like/i });
+
+      await user.click(like);
+
+      expect(container).toMatchSnapshot();
+    });
   });
 });

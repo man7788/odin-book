@@ -1,5 +1,15 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Like > Like button > should render server error 1`] = `
+<div>
+  <div
+    class="_Like_3413e5"
+  >
+    Server Error
+  </div>
+</div>
+`;
+
 exports[`Like > should render Like wiht like button 1`] = `
 <div>
   <div
