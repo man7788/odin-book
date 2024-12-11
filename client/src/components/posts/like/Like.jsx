@@ -26,20 +26,16 @@ function Like({ postId, likes }) {
 
     const { result, error } = await likeFetch(postId);
 
-    if (error?.code) {
-      setServerError(true);
-    }
-
     if (error) {
       setServerError(true);
     }
 
-    if (result.createdLike) {
+    if (result?.createdLike) {
       setLiked(true);
       setLocalLikes(localLikes + 1);
     }
 
-    if (result.removedLike) {
+    if (result?.removedLike) {
       setLiked(false);
       if (localLikes > 1) {
         setLocalLikes(localLikes - 1);
