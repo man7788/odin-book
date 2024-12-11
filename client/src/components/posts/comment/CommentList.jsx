@@ -46,9 +46,8 @@ function CommentList({ postId, comments, setRenderPost }) {
     if (result) {
       setComment('');
       setRenderPost(true);
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
