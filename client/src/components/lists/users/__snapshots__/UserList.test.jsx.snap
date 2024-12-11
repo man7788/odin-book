@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`UserList > should render loading 1`] = `
+<div>
+  <div
+    class="_loading_e67a4d"
+  >
+    <div
+      class="_loader_e67a4d"
+    />
+  </div>
+</div>
+`;
