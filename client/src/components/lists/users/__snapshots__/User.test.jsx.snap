@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`User > should render loading 1`] = `
+<div>
+  <div
+    class="_loading_fdfca4"
+  >
+    <div
+      class="_loader_fdfca4"
+    />
+  </div>
+</div>
+`;
