@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useFollowing from '../../../hooks/useFollowing';
 import requestFetch from '../../../fetch/requestFetch';
-import Avatar from '../../avatar/avatar';
+import Avatar from '../../avatar/Avatar';
 
 function User(props) {
   const { full_name, _id } = props;
