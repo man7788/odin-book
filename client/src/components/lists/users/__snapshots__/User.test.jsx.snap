@@ -1,5 +1,35 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`User > Submit request > should render loading 1`] = `
+<div>
+  <div
+    class="_User_fdfca4"
+  >
+    <div
+      class="_Avatar_69744d"
+    >
+      <div
+        class="_listPlaceholder_69744d"
+      />
+    </div>
+    <a
+      class="_fullName_fdfca4"
+      href="/placeholder"
+    >
+      foobar
+    </a>
+    <div
+      class="_loadingButton_fdfca4"
+    >
+      <div
+        class="_loader_fdfca4"
+      />
+    </div>
+  </div>
+  ,
+</div>
+`;
+
 exports[`User > should render loading 1`] = `
 <div>
   <div
