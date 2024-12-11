@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Post from './Post';
 import * as useSinglePost from '../../hooks/useSinglePost';
@@ -114,5 +114,26 @@ describe('Post', () => {
     );
 
     expect(container).toMatchSnapshot();
+  });
+
+  test('should show link to profile', async () => {
+    useSinglePostSpy.mockReturnValue({
+      postResult: post,
+      postLoading: false,
+      postError: null,
+      setRenderPost: vi.fn(),
+    });
+
+    render(
+      <BrowserRouter>
+        <Post _id={'placeholder'} />
+      </BrowserRouter>,
+    );
+
+    const profileLink = await screen.findByRole('link', {
+      name: /foo bar/i,
+    });
+
+    expect(profileLink).toHaveAttribute('href', '/profile_id1');
   });
 });
