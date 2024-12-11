@@ -25,3 +25,69 @@ exports[`Post > should render loading 1`] = `
   </div>
 </div>
 `;
+
+exports[`Post > should render post 1`] = `
+<div>
+  <div
+    class="_Post_5a7bc9"
+  >
+    <div
+      class="_profile_5a7bc9"
+    >
+      <div
+        class="_Avatar_69744d"
+      >
+        <div
+          class="_sidebarPlaceholder_69744d"
+        />
+      </div>
+      <a
+        class="_fullName_5a7bc9"
+        href="/profile_id1"
+      >
+        foo bar
+      </a>
+    </div>
+    Content placeholder
+    <div
+      class="_Like_3413e5"
+    >
+      3
+       
+      <span>
+         
+      </span>
+      <button>
+        Like
+      </button>
+    </div>
+    <div
+      class="_CommentList_cdc6cf"
+    >
+      <button>
+        View 2 comments
+      </button>
+      <div
+        class="_formContainer_cdc6cf"
+      >
+        <form
+          action=""
+          method="post"
+        >
+          <div
+            class="_inputContainer_cdc6cf"
+          >
+            <input
+              id="comment"
+              name="comment"
+              placeholder="Add a comment..."
+              type="text"
+              value=""
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
