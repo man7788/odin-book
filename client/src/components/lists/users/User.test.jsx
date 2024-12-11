@@ -20,4 +20,16 @@ describe('User', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test('should render server error', () => {
+    useFollowingSpy.mockReturnValue({
+      followingResult: null,
+      followingLoading: false,
+      followingError: true,
+    });
+
+    const { container } = render(<User _id={'placeholder'} />);
+
+    expect(container).toMatchSnapshot();
+  });
 });

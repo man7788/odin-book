@@ -11,3 +11,17 @@ exports[`User > should render loading 1`] = `
   </div>
 </div>
 `;
+
+exports[`User > should render server error 1`] = `
+<div>
+  <div
+    class="_error_fdfca4"
+  >
+    <div
+      class="_error_fdfca4"
+    >
+      Server error
+    </div>
+  </div>
+</div>
+`;
