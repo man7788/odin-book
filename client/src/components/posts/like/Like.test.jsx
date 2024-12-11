@@ -80,5 +80,29 @@ describe('Like', () => {
 
       expect(container).toMatchSnapshot();
     });
+
+    test('should render like result', async () => {
+      const user = userEvent.setup();
+
+      useOutletContext.mockReturnValueOnce({
+        profile: 'profile_id123',
+      });
+
+      likeFetchSpy.mockReturnValueOnce({
+        result: { createdLike: true },
+      });
+
+      const { container } = render(
+        <Like postId={'placeholder'} likes={likes} />,
+      );
+
+      const like = await screen.findByRole('button', { name: /like/i });
+
+      expect(container).toMatchSnapshot();
+
+      await user.click(like);
+
+      expect(container).toMatchSnapshot();
+    });
   });
 });
