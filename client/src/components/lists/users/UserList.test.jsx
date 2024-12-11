@@ -20,4 +20,16 @@ describe('UserList', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test('should render server error', () => {
+    useUsersSpy.mockReturnValue({
+      usersResult: null,
+      usersLoading: false,
+      usersError: true,
+    });
+
+    const { container } = render(<UserList />);
+
+    expect(container).toMatchSnapshot();
+  });
 });
