@@ -60,4 +60,20 @@ describe('User', () => {
 
     expect(container).toMatchSnapshot();
   });
+
+  test('should render user following button', () => {
+    useFollowingSpy.mockReturnValue({
+      followingResult: { following: true },
+      followingLoading: false,
+      followingError: null,
+    });
+
+    const { container } = render(
+      <BrowserRouter>
+        <User _id={'placeholder'} full_name={'foobar'} />,
+      </BrowserRouter>,
+    );
+
+    expect(container).toMatchSnapshot();
+  });
 });
