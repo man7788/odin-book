@@ -8,6 +8,20 @@ afterEach(() => {
 
 const useUsersSpy = vi.spyOn(useUsers, 'default');
 
+const profiles = {
+  profiles: [
+    {
+      _id: 'profile_id1',
+    },
+    {
+      _id: 'profile_id2',
+    },
+    {
+      _id: 'profile_id3',
+    },
+  ],
+};
+
 describe('UserList', () => {
   test('should render loading', () => {
     useUsersSpy.mockReturnValue({
@@ -26,6 +40,18 @@ describe('UserList', () => {
       usersResult: null,
       usersLoading: false,
       usersError: true,
+    });
+
+    const { container } = render(<UserList />);
+
+    expect(container).toMatchSnapshot();
+  });
+
+  test('should render user list', () => {
+    useUsersSpy.mockReturnValue({
+      usersResult: profiles,
+      usersLoading: false,
+      usersError: null,
     });
 
     const { container } = render(<UserList />);

@@ -21,3 +21,33 @@ exports[`UserList > should render server error 1`] = `
   </div>
 </div>
 `;
+
+exports[`UserList > should render user list 1`] = `
+<div>
+  <div
+    class="_UserList_e67a4d"
+  >
+    <div
+      class="_loading_fdfca4"
+    >
+      <div
+        class="_loader_fdfca4"
+      />
+    </div>
+    <div
+      class="_loading_fdfca4"
+    >
+      <div
+        class="_loader_fdfca4"
+      />
+    </div>
+    <div
+      class="_loading_fdfca4"
+    >
+      <div
+        class="_loader_fdfca4"
+      />
+    </div>
+  </div>
+</div>
+`;
