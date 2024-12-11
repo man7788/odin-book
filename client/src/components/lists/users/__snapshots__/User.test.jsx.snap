@@ -30,6 +30,21 @@ exports[`User > Submit request > should render loading 1`] = `
 </div>
 `;
 
+exports[`User > Submit request > should render server error 1`] = `
+<div>
+  <div
+    class="_error_fdfca4"
+  >
+    <div
+      class="_error_fdfca4"
+    >
+      Server error
+    </div>
+  </div>
+  ,
+</div>
+`;
+
 exports[`User > should render loading 1`] = `
 <div>
   <div
