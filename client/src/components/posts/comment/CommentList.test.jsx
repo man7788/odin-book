@@ -260,5 +260,36 @@ describe('CommentList', () => {
 
       expect(commentError).toBeInTheDocument();
     });
+
+    test('should render form submit server error', async () => {
+      const user = userEvent.setup();
+
+      commentFetchSpy.mockReturnValue({
+        error: true,
+      });
+
+      const { container } = render(
+        <BrowserRouter>
+          <CommentList
+            postId={'post_id1'}
+            comments={comments}
+            setRenderPost={vi.fn()}
+          />
+          ,
+        </BrowserRouter>,
+      );
+
+      const input = await screen.findByPlaceholderText('Add a comment...');
+
+      await user.type(input, 'foobar');
+
+      const submitButton = await screen.findByRole('button', {
+        name: /post/i,
+      });
+
+      await user.click(submitButton);
+
+      expect(container).toMatchSnapshot();
+    });
   });
 });
