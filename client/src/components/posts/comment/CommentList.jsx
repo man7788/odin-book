@@ -28,6 +28,7 @@ function CommentList({ postId, comments, setRenderPost }) {
       return;
     }
 
+    setFormError(null);
     setLoading(true);
 
     const commentPayload = { text_content: comment };
@@ -40,6 +41,7 @@ function CommentList({ postId, comments, setRenderPost }) {
     }
 
     if (error) {
+      setLoading(false);
       setError(true);
     }
 
