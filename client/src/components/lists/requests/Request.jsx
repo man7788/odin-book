@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import useProfile from '../../../hooks/useProfile';
 import acceptFetch from '../../../fetch/acceptFetch';
-import Avatar from '../../avatar/avatar';
+import Avatar from '../../avatar/Avatar';
 
 function Request({ request, setRefresh }) {
   const { from, _id } = request;
