@@ -81,3 +81,31 @@ exports[`User > should render user following button 1`] = `
   ,
 </div>
 `;
+
+exports[`User > should render user pending button 1`] = `
+<div>
+  <div
+    class="_User_fdfca4"
+  >
+    <div
+      class="_Avatar_69744d"
+    >
+      <div
+        class="_listPlaceholder_69744d"
+      />
+    </div>
+    <a
+      class="_fullName_fdfca4"
+      href="/placeholder"
+    >
+      foobar
+    </a>
+    <button
+      class="_pending_fdfca4"
+    >
+      Pending
+    </button>
+  </div>
+  ,
+</div>
+`;
