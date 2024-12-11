@@ -2,10 +2,13 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import CommentList from './CommentList';
+import * as commentFetch from '../../../fetch/commentFetch';
 
 afterEach(() => {
   vi.clearAllMocks();
 });
+
+const commentFetchSpy = vi.spyOn(commentFetch, 'default');
 
 const comments = [
   {
@@ -150,7 +153,7 @@ describe('CommentList', () => {
     expect(container).toMatchSnapshot();
   });
 
-  describe('comment form', () => {
+  describe('Comment form', () => {
     test('should show user input', async () => {
       const user = userEvent.setup();
 
@@ -181,6 +184,41 @@ describe('CommentList', () => {
 
       expect(input).toHaveValue('foobar');
       expect(submitButton).toBeInTheDocument();
+    });
+
+    test('should render loading', async () => {
+      const user = userEvent.setup();
+
+      commentFetchSpy.mockReturnValue({ result: null, error: null });
+
+      const { container } = render(
+        <BrowserRouter>
+          <CommentList
+            postId={'post_id1'}
+            comments={comments}
+            setRenderPost={vi.fn()}
+          />
+          ,
+        </BrowserRouter>,
+      );
+
+      const button = screen.queryByRole('button', {
+        name: /post/i,
+      });
+
+      expect(button).not.toBeInTheDocument();
+
+      const input = await screen.findByPlaceholderText('Add a comment...');
+
+      await user.type(input, 'foobar');
+
+      const submitButton = await screen.findByRole('button', {
+        name: /post/i,
+      });
+
+      await user.click(submitButton);
+
+      expect(container).toMatchSnapshot();
     });
   });
 });
