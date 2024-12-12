@@ -39,6 +39,7 @@ exports.profile = [
       full_name: profileQuery.full_name,
       about: profileQuery.about,
       avatar: profileQuery.avatar,
+      _id: profileQuery._id,
     };
 
     return res.json({ profile });
