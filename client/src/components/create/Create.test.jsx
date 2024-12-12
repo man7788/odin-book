@@ -113,5 +113,27 @@ describe('Create', () => {
 
       expect(container).toMatchSnapshot();
     });
+
+    test('should render submit result', async () => {
+      const user = userEvent.setup();
+
+      createFetchSpy.mockReturnValue({
+        result: true,
+      });
+
+      const { container } = render(<Create />);
+
+      const input = await screen.findByPlaceholderText("What's new?");
+
+      await user.type(input, 'placeholder');
+
+      const postButton = await screen.findByRole('button', {
+        name: /post/i,
+      });
+
+      await user.click(postButton);
+
+      expect(container).toMatchSnapshot();
+    });
   });
 });

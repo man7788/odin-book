@@ -182,6 +182,49 @@ exports[`Create > Create > should render server error 1`] = `
 </div>
 `;
 
+exports[`Create > Create > should render submit result 1`] = `
+<div>
+  <div
+    class="_Create_775886"
+  >
+    <div
+      class="_filter_775886"
+    />
+    <div
+      class="_formContainer_775886"
+    >
+      <div
+        class="_successContainer_775886"
+      >
+        <div
+          class="_headerContainer_775886"
+        >
+          <button
+            class="_cancelButton_775886"
+          >
+            Close
+          </button>
+          <h2
+            class="_header_775886"
+          >
+            New Post
+          </h2>
+        </div>
+        <div
+          class="_inputContainer_775886"
+        >
+          <div
+            class="_success_775886"
+          >
+            Your post has been created.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Create > should render Create 1`] = `
 <div>
   <div
