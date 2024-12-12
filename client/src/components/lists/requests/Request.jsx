@@ -26,10 +26,9 @@ function Request({ request, setRefresh }) {
 
     if (result) {
       setRefresh(true);
+      setLoading(false);
       return;
     }
-
-    setLoading(false);
   };
 
   if (profileLoading) {
