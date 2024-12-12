@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`User > should render loading 1`] = `
+<div>
+  <div
+    class="_loading_cce9f5"
+  >
+    <div
+      class="_loader_cce9f5"
+    />
+  </div>
+</div>
+`;
+
+exports[`User > should render server error 1`] = `
+<div>
+  <div
+    class="_error_cce9f5"
+  >
+    Server Error
+  </div>
+</div>
+`;
