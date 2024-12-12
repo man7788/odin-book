@@ -95,5 +95,34 @@ describe('User', () => {
 
       expect(container).toMatchSnapshot();
     });
+
+    test('should render submit result', async () => {
+      const setRefresh = vi.fn();
+      const user = userEvent.setup();
+
+      useProfileSpy.mockReturnValue({
+        profileResult: profile,
+        profileLoading: false,
+        profileError: null,
+      });
+
+      acceptFetchSpy.mockReturnValue({
+        result: true,
+      });
+
+      render(
+        <BrowserRouter>
+          <Request request={request} setRefresh={setRefresh} />
+        </BrowserRouter>,
+      );
+
+      const acceptButton = await screen.findByRole('button', {
+        name: /accept/i,
+      });
+
+      await user.click(acceptButton);
+
+      expect(setRefresh).toHaveBeenCalled();
+    });
   });
 });
