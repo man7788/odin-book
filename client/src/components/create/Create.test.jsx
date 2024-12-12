@@ -136,4 +136,19 @@ describe('Create', () => {
       expect(container).toMatchSnapshot();
     });
   });
+
+  test('should hide create', async () => {
+    const user = userEvent.setup();
+    const setShowCreate = vi.fn();
+
+    render(<Create setShowCreate={setShowCreate} />);
+
+    const cancelButton = await screen.findByRole('button', {
+      name: /cancel/i,
+    });
+
+    await user.click(cancelButton);
+
+    expect(setShowCreate).toHaveBeenCalled();
+  });
 });
