@@ -1,5 +1,15 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`User > Accept button > should render server error 1`] = `
+<div>
+  <div
+    class="_error_cce9f5"
+  >
+    Server Error
+  </div>
+</div>
+`;
+
 exports[`User > should render accept button 1`] = `
 <div>
   <div

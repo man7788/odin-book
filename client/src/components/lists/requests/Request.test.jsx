@@ -1,13 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 import Request from './Request';
 import * as useProfile from '../../../hooks/useProfile';
+import * as acceptFetch from '../../../fetch/acceptFetch';
 
 afterEach(() => {
   vi.clearAllMocks();
 });
 
 const useProfileSpy = vi.spyOn(useProfile, 'default');
+const acceptFetchSpy = vi.spyOn(acceptFetch, 'default');
 
 const request = {
   _id: 'request_id',
@@ -62,5 +65,35 @@ describe('User', () => {
     );
 
     expect(container).toMatchSnapshot();
+  });
+
+  describe('Accept button', () => {
+    test('should render server error', async () => {
+      const user = userEvent.setup();
+
+      useProfileSpy.mockReturnValue({
+        profileResult: profile,
+        profileLoading: false,
+        profileError: null,
+      });
+
+      acceptFetchSpy.mockReturnValue({
+        error: true,
+      });
+
+      const { container } = render(
+        <BrowserRouter>
+          <Request request={request} />
+        </BrowserRouter>,
+      );
+
+      const acceptButton = await screen.findByRole('button', {
+        name: /accept/i,
+      });
+
+      await user.click(acceptButton);
+
+      expect(container).toMatchSnapshot();
+    });
   });
 });
