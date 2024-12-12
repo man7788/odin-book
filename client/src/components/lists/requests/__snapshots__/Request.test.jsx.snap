@@ -1,5 +1,35 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`User > Accept button > should render loading 1`] = `
+<div>
+  <div
+    class="_Request_cce9f5"
+  >
+    <div
+      class="_Avatar_69744d"
+    >
+      <img
+        class="_listImage_69744d"
+        src="https://www.gravatar.com/avatar/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855?d=mp"
+      />
+    </div>
+    <a
+      class="_fullName_cce9f5"
+      href="/profile_id2"
+    >
+      foo bar2
+    </a>
+    <div
+      class="_loadingButton_cce9f5"
+    >
+      <div
+        class="_loader_cce9f5"
+      />
+    </div>
+  </div>
+</div>
+`;
+
 exports[`User > Accept button > should render server error 1`] = `
 <div>
   <div

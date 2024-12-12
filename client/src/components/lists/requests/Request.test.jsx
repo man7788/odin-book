@@ -68,6 +68,35 @@ describe('User', () => {
   });
 
   describe('Accept button', () => {
+    test('should render loading', async () => {
+      const user = userEvent.setup();
+
+      useProfileSpy.mockReturnValue({
+        profileResult: profile,
+        profileLoading: false,
+        profileError: null,
+      });
+
+      acceptFetchSpy.mockReturnValue({
+        error: null,
+        result: null,
+      });
+
+      const { container } = render(
+        <BrowserRouter>
+          <Request request={request} />
+        </BrowserRouter>,
+      );
+
+      const acceptButton = await screen.findByRole('button', {
+        name: /accept/i,
+      });
+
+      await user.click(acceptButton);
+
+      expect(container).toMatchSnapshot();
+    });
+
     test('should render server error', async () => {
       const user = userEvent.setup();
 
