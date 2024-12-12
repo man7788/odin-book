@@ -124,6 +124,64 @@ exports[`Create > Create > should render form loading 1`] = `
 </div>
 `;
 
+exports[`Create > Create > should render server error 1`] = `
+<div>
+  <div
+    class="_Create_775886"
+    data-testid="createPopup"
+  >
+    <div
+      class="_filter_775886"
+      data-testid="blank"
+    />
+    <div
+      class="_formContainer_775886"
+    >
+      <form
+        action=""
+        method="post"
+      >
+        <div
+          class="_headerContainer_775886"
+        >
+          <button
+            class="_cancelButton_775886"
+          >
+            Cancel
+          </button>
+          <h2
+            class="_header_775886"
+          >
+            New Post
+          </h2>
+        </div>
+        <div
+          class="_inputContainer_775886"
+        >
+          <textarea
+            id="content"
+            name="content"
+            placeholder="What's new?"
+            type="text"
+          >
+            placeholder
+          </textarea>
+        </div>
+        <div
+          class="_footerContainer_775886"
+        >
+          <div
+            class="_error_775886"
+          >
+            Server error
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Create > should render Create 1`] = `
 <div>
   <div
