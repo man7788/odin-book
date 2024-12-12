@@ -44,10 +44,9 @@ function Create({ setShowCreate }) {
 
     if (result) {
       setContent('');
+      setLoading(false);
+      setSuccess(true);
     }
-
-    setLoading(false);
-    setSuccess(true);
   };
 
   const onHideCreate = () => {
