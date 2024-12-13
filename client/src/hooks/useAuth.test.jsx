@@ -33,6 +33,32 @@ describe('useAuth', () => {
     });
   });
 
+  test('should throw error', async () => {
+    getItemSpy.mockReturnValue(JSON.stringify({ token: 'foobar' }));
+
+    fetch.mockImplementation(() =>
+      Promise.resolve({
+        status: 400,
+        statusText: 'Unauthorized',
+      }),
+    );
+
+    const { result } = renderHook(() => useAuth());
+
+    await act(async () => {
+      expect(localStorage.getItem).toHaveBeenCalledTimes(2);
+    });
+
+    expect(result.current).toEqual({
+      authResult: null,
+      authLoading: false,
+      authError: expect.objectContaining({
+        message: 'Unauthorized',
+        code: 400,
+      }),
+    });
+  });
+
   test('should return response', async () => {
     getItemSpy.mockReturnValue(JSON.stringify({ token: 'foobar' }));
 
