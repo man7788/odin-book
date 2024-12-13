@@ -10,7 +10,15 @@ window.global.fetch = vi.fn();
 const getItemSpy = vi.spyOn(Storage.prototype, 'getItem');
 
 describe('useAuth', () => {
-  test('should response with loading true', async () => {
+  test('should not invoke JSON.parse', async () => {
+    renderHook(() => useAuth());
+
+    await act(async () => {
+      expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  test('should return loading true', async () => {
     getItemSpy.mockReturnValue(JSON.stringify({ token: 'foobar' }));
 
     const { result } = renderHook(() => useAuth());
