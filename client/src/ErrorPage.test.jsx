@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import ErrorPage from './ErrorPage';
 import * as useAuth from './hooks/useAuth';
 
@@ -17,6 +18,22 @@ describe('ErrorPage', () => {
     });
 
     const { container } = render(<ErrorPage />);
+
+    expect(container).toMatchSnapshot();
+  });
+
+  test('should render App error', () => {
+    useAuthSpy.mockReturnValue({
+      authResult: true,
+      authLoading: false,
+      authError: null,
+    });
+
+    const { container } = render(
+      <BrowserRouter>
+        <ErrorPage />
+      </BrowserRouter>,
+    );
 
     expect(container).toMatchSnapshot();
   });
