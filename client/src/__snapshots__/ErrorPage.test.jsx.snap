@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App > should render loading 1`] = `
+<div>
+  <div
+    class="_loading_8b6e76"
+  >
+    <div
+      class="_loader_8b6e76"
+    />
+  </div>
+</div>
+`;
+
+exports[`ErrorPage > should render loading 1`] = `
+<div>
+  <div
+    class="_loading_8b6e76"
+  >
+    <div
+      class="_loader_8b6e76"
+    />
+  </div>
+</div>
+`;
