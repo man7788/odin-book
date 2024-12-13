@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react';
-import useProfile from './useProfile';
+import useSinglePost from '../useSinglePost';
 
 afterEach(() => {
   vi.clearAllMocks();
@@ -9,18 +9,19 @@ afterEach(() => {
 window.global.fetch = vi.fn();
 const getItemSpy = vi.spyOn(Storage.prototype, 'getItem');
 
-describe('useProfile', () => {
+describe('useSinglePost', () => {
   test('should return loading true', async () => {
     getItemSpy.mockReturnValue(JSON.stringify({ token: 'foobar' }));
 
-    const { result } = renderHook(() => useProfile());
+    const { result } = renderHook(() => useSinglePost());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
       expect(result.current).toEqual({
-        profileResult: null,
-        profileLoading: true,
-        profileError: null,
+        postResult: null,
+        postLoading: true,
+        postError: null,
+        setRenderPost: expect.any(Function),
       });
     });
   });
@@ -35,19 +36,20 @@ describe('useProfile', () => {
       }),
     );
 
-    const { result } = renderHook(() => useProfile());
+    const { result } = renderHook(() => useSinglePost());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current).toEqual({
-      profileResult: null,
-      profileLoading: false,
-      profileError: expect.objectContaining({
+      postResult: null,
+      postLoading: false,
+      postError: expect.objectContaining({
         message: 'Unauthorized',
         code: 400,
       }),
+      setRenderPost: expect.any(Function),
     });
   });
 
@@ -61,16 +63,17 @@ describe('useProfile', () => {
       }),
     );
 
-    const { result } = renderHook(() => useProfile());
+    const { result } = renderHook(() => useSinglePost());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current).toEqual({
-      profileResult: { response: 'foobar' },
-      profileLoading: false,
-      profileError: null,
+      postResult: { response: 'foobar' },
+      postLoading: false,
+      postError: null,
+      setRenderPost: expect.any(Function),
     });
   });
 });

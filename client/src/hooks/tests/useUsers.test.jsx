@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react';
-import usePosts from './usePosts';
+import useUsers from '../useUsers';
 
 afterEach(() => {
   vi.clearAllMocks();
@@ -9,18 +9,18 @@ afterEach(() => {
 window.global.fetch = vi.fn();
 const getItemSpy = vi.spyOn(Storage.prototype, 'getItem');
 
-describe('usePosts', () => {
+describe('useUsers', () => {
   test('should return loading true', async () => {
     getItemSpy.mockReturnValue(JSON.stringify({ token: 'foobar' }));
 
-    const { result } = renderHook(() => usePosts());
+    const { result } = renderHook(() => useUsers());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
       expect(result.current).toEqual({
-        postsResult: null,
-        postsLoading: true,
-        postsError: null,
+        usersResult: null,
+        usersLoading: true,
+        usersError: null,
       });
     });
   });
@@ -35,16 +35,16 @@ describe('usePosts', () => {
       }),
     );
 
-    const { result } = renderHook(() => usePosts());
+    const { result } = renderHook(() => useUsers());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current).toEqual({
-      postsResult: null,
-      postsLoading: false,
-      postsError: expect.objectContaining({
+      usersResult: null,
+      usersLoading: false,
+      usersError: expect.objectContaining({
         message: 'Unauthorized',
         code: 400,
       }),
@@ -61,16 +61,16 @@ describe('usePosts', () => {
       }),
     );
 
-    const { result } = renderHook(() => usePosts());
+    const { result } = renderHook(() => useUsers());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current).toEqual({
-      postsResult: { response: 'foobar' },
-      postsLoading: false,
-      postsError: null,
+      usersResult: { response: 'foobar' },
+      usersLoading: false,
+      usersError: null,
     });
   });
 });

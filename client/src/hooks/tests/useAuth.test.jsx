@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react';
-import useFollowing from './useFollowing';
+import useAuth from '../useAuth';
 
 afterEach(() => {
   vi.clearAllMocks();
@@ -9,18 +9,26 @@ afterEach(() => {
 window.global.fetch = vi.fn();
 const getItemSpy = vi.spyOn(Storage.prototype, 'getItem');
 
-describe('useFollowing', () => {
-  test('should return loading true', async () => {
-    getItemSpy.mockReturnValue(JSON.stringify({ token: 'foobar' }));
-
-    const { result } = renderHook(() => useFollowing());
+describe('useAuth', () => {
+  test('should not invoke JSON.parse', async () => {
+    renderHook(() => useAuth());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  test('should return loading true', async () => {
+    getItemSpy.mockReturnValue(JSON.stringify({ token: 'foobar' }));
+
+    const { result } = renderHook(() => useAuth());
+
+    await act(async () => {
+      expect(localStorage.getItem).toHaveBeenCalledTimes(2);
       expect(result.current).toEqual({
-        followingResult: null,
-        followingLoading: true,
-        followingError: null,
+        authResult: null,
+        authLoading: true,
+        authError: null,
       });
     });
   });
@@ -35,16 +43,16 @@ describe('useFollowing', () => {
       }),
     );
 
-    const { result } = renderHook(() => useFollowing());
+    const { result } = renderHook(() => useAuth());
 
     await act(async () => {
-      expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+      expect(localStorage.getItem).toHaveBeenCalledTimes(2);
     });
 
     expect(result.current).toEqual({
-      followingResult: null,
-      followingLoading: false,
-      followingError: expect.objectContaining({
+      authResult: null,
+      authLoading: false,
+      authError: expect.objectContaining({
         message: 'Unauthorized',
         code: 400,
       }),
@@ -61,16 +69,16 @@ describe('useFollowing', () => {
       }),
     );
 
-    const { result } = renderHook(() => useFollowing());
+    const { result } = renderHook(() => useAuth());
 
     await act(async () => {
-      expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+      expect(localStorage.getItem).toHaveBeenCalledTimes(2);
     });
 
     expect(result.current).toEqual({
-      followingResult: { response: 'foobar' },
-      followingLoading: false,
-      followingError: null,
+      authResult: { response: 'foobar' },
+      authLoading: false,
+      authError: null,
     });
   });
 });

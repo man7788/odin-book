@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react';
-import useUsers from './useUsers';
+import useRequests from '../useRequests';
 
 afterEach(() => {
   vi.clearAllMocks();
@@ -9,18 +9,19 @@ afterEach(() => {
 window.global.fetch = vi.fn();
 const getItemSpy = vi.spyOn(Storage.prototype, 'getItem');
 
-describe('useUsers', () => {
+describe('useRequests', () => {
   test('should return loading true', async () => {
     getItemSpy.mockReturnValue(JSON.stringify({ token: 'foobar' }));
 
-    const { result } = renderHook(() => useUsers());
+    const { result } = renderHook(() => useRequests());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
       expect(result.current).toEqual({
-        usersResult: null,
-        usersLoading: true,
-        usersError: null,
+        requestsResult: null,
+        requestsLoading: true,
+        requestsError: null,
+        setRefresh: expect.any(Function),
       });
     });
   });
@@ -35,19 +36,20 @@ describe('useUsers', () => {
       }),
     );
 
-    const { result } = renderHook(() => useUsers());
+    const { result } = renderHook(() => useRequests());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current).toEqual({
-      usersResult: null,
-      usersLoading: false,
-      usersError: expect.objectContaining({
+      requestsResult: null,
+      requestsLoading: false,
+      requestsError: expect.objectContaining({
         message: 'Unauthorized',
         code: 400,
       }),
+      setRefresh: expect.any(Function),
     });
   });
 
@@ -61,16 +63,17 @@ describe('useUsers', () => {
       }),
     );
 
-    const { result } = renderHook(() => useUsers());
+    const { result } = renderHook(() => useRequests());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current).toEqual({
-      usersResult: { response: 'foobar' },
-      usersLoading: false,
-      usersError: null,
+      requestsResult: { response: 'foobar' },
+      requestsLoading: false,
+      requestsError: null,
+      setRefresh: expect.any(Function),
     });
   });
 });

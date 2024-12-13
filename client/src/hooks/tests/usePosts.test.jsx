@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react';
-import useAuth from './useAuth';
+import usePosts from '../usePosts';
 
 afterEach(() => {
   vi.clearAllMocks();
@@ -9,26 +9,18 @@ afterEach(() => {
 window.global.fetch = vi.fn();
 const getItemSpy = vi.spyOn(Storage.prototype, 'getItem');
 
-describe('useAuth', () => {
-  test('should not invoke JSON.parse', async () => {
-    renderHook(() => useAuth());
-
-    await act(async () => {
-      expect(localStorage.getItem).toHaveBeenCalledTimes(1);
-    });
-  });
-
+describe('usePosts', () => {
   test('should return loading true', async () => {
     getItemSpy.mockReturnValue(JSON.stringify({ token: 'foobar' }));
 
-    const { result } = renderHook(() => useAuth());
+    const { result } = renderHook(() => usePosts());
 
     await act(async () => {
-      expect(localStorage.getItem).toHaveBeenCalledTimes(2);
+      expect(localStorage.getItem).toHaveBeenCalledTimes(1);
       expect(result.current).toEqual({
-        authResult: null,
-        authLoading: true,
-        authError: null,
+        postsResult: null,
+        postsLoading: true,
+        postsError: null,
       });
     });
   });
@@ -43,16 +35,16 @@ describe('useAuth', () => {
       }),
     );
 
-    const { result } = renderHook(() => useAuth());
+    const { result } = renderHook(() => usePosts());
 
     await act(async () => {
-      expect(localStorage.getItem).toHaveBeenCalledTimes(2);
+      expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current).toEqual({
-      authResult: null,
-      authLoading: false,
-      authError: expect.objectContaining({
+      postsResult: null,
+      postsLoading: false,
+      postsError: expect.objectContaining({
         message: 'Unauthorized',
         code: 400,
       }),
@@ -69,16 +61,16 @@ describe('useAuth', () => {
       }),
     );
 
-    const { result } = renderHook(() => useAuth());
+    const { result } = renderHook(() => usePosts());
 
     await act(async () => {
-      expect(localStorage.getItem).toHaveBeenCalledTimes(2);
+      expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current).toEqual({
-      authResult: { response: 'foobar' },
-      authLoading: false,
-      authError: null,
+      postsResult: { response: 'foobar' },
+      postsLoading: false,
+      postsError: null,
     });
   });
 });

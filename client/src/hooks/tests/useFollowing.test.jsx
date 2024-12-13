@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { act } from 'react';
-import useRequests from './useRequests';
+import useFollowing from '../useFollowing';
 
 afterEach(() => {
   vi.clearAllMocks();
@@ -9,19 +9,18 @@ afterEach(() => {
 window.global.fetch = vi.fn();
 const getItemSpy = vi.spyOn(Storage.prototype, 'getItem');
 
-describe('useRequests', () => {
+describe('useFollowing', () => {
   test('should return loading true', async () => {
     getItemSpy.mockReturnValue(JSON.stringify({ token: 'foobar' }));
 
-    const { result } = renderHook(() => useRequests());
+    const { result } = renderHook(() => useFollowing());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
       expect(result.current).toEqual({
-        requestsResult: null,
-        requestsLoading: true,
-        requestsError: null,
-        setRefresh: expect.any(Function),
+        followingResult: null,
+        followingLoading: true,
+        followingError: null,
       });
     });
   });
@@ -36,20 +35,19 @@ describe('useRequests', () => {
       }),
     );
 
-    const { result } = renderHook(() => useRequests());
+    const { result } = renderHook(() => useFollowing());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current).toEqual({
-      requestsResult: null,
-      requestsLoading: false,
-      requestsError: expect.objectContaining({
+      followingResult: null,
+      followingLoading: false,
+      followingError: expect.objectContaining({
         message: 'Unauthorized',
         code: 400,
       }),
-      setRefresh: expect.any(Function),
     });
   });
 
@@ -63,17 +61,16 @@ describe('useRequests', () => {
       }),
     );
 
-    const { result } = renderHook(() => useRequests());
+    const { result } = renderHook(() => useFollowing());
 
     await act(async () => {
       expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     });
 
     expect(result.current).toEqual({
-      requestsResult: { response: 'foobar' },
-      requestsLoading: false,
-      requestsError: null,
-      setRefresh: expect.any(Function),
+      followingResult: { response: 'foobar' },
+      followingLoading: false,
+      followingError: null,
     });
   });
 });
