@@ -30,7 +30,7 @@ describe('usePosts', () => {
 
     fetch.mockImplementation(() =>
       Promise.resolve({
-        status: 400,
+        status: 401,
         statusText: 'Unauthorized',
       }),
     );
@@ -46,7 +46,7 @@ describe('usePosts', () => {
       postsLoading: false,
       postsError: expect.objectContaining({
         message: 'Unauthorized',
-        code: 400,
+        code: 401,
       }),
     });
   });

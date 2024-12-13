@@ -31,7 +31,7 @@ describe('useRequests', () => {
 
     fetch.mockImplementation(() =>
       Promise.resolve({
-        status: 400,
+        status: 401,
         statusText: 'Unauthorized',
       }),
     );
@@ -47,7 +47,7 @@ describe('useRequests', () => {
       requestsLoading: false,
       requestsError: expect.objectContaining({
         message: 'Unauthorized',
-        code: 400,
+        code: 401,
       }),
       setRefresh: expect.any(Function),
     });

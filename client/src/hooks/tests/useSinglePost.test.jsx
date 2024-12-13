@@ -31,7 +31,7 @@ describe('useSinglePost', () => {
 
     fetch.mockImplementation(() =>
       Promise.resolve({
-        status: 400,
+        status: 401,
         statusText: 'Unauthorized',
       }),
     );
@@ -47,7 +47,7 @@ describe('useSinglePost', () => {
       postLoading: false,
       postError: expect.objectContaining({
         message: 'Unauthorized',
-        code: 400,
+        code: 401,
       }),
       setRenderPost: expect.any(Function),
     });

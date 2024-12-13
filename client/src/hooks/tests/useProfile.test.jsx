@@ -30,7 +30,7 @@ describe('useProfile', () => {
 
     fetch.mockImplementation(() =>
       Promise.resolve({
-        status: 400,
+        status: 401,
         statusText: 'Unauthorized',
       }),
     );
@@ -46,7 +46,7 @@ describe('useProfile', () => {
       profileLoading: false,
       profileError: expect.objectContaining({
         message: 'Unauthorized',
-        code: 400,
+        code: 401,
       }),
     });
   });
