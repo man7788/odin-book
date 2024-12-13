@@ -75,6 +75,23 @@ exports[`ErrorPage > should render App error 1`] = `
 </div>
 `;
 
+exports[`ErrorPage > should render error page 1`] = `
+<div>
+  <div
+    class="_error_8b6e76"
+  >
+    <h1>
+      Oh no, this page doesn't exist!
+    </h1>
+    <a
+      href="/"
+    >
+      You can go back to the home page by clicking here, though!
+    </a>
+  </div>
+</div>
+`;
+
 exports[`ErrorPage > should render loading 1`] = `
 <div>
   <div
