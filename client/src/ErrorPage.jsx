@@ -15,7 +15,7 @@ const ErrorPage = () => {
   }
 
   if (authResult) {
-    return <>{authResult && <App errorRedirect={true} />}</>;
+    return <App errorRedirect={true} />;
   }
 
   return (
