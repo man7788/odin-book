@@ -13,7 +13,7 @@ describe('acceptFetch', () => {
 
     fetch.mockImplementation(() =>
       Promise.resolve({
-        status: 400,
+        status: 401,
         statusText: 'Unauthorized',
       }),
     );
@@ -24,7 +24,7 @@ describe('acceptFetch', () => {
     expect(result.error).toEqual(
       expect.objectContaining({
         message: 'Unauthorized',
-        code: 400,
+        code: 401,
       }),
     );
   });
