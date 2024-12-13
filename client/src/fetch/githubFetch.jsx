@@ -7,8 +7,8 @@ const githubFetch = async (code) => {
     });
 
     if (response.status >= 400) {
+      const error = new Error(response.statusText);
       error.code = response.status;
-      const error = new Error('server error');
       throw error;
     }
 
