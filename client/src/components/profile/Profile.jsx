@@ -5,7 +5,7 @@ import useProfile from '../../hooks/useProfile';
 import useFollowing from '../../hooks/useFollowing';
 import requestFetch from '../../fetch/requestFetch';
 import PostList from '../posts/PostList';
-import Avatar from '../avatar/avatar';
+import Avatar from '../avatar/Avatar';
 
 function Profile() {
   const { profileId } = useParams();
