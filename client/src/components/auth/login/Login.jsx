@@ -5,8 +5,6 @@ import useAuth from '../../../hooks/useAuth';
 import apiDomain from '../../../../apiDomain';
 import loginFetch from '../../../fetch/loginFetch';
 
-const api = apiDomain();
-
 function Login() {
   const { authResult, authLoading } = useAuth();
 
